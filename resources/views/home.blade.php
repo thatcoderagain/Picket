@@ -15,8 +15,10 @@
                     @endif
 
                     You are logged in!
+
                 </div>
             </div>
+            <example id="example"></example>
         </div>
     </div>
 </div>
