@@ -9,7 +9,7 @@ export default class Example extends Component {
                     <div className="col-md">
                         <div className="card">
                             <div className="card-header">
-                                Gaurav React Example Component
+                                Hello Ankita
                             </div>
 
                             <div className="card-body">

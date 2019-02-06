@@ -59866,8 +59866,6 @@ module.exports = function(module) {
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
-alet();
-
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /**
  * React Routes
@@ -60012,7 +60010,7 @@ function (_Component) {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, "Gaurav React Example Component"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Hello Ankita"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, "Im an example component So what's up guys")))));
     }
