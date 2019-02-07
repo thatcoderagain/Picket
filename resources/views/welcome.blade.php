@@ -58,7 +58,7 @@
 <div class="flex-center position-ref full-height">
     <div class="content">
         <div class="title m-b-md">
-            Picket
+            Picket <i class="fa fa-sync"></i>&nbsp;&nbsp;Refresh
         </div>
     </div>
 </div>
