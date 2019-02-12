@@ -35,13 +35,13 @@ class Profile extends React.Component
                     NAME
                   </Typography>
                   <Typography variant="h6" color="inherit" style={commonStyles.userBio}>
-                    I am a photo freak 
+                    I am a photo freak
                   </Typography>
                 </div>
               </div>
-              <StarRatingComponent 
+              <StarRatingComponent
                 style={commonStyles.leftAlign}
-                name="rate1" 
+                name="rate1"
                 starCount={5}
                 value={this.state.rating}
                 onStarClick={this.onStarClick.bind(this)}
@@ -62,3 +62,5 @@ class Profile extends React.Component
     }
 }
 export default Profile
+
+ ReactDOM.render(<Profile  />, document.getElementById('Profile'));

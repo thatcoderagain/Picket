@@ -23,6 +23,10 @@ export default class Example extends Component {
         );
     }
 }
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+
+const examples = document.querySelectorAll('.example');
+if(examples.length > 0) {
+    examples.forEach((example) => {
+        ReactDOM.render(<Example />, example)
+    });
 }

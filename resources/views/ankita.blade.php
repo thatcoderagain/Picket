@@ -4,7 +4,7 @@
 
 @section('content')
 <div>
-    <example id="example"></example>
+    <div class="example"></div>
 </div>
 
 @endsection

@@ -41,7 +41,7 @@ import Typography from '@material-ui/core/Typography';
         });
       }
     }
-    
+
     handleChange(event)
     {
         const{ name,value}=event.target
@@ -52,13 +52,13 @@ import Typography from '@material-ui/core/Typography';
     }
 
     handleSignUp() {
-       
-        
+
+
     }
-    
-    handleClick() 
+
+    handleClick()
     {
-        
+
         if (this.state.email === "" || this.state.password === "") {
             alert("Input details");
             return;
@@ -93,7 +93,7 @@ import Typography from '@material-ui/core/Typography';
         })
     }
 
-    renderLogin() 
+    renderLogin()
     {
       return (
         <div style={{
@@ -186,11 +186,11 @@ import Typography from '@material-ui/core/Typography';
         name="confirmpassword"
         value={this.state.confirmpassword}
         onChange={this.handleChange}
-        />  
-        
+        />
+
 
         <br/>
-        <button 
+        <button
         style={{
             backgroundColor: '#4CAF50',
             color: '#F5F5DF',
@@ -201,8 +201,8 @@ import Typography from '@material-ui/core/Typography';
             width: '100'
         }}
         onClick={this.handleSignUp}>SIGN UP</button>
-        
-        <div 
+
+        <div
         onClick={this.handleToggle}>Already a member? Login here </div>
         <br/>
         </div>
@@ -226,7 +226,7 @@ import Typography from '@material-ui/core/Typography';
             justifyContent:'center',
             }}>
                 {this.state.uiLogin && this.renderLogin()}
-                {this.state.uiSignUp && this.renderSignUp()}                
+                {this.state.uiSignUp && this.renderSignUp()}
             </Card>
         );
     }
@@ -255,3 +255,5 @@ import Typography from '@material-ui/core/Typography';
 }
 
 export default Login
+
+
