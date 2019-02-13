@@ -13,8 +13,7 @@ export default class Example extends Component {
                             </div>
 
                             <div className="card-body">
-                                Im an example component
-                                So what's up guys
+                                <img src='.\images\circledefpic.png' alt="" />
                             </div>
                         </div>
                     </div>

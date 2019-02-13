@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <example id="example"></example>
+            <div id="example"></div>
         </div>
     </div>
 </div>

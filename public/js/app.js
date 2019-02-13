@@ -60012,7 +60012,10 @@ function (_Component) {
         className: "card-header"
       }, "Hello Ankita"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, "Im an example component So what's up guys")))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: ".\\images\\circledefpic.png",
+        alt: ""
+      }))))));
     }
   }]);
 
