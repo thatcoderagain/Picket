@@ -1,8 +1,7 @@
 import React from 'react';
 import commonStyles from '../styles/commonstyles';
-import circledefpic from '../assets/images/circledefpic.png'
 
-class CircularProfilePic extends React.Component { 
+export default class CircularProfilePic extends React.Component {
     render() {
         return(
             <div style={commonStyles.circularProfilePic}>
@@ -11,5 +10,3 @@ class CircularProfilePic extends React.Component {
         );
     }
 }
-
-export default CircularProfilePic;
