@@ -5,8 +5,5 @@
 @section('content')
 <div>
     <div class="example"></div>
-    <div class="example"></div>
-    <div class="example"></div>
-    <div class="example"></div>
 </div>
 @endsection
