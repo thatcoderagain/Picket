@@ -14,17 +14,17 @@ class CreatePhotographersTable extends Migration
     public function up()
     {
         Schema::create('photographers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->index();
+            $table->bigIncrements('id');
+            $table->bigInteger('user_id');
             $table->date('dob')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->enum('sex', ['male', 'female', 'unisex'])->nullable();
             $table->string('specialization');
             $table->string('location');
-            $table->money('charges');
+            $table->float('charges', 10, 2);
             $table->timestamps();
 
-            // $table->foreign('root')->references('root')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import commonStyles from '../styles/commonstyles';
+import commonStyles from '../pages/styles/commonstyle';
 
-class Footer extends React.Component {
+export default class Footer extends React.Component {
     render() {
         return(
             <div style={commonStyles.footer}>
@@ -9,5 +9,3 @@ class Footer extends React.Component {
         );
     }
 }
-
-export default Footer;
