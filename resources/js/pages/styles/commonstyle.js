@@ -64,13 +64,18 @@ const styles = createStyles({
         width: 112,
         borderRadius: 56,
     },
+    hasLeftPadded: {
+        paddingTop: 32,
+        paddingLeft: 32
+    },
     flexRow: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     flexColumn: {
+        minWidth: window.innerWidth - (window.innerWidth/4),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
@@ -177,10 +182,34 @@ const styles = createStyles({
         border: '1px solid black'
     },
     galleryImage: {
-        margin: 2,
-        width: window.innerWidth/4 - 12,
+        padding: 2,
+        width: '25%',
         height: window.innerWidth/8,
     },
+    whiteText: {
+        color: 'white',
+    },
+    fullFlex: {
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        width: '100%',
+        marginRight: 32,
+    },
+    inOnRight: {
+        right: 0,
+    },
+    adjustmargins: {
+        width: 32,
+    },
+    userProfileIcons: {
+        height: 48,
+        width: 48,
+    },
+    showLine: {
+        width: '100%',
+        height: 1,
+        backgroundColor: 'black',
+    }
 });
 
 export default styles;
