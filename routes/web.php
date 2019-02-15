@@ -11,14 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('testing', function () {
-    return view('ankita');
-});
-
-Auth::routes();
-
-Route::get('/home', 'homeController@index')->name('college');
+Route::view('/{path?}', 'app');
