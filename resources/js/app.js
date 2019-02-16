@@ -10,11 +10,10 @@ require('./bootstrap');
 /**
  * React Routes
  */
-
 require('./routes');
 
-/**
- * React Components
- */
 
-require('./components.js');
+/**
+ * React Main
+ */
+require('./index');

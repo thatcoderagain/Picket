@@ -19,9 +19,15 @@
 
         <!-- Title -->
         <title>@yield('title', config('app.name', 'Laravel'))</title>
+<<<<<<< HEAD
         <style>
              @yield('style')
          </style>
+=======
+
+        <!-- Internal STYLE -->
+        @yield('style')
+>>>>>>> 3c7b9fba6bba8d2ce9458e2a43a638b34cf75675
     </head>
 
     <body>
