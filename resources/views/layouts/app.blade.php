@@ -19,6 +19,7 @@
 
         <!-- Internal STYLE -->
         @yield('style')
+
     </head>
 
     <body>

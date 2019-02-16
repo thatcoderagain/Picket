@@ -7,11 +7,15 @@
 
 require('./bootstrap');
 
-/**
- * React Routes
- */
-require('./routes');
+// /**
+//  * React Routes
+//  */
+// require('./components');
 
+// /**
+//  * React Routes
+//  */
+// require('./routes');
 
 /**
  * React Main

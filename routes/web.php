@@ -13,13 +13,10 @@
 
 Route::Auth();
 
-// Route::view('/{path?}', 'react');
+Route::get('/picket', function () {
+    return view('Picket');
+});
 
 Route::view('/', 'react');
 Route::view('/profile', 'react');
 Route::view('/gallery', 'react');
-
-
-Route::get('/boot', function (){
-    return view('bootstrap');
-});
