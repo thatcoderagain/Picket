@@ -4,6 +4,8 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 
+import Navbar from '../../components/Navbar';
+
 class Gallery extends React.Component {
 
     renderGallery() {
@@ -28,6 +30,7 @@ class Gallery extends React.Component {
     render() {
         return(
             <div>
+                <Navbar/>
                 <Header/>
                 <div style={commonStyles.galleryscreen}>
                     <SearchBar/>

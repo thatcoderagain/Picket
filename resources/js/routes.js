@@ -5,7 +5,7 @@ import Login from './pages/Login/Login';
 import Profile from  './pages/Profile/Profile';
 import Gallery from './pages/Gallery/Gallery';
 
-export default class Start extends Component {
+export default class Routes extends Component {
     render () {
         return (
             <BrowserRouter>
