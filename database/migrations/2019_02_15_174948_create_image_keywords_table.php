@@ -14,7 +14,9 @@ class CreateImageKeywordsTable extends Migration
     public function up()
     {
         Schema::create('image_keywords', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->bigInteger('image_id')->index();
+            $table->bigInteger('keyword_id')->index();
             $table->timestamps();
         });
     }
