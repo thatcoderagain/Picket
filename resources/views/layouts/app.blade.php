@@ -21,9 +21,7 @@
         <title>@yield('title', config('app.name', 'Laravel'))</title>
 
         <!-- Internal STYLE -->
-        <style>
-            @yield('style')
-        </style>
+        @yield('style')
     </head>
 
     <body>

@@ -13,4 +13,13 @@
 
 Route::Auth();
 
-Route::view('/{path?}', 'app');
+// Route::view('/{path?}', 'react');
+
+Route::view('/', 'react');
+Route::view('/profile', 'react');
+Route::view('/gallery', 'react');
+
+
+Route::get('/boot', function (){
+    return view('bootstrap');
+});
