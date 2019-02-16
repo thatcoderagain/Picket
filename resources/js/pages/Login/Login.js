@@ -5,21 +5,8 @@ import Button from '@material-ui/core/Button';
 import styles from '../styles/commonstyle';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import ReactCardFlip from 'react-card-flip';
+import Header from '../../components/Header';
 
-
-const rootStyle = createStyles({
-        root: {
-            width: '100%',
-            position: 'absolute'
-        },
-        grow: {
-            flexGrow: 1,
-        },
-        menuButton: {
-            marginLeft: -12,
-            marginRight: 20,
-        },
-});
 
  class Login extends React.Component
  {
@@ -219,8 +206,11 @@ const rootStyle = createStyles({
         render()
         {
                 return(
+                    <div>
+                        <Header/>
                     <div style={styles.backscreen}>
                         {this.renderCard()}
+                    </div>
                     </div>
                 )
         }

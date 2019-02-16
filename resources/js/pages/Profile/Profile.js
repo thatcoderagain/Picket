@@ -8,6 +8,8 @@ import StarRatingComponent from 'react-star-rating-component';
 import Footer from '../../components/Footer';
 import CloudUpload from '@material-ui/icons/CloudUpload';
 import Settings from '@material-ui/icons/Settings';
+import Modal from 'react-responsive-modal';
+import UserSetting from './Settings';
 
 class Profile extends React.Component
  {
@@ -16,10 +18,13 @@ class Profile extends React.Component
         super()
         this.state={
           rating: 1,
+          isOpen: false,
           hasPhotos: true,
           itsHisProfile: true,
         }
         this.toggleState = this.toggleState.bind(this);
+        this.onOpenModal = this.onOpenModal.bind(this);
+        this.onCloseModal = this.onCloseModal.bind(this);
     }
 
     onStarClick(nextValue, prevValue, name) {
@@ -60,7 +65,7 @@ class Profile extends React.Component
     renderIfHisProfile() {
       return(
         <div style={commonStyles.fullFlex}>
-          <Settings style={commonStyles.userProfileIcons}/>
+          <Settings onClick={this.onOpenModal} style={commonStyles.userProfileIcons}/>
           <div style={commonStyles.adjustmargins}/>
           <CloudUpload onClick={this.toggleState} style={commonStyles.userProfileIcons}/>
         </div>
@@ -82,6 +87,24 @@ class Profile extends React.Component
     renderIfHasNoPhotosInHisProfile() {
       return(
         <div> You have no uploads yet! </div>
+      );
+    }
+
+    onOpenModal() {
+      this.setState({ isOpen: true });
+    };
+  
+    onCloseModal() {
+      this.setState({ isOpen: false });
+    };  
+
+    renderEditModal() {
+      return(
+        <Modal open={this.state.isOpen} onClose={this.onCloseModal} focusTrapped>
+        <div>
+          <UserSetting/>
+        </div>
+        </Modal>
       );
     }
 
@@ -120,6 +143,7 @@ class Profile extends React.Component
             <div style={commonStyles.blankDiv}></div>
             <div style={commonStyles.blankDiv}></div>
             <Footer/>
+            {this.renderEditModal()}
           </div>
         )
     }

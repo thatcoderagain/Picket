@@ -209,6 +209,9 @@ const styles = createStyles({
         width: '100%',
         height: 1,
         backgroundColor: 'black',
+    },
+    blankDivSettings: {
+        minWidth: 380,
     }
 });
 
