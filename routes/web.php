@@ -13,7 +13,7 @@
 
 Route::Auth();
 
-<<<<<<< HEAD
+
 Route::get('testing', function () {
     return view('ankita');
 });
@@ -24,9 +24,6 @@ Route::get('bhoori', function () {
 Route::get('h', function () {
     return view('Picket');
 });
-=======
-// Route::view('/{path?}', 'react');
->>>>>>> 3c7b9fba6bba8d2ce9458e2a43a638b34cf75675
 
 Route::view('/', 'react');
 Route::view('/profile', 'react');
