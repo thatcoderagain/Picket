@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 import commonStyles from '../pages/styles/commonstyle';
 
@@ -37,8 +38,8 @@ function ButtonAppBar(props) {
                         Picket
                     </Typography>
                     <Button color="inherit">Home</Button>
-                    <Button color="inherit">Gallery</Button>
-                    <Button color="inherit">Login</Button>
+                    <Link style={commonStyles.whiteText} to='/gallery'><Button color="inherit">Gallery</Button></Link>
+                    <Link style={commonStyles.whiteText} to='/'><Button color="inherit">Login</Button></Link>
                 </Toolbar>
             </AppBar>
         </div>
