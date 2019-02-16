@@ -6,9 +6,9 @@ import commonStyles from '../styles/commonstyles';
 import Typography from '@material-ui/core/Typography';
 import StarRatingComponent from 'react-star-rating-component';
 import Footer from './Footer';
-import img1 from '../assets/images/img1.jpg';
+//import img1 from '../assets/images/img1.jpg';
 
-class Profile extends React.Component
+export default class Profile extends React.Component
  {
     constructor()
     {
@@ -19,7 +19,7 @@ class Profile extends React.Component
     }
 
     onStarClick(nextValue, prevValue, name) {
-      this.setState({rating: nextValue});
+        this.setState({rating: nextValue});
     }
 
     render()
@@ -61,6 +61,9 @@ class Profile extends React.Component
         )
     }
 }
-export default Profile
-
- ReactDOM.render(<Profile  />, document.getElementById('Profile'));
+const profiles = document.querySelectorAll('.profile');
+if(profiles.length > 0) {
+    profiles.forEach((profile) => {
+        ReactDOM.render(<Profile />, profile)
+    });
+}

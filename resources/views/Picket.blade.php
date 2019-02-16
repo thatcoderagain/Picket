@@ -2,8 +2,10 @@
 
 @section('title', 'Ankita')
 
+@section('style')
+
+@endsection
+
 @section('content')
-<div>
-    <div class="profile"></div>
-</div>
+
 @endsection

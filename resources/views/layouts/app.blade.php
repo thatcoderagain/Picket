@@ -19,6 +19,9 @@
 
         <!-- Title -->
         <title>@yield('title', config('app.name', 'Laravel'))</title>
+        <style>
+             @yield('style')
+         </style>
     </head>
 
     <body>

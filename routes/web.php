@@ -18,6 +18,13 @@ Route::get('/', function () {
 Route::get('testing', function () {
     return view('ankita');
 });
+Route::get('bhoori', function () {
+    return view('html');
+});
+
+Route::get('h', function () {
+    return view('Picket');
+});
 
 Auth::routes();
 
