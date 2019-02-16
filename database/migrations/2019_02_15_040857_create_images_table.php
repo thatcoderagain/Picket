@@ -15,7 +15,7 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('meme_type');
             $table->string('slug');
             $table->string('resolution');
@@ -25,7 +25,7 @@ class CreateImagesTable extends Migration
             $table->integer('downloads');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

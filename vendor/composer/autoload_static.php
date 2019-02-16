@@ -438,6 +438,8 @@ class ComposerStaticInitfd3bd907ba37148ca691cb317d6a01b9
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Image' => __DIR__ . '/../..' . '/app/Image.php',
+        'App\\ImageKeyword' => __DIR__ . '/../..' . '/app/ImageKeyword.php',
+        'App\\Keyword' => __DIR__ . '/../..' . '/app/Keyword.php',
         'App\\Photographer' => __DIR__ . '/../..' . '/app/Photographer.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

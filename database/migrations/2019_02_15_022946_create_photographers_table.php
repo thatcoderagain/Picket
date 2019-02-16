@@ -15,10 +15,10 @@ class CreatePhotographersTable extends Migration
     {
         Schema::create('photographers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
-            $table->date('dob')->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->unsignedBigInteger('user_id')->index();
             $table->enum('sex', ['male', 'female', 'unisex'])->nullable();
+            $table->date('dob')->nullable();
+            $table->string('mobile')->unique()->nullable();
             $table->string('specialization');
             $table->string('location');
             $table->float('charges', 10, 2);

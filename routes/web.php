@@ -14,8 +14,3 @@
 Route::Auth();
 
 Route::view('/{path?}', 'app');
-
-Route::get('/', function () {
-    return view('home');
-});
-
