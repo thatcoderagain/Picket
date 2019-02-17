@@ -42,8 +42,14 @@ export default class SearchBar extends React.Component {
             name="search"
             />
             </div>
-            <div style={commonStyles.type}>
+            <div onMouseEnter={this.showHey} onMouseLeave={this.hideHey} style={commonStyles.category}>
                 RECENT
+                {this.state.showMoreData &&
+                <div style={commonStyles.z1Index}>
+                    <div>Mostly viewed</div>
+                    <div>Recently added</div>
+                    <div>Most liked</div>
+                </div>}
             </div>
             </div>
         );
