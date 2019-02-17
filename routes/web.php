@@ -20,3 +20,4 @@ Route::get('/picket', function () {
 Route::view('/', 'react');
 Route::view('/profile', 'react');
 Route::view('/gallery', 'react');
+Route::view('/home', 'react');
