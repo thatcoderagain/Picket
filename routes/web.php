@@ -13,9 +13,7 @@
 
 Route::Auth();
 
-Route::get('/picket', function () {
-    return view('Picket');
-});
+
 
 Route::view('/', 'react');
 Route::view('/profile', 'react');

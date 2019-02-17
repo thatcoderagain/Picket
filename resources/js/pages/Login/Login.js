@@ -5,21 +5,8 @@ import Button from '@material-ui/core/Button';
 import styles from '../styles/commonstyle';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import ReactCardFlip from 'react-card-flip';
+import Header from '../../components/Header';
 
-
-const rootStyle = createStyles({
-        root: {
-            width: '100%',
-            position: 'absolute'
-        },
-        grow: {
-            flexGrow: 1,
-        },
-        menuButton: {
-            marginLeft: -12,
-            marginRight: 20,
-        },
-});
 
  class Login extends React.Component
  {
@@ -38,7 +25,7 @@ const rootStyle = createStyles({
                 }
                 this.handleToggle=this.handleToggle.bind(this)
                 this.handleChange=this.handleChange.bind(this)
-                this.handleClick=this.handleClick.bind(this)
+                this.handleLogin=this.handleLogin.bind(this)
                 this.handleSignUp=this.handleSignUp.bind(this)
         }
 
@@ -63,44 +50,49 @@ const rootStyle = createStyles({
 
         }
 
-        handleSignUp() {
-                history.push('/profile');
-        }
-
-        handleClick() {
-
-                if (this.state.email === "" && this.state.password === "") {
-                        alert("Input details");
-                        return;
-                }/*
-                if (this.state.email === "myemail@test.in" && this.state.password === "123456") {
-                        alert("correct login");
-                } else {
-                        alert("incorrect email or pass");
-                }
-                */
-             fetch('https://nayitaleem.com:3000/api/check-login', {
+        handleSignUp() { 
+             if (this.state.email === "" && this.state.password === ""  && this.state.name === "") {
+                     alert("Input details");
+                     return;
+             }
+             fetch('/api/signup', {
                 method: 'POST',
                 headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                        Username: this.state.email,
-                        Password: this.state.password,
+                        email: this.state.email,
+                        password: this.state.password,
+                        name: this.state.name,
                 })
              })
              .then(response=>response.json())
                 .then(data=> {
                         console.log(data);
-                        if (data.length > 0) {
-                                console.log(data[0]['email']);
-                                this.setState({userName: data[0]['email']})
-                        } else {
-                                this.setState({userName: 'failed'})
-                                console.log('login failed');
-                        }
+             })      
+        }
+
+        handleLogin() {
+                if (this.state.email === "" && this.state.password === "") {
+                        alert("Input details");
+                        return;
+                }
+                fetch('/api/login', {
+                   method: 'POST',
+                   headers: {
+                           'Accept': 'application/json',
+                           'Content-Type': 'application/json',
+                   },
+                   body: JSON.stringify({
+                           email: this.state.email,
+                           password: this.state.password,
+                   })
                 })
+                .then(response=>response.json())
+                   .then(data=> {
+                           console.log(data);
+                })      
         }
 
         renderLogin() {
@@ -133,7 +125,7 @@ const rootStyle = createStyles({
                 style={{alignSelf: 'center'}}
                 variant="contained"
                 color="primary"
-                onClick={this.handleClick}>SIGN IN</Button>
+                onClick={this.handleLogin}>SIGN IN</Button>
 
                 <p>or</p>
 
@@ -219,8 +211,11 @@ const rootStyle = createStyles({
         render()
         {
                 return(
+                    <div>
+                        <Header/>
                     <div style={styles.backscreen}>
                         {this.renderCard()}
+                    </div>
                     </div>
                 )
         }
