@@ -12,12 +12,15 @@
 */
 
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dash', 'HomeController@index')->name('dash');
 
 
-
-Route::view('/', 'react');
+/**
+ * React Routes
+ */
+Route::view('/', 'react');      // Login
 Route::view('/profile', 'react');
 Route::view('/gallery', 'react');
 Route::view('/home', 'react');

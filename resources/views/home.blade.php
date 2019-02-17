@@ -16,7 +16,7 @@
                         </div>
                     @endif
 
-                    {!! Form::open(['method' => 'POST', 'route' => 'home', 'class' => 'form-horizontal']) !!}
+                    {!! Form::open(['method' => 'POST', 'route' => 'dash', 'class' => 'form-horizontal']) !!}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             {!! Form::label('email', 'Email address') !!}

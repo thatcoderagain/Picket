@@ -17,4 +17,4 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::post('signup', 'Auth\RegisterController@create');
+// Route::post('signup', 'Auth\RegisterController@create');
