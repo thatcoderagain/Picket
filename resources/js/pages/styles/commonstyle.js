@@ -170,16 +170,17 @@ const styles = createStyles({
     },
     type: {
         flex: 1,
-        display: 'flex',
+        height: '100%',
+        display: 'block',
+        textAlign: 'center',
+        flexDirection: 'column',
+        backgroundColor: 'white',
+        border: '1px solid black',
         alignitem: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
         borderTopRightRadius: 16,
         borderBottomRightRadius: 16,
-        borderWidth: 4,
-        borderColor: 'black',
-        border: '1px solid black'
     },
     galleryImage: {
         padding: 2,

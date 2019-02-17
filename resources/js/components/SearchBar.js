@@ -8,9 +8,12 @@ export default class SearchBar extends React.Component {
         super()
         this.state={
             showMoreData: false,
+            showRecentData: false,
         }
         this.showHey = this.showHey.bind(this);
         this.hideHey = this.hideHey.bind(this);
+        this.showRecent = this.showRecent.bind(this);
+        this.hideRecent = this.hideRecent.bind(this);
     }
     showHey() {
             this.setState({
@@ -20,6 +23,16 @@ export default class SearchBar extends React.Component {
     hideHey() {
         this.setState({
             showMoreData: false,
+        })
+    }
+    showRecent() {
+            this.setState({
+                showRecentData: true,
+            })
+    }
+    hideRecent() {
+        this.setState({
+            showRecentData: false,
         })
     }
     render() {
@@ -42,9 +55,9 @@ export default class SearchBar extends React.Component {
             name="search"
             />
             </div>
-            <div onMouseEnter={this.showHey} onMouseLeave={this.hideHey} style={commonStyles.category}>
+            <div onMouseEnter={this.showRecent} onMouseLeave={this.hideRecent} style={commonStyles.type}>
                 RECENT
-                {this.state.showMoreData &&
+                {this.state.showRecentData &&
                 <div style={commonStyles.z1Index}>
                     <div>Mostly viewed</div>
                     <div>Recently added</div>
