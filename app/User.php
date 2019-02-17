@@ -11,15 +11,15 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'name', 'email', 'password',
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function Photographer()
+    public function photographer()
     {
-        return $this->has(App\Photographer::class);
+        return $this->hasOne(App\Photographer::class);
     }
 }
