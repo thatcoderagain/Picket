@@ -212,6 +212,18 @@ const styles = createStyles({
     },
     blankDivSettings: {
         minWidth: 380,
+    },
+    customOverlay : {
+        background:' rgba(36, 123, 160, 0.7)'
+    },
+    customModal : {
+        background: '#b2dbbf',
+        maxWidth: '1000px',
+        width: '1000px',
+        maxHeight: '600px',
+        height: '600px',
+        padding: 0,
+        
     }
 });
 

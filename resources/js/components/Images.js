@@ -2,11 +2,12 @@ import React from 'react';
 import commonStyles from '../pages/styles/commonstyle';
 
 export default class Images extends React.Component {
+    shouldComponentUpdate(newProps) {
+        return this.props.imgUrl !== newProps.imgUrl;
+      }
     render() {
         return(
-            <div>
-                <img src={'/images/img1.jpg'} style={commonStyles.hasMargin}/>
-            </div>
+            <img src={this.props.imgUrl} style={commonStyles.galleryImage} onClick={this.props.onClick}/>
         );
     }
 }
