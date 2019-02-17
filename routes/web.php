@@ -13,9 +13,9 @@
 
 Route::Auth();
 
-Route::get('/ankita', function () {
-    return view('ankita');
-});
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
 
 Route::view('/', 'react');
 Route::view('/profile', 'react');

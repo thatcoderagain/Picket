@@ -15,9 +15,12 @@ class CreateImageKeywordsTable extends Migration
     {
         Schema::create('image_keywords', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('image_id')->index();
-            $table->bigInteger('keyword_id')->index();
+            $table->unsignedBigInteger('image_id')->index();
+            $table->unsignedBigInteger('keyword_id')->index();
             $table->timestamps();
+
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
+            $table->foreign('keyword_id')->references('id')->on('keywords')->onDelete('cascade');
         });
     }
 

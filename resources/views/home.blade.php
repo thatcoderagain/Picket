@@ -16,7 +16,7 @@
                         </div>
                     @endif
 
-                    {!! Form::open(['method' => 'POST', 'route' => 'routeName', 'class' => 'form-horizontal']) !!}
+                    {!! Form::open(['method' => 'POST', 'route' => 'home', 'class' => 'form-horizontal']) !!}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             {!! Form::label('email', 'Email address') !!}
@@ -48,6 +48,8 @@
                         </div>
 
                     {!! Form::close() !!}
+
+
 
                 </div>
             </div>
