@@ -64,7 +64,7 @@ class Gallery extends React.Component {
     render() {
         return(
             <div>
-                <Header/>
+                <Header />
                 <div style={commonStyles.galleryscreen}>
                     <SearchBar/>
                     {this.renderGallery()}
