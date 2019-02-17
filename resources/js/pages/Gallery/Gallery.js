@@ -11,18 +11,18 @@ class Gallery extends React.Component {
     renderGallery() {
         return(
           <div style={commonStyles.gallerDiv}>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
-          <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
+              <img src={'/images/img1.jpg'} style={commonStyles.galleryImage}/>
           </div>
         );
     }

@@ -6,18 +6,5 @@
  */
 
 require('./bootstrap');
-
-// /**
-//  * React Routes
-//  */
-// require('./components');
-
-// /**
-//  * React Routes
-//  */
-// require('./routes');
-
-/**
- * React Main
- */
+require('./components')
 require('./index');

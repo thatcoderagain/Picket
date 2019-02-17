@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import Login from './pages/Login/Login';
 import Profile from  './pages/Profile/Profile';
 import Gallery from './pages/Gallery/Gallery';

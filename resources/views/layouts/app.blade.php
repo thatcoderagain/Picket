@@ -24,7 +24,7 @@
 
     <body>
         <div id="app">
-            @include('layouts.navbar')
+            {{-- @include('layouts.navbar') --}}
             <main {{-- class="py-4" --}}>
                 @yield('content')
             </main>
