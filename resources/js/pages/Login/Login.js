@@ -50,8 +50,27 @@ import Header from '../../components/Header';
 
         }
 
-        handleSignUp() {
-                history.push('/profile');
+        handleSignUp() { 
+             if (this.state.email === "" && this.state.password === ""  && this.state.name === "") {
+                     alert("Input details");
+                     return;
+             }
+             fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                        email: this.state.email,
+                        password: this.state.password,
+                        name: this.state.name,
+                })
+             })
+             .then(response=>response.json())
+                .then(data=> {
+                        console.log(data);
+                })      
         }
 
         handleClick() {
