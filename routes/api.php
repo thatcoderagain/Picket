@@ -18,4 +18,3 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('signup', 'Auth\RegisterController@create');
-

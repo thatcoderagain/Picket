@@ -25,7 +25,7 @@ import Header from '../../components/Header';
                 }
                 this.handleToggle=this.handleToggle.bind(this)
                 this.handleChange=this.handleChange.bind(this)
-                this.handleClick=this.handleClick.bind(this)
+                this.handleLogin=this.handleLogin.bind(this)
                 this.handleSignUp=this.handleSignUp.bind(this)
         }
 
@@ -70,43 +70,29 @@ import Header from '../../components/Header';
              .then(response=>response.json())
                 .then(data=> {
                         console.log(data);
-                })      
+             })      
         }
 
-        handleClick() {
-
+        handleLogin() {
                 if (this.state.email === "" && this.state.password === "") {
                         alert("Input details");
                         return;
-                }/*
-                if (this.state.email === "myemail@test.in" && this.state.password === "123456") {
-                        alert("correct login");
-                } else {
-                        alert("incorrect email or pass");
                 }
-                */
-             fetch('https://nayitaleem.com:3000/api/check-login', {
-                method: 'POST',
-                headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                        Username: this.state.email,
-                        Password: this.state.password,
+                fetch('/api/login', {
+                   method: 'POST',
+                   headers: {
+                           'Accept': 'application/json',
+                           'Content-Type': 'application/json',
+                   },
+                   body: JSON.stringify({
+                           email: this.state.email,
+                           password: this.state.password,
+                   })
                 })
-             })
-             .then(response=>response.json())
-                .then(data=> {
-                        console.log(data);
-                        if (data.length > 0) {
-                                console.log(data[0]['email']);
-                                this.setState({userName: data[0]['email']})
-                        } else {
-                                this.setState({userName: 'failed'})
-                                console.log('login failed');
-                        }
-                })
+                .then(response=>response.json())
+                   .then(data=> {
+                           console.log(data);
+                })      
         }
 
         renderLogin() {
@@ -139,7 +125,7 @@ import Header from '../../components/Header';
                 style={{alignSelf: 'center'}}
                 variant="contained"
                 color="primary"
-                onClick={this.handleClick}>SIGN IN</Button>
+                onClick={this.handleLogin}>SIGN IN</Button>
 
                 <p>or</p>
 
