@@ -5,11 +5,11 @@ import TextField from '@material-ui/core/TextField';
 export default class SearchBar extends React.Component {
     constructor()
     {
-        super()
+        super();
         this.state={
             showMoreData: false,
             showRecentData: false,
-        }
+        };
         this.showHey = this.showHey.bind(this);
         this.hideHey = this.hideHey.bind(this);
         this.showRecent = this.showRecent.bind(this);

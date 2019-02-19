@@ -20,7 +20,11 @@
     </head>
 
     <body>
-        <div id="react"></div>
+
+        <div class="container-fluid">
+            <div class="Navbar"></div>
+            <div id="react"></div>
+        </div>
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>

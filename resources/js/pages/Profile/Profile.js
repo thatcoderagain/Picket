@@ -93,10 +93,10 @@ class Profile extends React.Component
     onOpenModal() {
       this.setState({ isOpen: true });
     };
-  
+
     onCloseModal() {
       this.setState({ isOpen: false });
-    };  
+    };
 
     renderEditModal() {
       return(
@@ -121,14 +121,14 @@ class Profile extends React.Component
                     NAME
                   </Typography>
                   <Typography variant="h6" color="inherit" style={commonStyles.userBio}>
-                    I am a photo freak 
+                    I am a photo freak
                   </Typography>
                 </div>
                 {this.state.itsHisProfile && this.renderIfHisProfile()}
               </div>
-              <StarRatingComponent 
+              <StarRatingComponent
                 style={commonStyles.leftAlign}
-                name="rate1" 
+                name="rate1"
                 starCount={5}
                 value={this.state.rating}
                 onStarClick={this.onStarClick.bind(this)}
