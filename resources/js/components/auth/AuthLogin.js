@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 export default class AuthLogin extends React.Component {
     constructor (props) {
         super(props);
-        // Props
-
         // Data (State)
         this.state={
             email: '',
@@ -51,6 +49,8 @@ export default class AuthLogin extends React.Component {
                 this.setState({
                     user: user
                 });
+                // generating event - calling function of parent component
+                this.props.loggedIn(user);
             } else {
                 let errors = json.error;
                 this.setState({
@@ -69,7 +69,7 @@ export default class AuthLogin extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col">
                         <div className="card">
-                            <div className="card-header">Login</div>
+                            <div className="card-header">Login - {this.props.appname}</div>
 
                             <div className="card-body">
                                 <div className="form-group row">
@@ -108,11 +108,7 @@ export default class AuthLogin extends React.Component {
                                     <div className="col-md-8 offset-md-4">
                                         <button className="btn btn-primary" type="submit" onClick={this.handleLogin}>Login</button>
 
-                                        {/*@if (Route::has('password.request'))
-                                            <a className="btn btn-link" href="{{ route('password.request') }}">
-                                                'Forgot Your Password?') }}
-                                            </a>
-                                        @endif*/}
+                                        <a className="btn btn-link" href="/password-reset">Forgot Your Password?</a>
                                     </div>
                                 </div>
                             </div>

@@ -4,19 +4,20 @@ import ReactDOM from 'react-dom';
 export default class AuthLogin extends React.Component {
     constructor (props) {
         super(props);
-        // Props
-
         // Data (State)
         this.state={
+            username: '',
+            name: '',
             email: '',
             password: '',
+            password_confirmation: '',
             user: {},
             loggedIn: false,
             errors: ""
         };
         // Methods
         this.updateState=this.updateState.bind(this)
-        this.handleLogin = this.handleLogin.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
     }
 
     updateState(event) {
@@ -26,20 +27,24 @@ export default class AuthLogin extends React.Component {
         });
     }
 
-    handleLogin() {
+    handleRegister() {
         this.state.errors = "";
         this.state.user = "";
-        if (this.state.email === "" || this.state.password === "")
+        if (this.state.username === "" || this.state.name === "" ||this.state.email === "" || this.state.password === ""
+            || this.state.password_confirmation === "")
             return;
 
-        let url = '/login';
+        let url = '/register';
         axios({
             method: 'post',
             url: url,
             responseType: 'json',
             data: {
+                'username': this.state.username,
+                'name': this.state.name,
                 'email': this.state.email,
-                'password': this.state.password
+                'password': this.state.password,
+                'password_confirmation': this.state.password_confirmation
             }
         })
         .then((response) => {
@@ -69,9 +74,25 @@ export default class AuthLogin extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col">
                         <div className="card">
-                            <div className="card-header">Login</div>
+                            <div className="card-header">Register</div>
 
                             <div className="card-body">
+                                <div className="form-group row">
+                                    <label htmlFor="username" className="col-md-4 col-form-label text-md-right">Username</label>
+
+                                    <div className="col-md-6">
+                                        <input id="username" type="text" className={`form-control + ${this.state.errors != "" ? ' is-invalid' : ''}` } name="username" value={this.state.username} onChange={this.updateState} required autoFocus/>
+                                    </div>
+                                </div>
+
+                                <div className="form-group row">
+                                    <label htmlFor="name" className="col-md-4 col-form-label text-md-right">Name</label>
+
+                                    <div className="col-md-6">
+                                        <input id="name" type="text" className={`form-control + ${this.state.errors != "" ? ' is-invalid' : ''}` } name="name" value={this.state.name} onChange={this.updateState} required autoFocus/>
+                                    </div>
+                                </div>
+
                                 <div className="form-group row">
                                     <label htmlFor="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
@@ -93,26 +114,20 @@ export default class AuthLogin extends React.Component {
                                 </div>
 
                                 <div className="form-group row">
-                                    <div className="col-md-6 offset-md-4">
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" name="remember" id="remember" /*{{ old('remember') ? 'checked' : '' }}*//>
+                                    <label htmlFor="password_confirmation" className="col-md-4 col-form-label text-md-right">Password Confirmation</label>
 
-                                            <label className="form-check-label" htmlFor="remember">
-                                            Remember Me
-                                            </label>
-                                        </div>
+                                    <div className="col-md-6">
+                                        <input id="password_confirmation" type="password_confirmation" className={`form-control + ${this.state.errors != "" ? ' is-invalid' : ''}`} name="password" value={this.state.password_confirmation} onChange={this.updateState} required/>
+
+                                        <span className="invalid-feedback" role="alert">
+                                            {<strong>{this.state.errors}</strong>}
+                                        </span>
                                     </div>
                                 </div>
 
                                 <div className="form-group row mb-0">
                                     <div className="col-md-8 offset-md-4">
-                                        <button className="btn btn-primary" type="submit" onClick={this.handleLogin}>Login</button>
-
-                                        {/*@if (Route::has('password.request'))
-                                            <a className="btn btn-link" href="{{ route('password.request') }}">
-                                                'Forgot Your Password?') }}
-                                            </a>
-                                        @endif*/}
+                                        <button className="btn btn-primary" type="submit" onClick={this.handleRegister}>Register</button>
                                     </div>
                                 </div>
                             </div>

@@ -11,8 +11,8 @@
 |
 */
 
-Auth::routes();
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+// Auth::routes();
+// Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/dash', 'HomeController@index')->name('dash');
 
@@ -21,7 +21,8 @@ Route::get('/ankita', function() { return view('ankita'); })->name('ankita');
 /**
  * React Routes
  */
-Route::view('/login', 'react');      // Login
+Route::view('/login', 'react');
+// Route::view('/register', 'react');
 Route::view('/profile', 'react');
 Route::view('/gallery', 'react');
 Route::view('/home', 'react');
