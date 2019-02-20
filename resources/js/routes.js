@@ -31,16 +31,14 @@ export default class Routes extends Component {
     render() {
         return (
             <div className="container">
-                <AuthLogin loggedIn={this.login}/>
-                <AuthRegister />
-                {/*<BrowserRouter>
+                <BrowserRouter>
                     <Switch>
-                        <Route exact path='/login' appname={this.state.appname} component={AuthLogin} />
-                        <Route path='/register' component={AuthRegister} />
+                        <Route  exact path='/login' component={() =>  <AuthLogin appname={this.state.appname} loggedIn={this.login}/>} />
+                        <Route path='/register' component={() => <AuthRegister />} />
                         <Route path='/profile' component={Profile} />
                         <Route path='/gallery' component={Gallery} />
                     </Switch>
-                </BrowserRouter>*/}
+                </BrowserRouter>
             </div>
         )
     }
