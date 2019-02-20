@@ -30,7 +30,7 @@ export default class Routes extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <BrowserRouter>
                     <Switch>
                         <Route  exact path='/login'
