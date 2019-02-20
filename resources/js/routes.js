@@ -18,11 +18,11 @@ export default class Routes extends Component {
             user: null,
             loggedIn: false
         };
-        this.login = this.login.bind(this);
+        this.loginSuccessful = this.loginSuccessful.bind(this);
     }
-    login(authuser) {
+    loginSuccessful(authuser) {
         // Updating the state
-        this.setState({user: authuser});
+        this.setState({user: authuser, loggedIn: true});
         // To synchronize the task by adding a delay of 1/10th second
         setTimeout(()=>{
             console.log(this.state.user);
@@ -33,10 +33,11 @@ export default class Routes extends Component {
             <div className="container">
                 <BrowserRouter>
                     <Switch>
-                        <Route  exact path='/login' component={() =>  <AuthLogin appname={this.state.appname} loggedIn={this.login}/>} />
+                        <Route  exact path='/login'
+                            component={() =>  <AuthLogin appname={this.state.appname} loginSuccessful={this.loginSuccessful}/>} />
+                        <Route path='/gallery' component={Gallery} />
                         <Route path='/register' component={() => <AuthRegister />} />
                         <Route path='/profile' component={Profile} />
-                        <Route path='/gallery' component={Gallery} />
                     </Switch>
                 </BrowserRouter>
             </div>

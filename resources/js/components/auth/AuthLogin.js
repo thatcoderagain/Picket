@@ -50,7 +50,9 @@ export default class AuthLogin extends React.Component {
                     user: user
                 });
                 // generating event - calling function of parent component
-                this.props.loggedIn(user);
+                this.props.loginSuccessful(user);
+
+                window.location = 'gallery';
             } else {
                 let errors = json.error;
                 this.setState({
