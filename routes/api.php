@@ -18,3 +18,8 @@ use Illuminate\Http\Request;
 // });
 
 // Route::post('signup', 'Auth\RegisterController@create');
+
+Route::group(['middleware' => ['web']], function () {
+    Auth::routes();
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+});

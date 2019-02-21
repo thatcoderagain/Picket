@@ -10,10 +10,8 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@babel/preset-react": "^7.0.0",
-        "@fortawesome/fontawesome-free": "^5.7.1",
+        "@fortawesome/fontawesome-free": "^5.7.2",
         "axios": "^0.18",
-        "babel-preset-react": "^6.23.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "jquery": "^3.2",
@@ -21,20 +19,11 @@
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
         "raleway-webfont": "^3.0.1",
-        "react": "^16.2.0",
-        "react-dom": "^16.8.1",
         "resolve-url-loader": "^3.0.0",
         "sass": "^1.15.2",
-        "sass-loader": "^7.1.0"
-    },
-    "dependencies": {
-        "@material-ui/core": "^3.9.2",
-        "@material-ui/icons": "^3.0.2",
-        "react-card-flip": "^0.4.0",
-        "react-responsive-modal": "^3.6.0",
-        "react-router-dom": "^4.3.1",
-        "react-star-rating-component": "^1.4.1",
+        "sass-loader": "^7.1.0",
         "vue": "^2.6.6",
-        "vue-router": "^3.0.2"
+        "vue-router": "^3.0.2",
+        "vue-template-compiler": "^2.6.6"
     }
 }

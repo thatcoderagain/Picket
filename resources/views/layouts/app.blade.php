@@ -21,11 +21,8 @@
     </head>
 
     <body>
-        <div id="app">
-            @include('layouts.navbar')
-            <main {{-- class="py-4" --}}>
-                @yield('content')
-            </main>
+        <div id="app" class="container-fluid">
+            @yield('content')
         </div>
 
         <!-- Scripts -->
