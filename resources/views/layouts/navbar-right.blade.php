@@ -1,6 +1,14 @@
 <ul class="navbar-nav ml-auto">
+    <li>
+    <nav class="navbar navbar-light bg-dark">
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+    </li>
     <!-- Authentication Links -->
-    @guest
+   {{--  @guest
         <li class="nav-item">
             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
         </li>
@@ -27,5 +35,5 @@
                 </form>
             </div>
         </li>
-    @endguest
+    @endguest --}}
 </ul>

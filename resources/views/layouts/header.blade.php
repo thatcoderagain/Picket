@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
         <router-link to="/">
-            <a class="navbar-brand">{{ config('app.name', 'Laravel') }}</a>
+            <a class="navbar-brand btn-link">{{ config('app.name', 'Laravel') }}</a>
         </router-link>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
