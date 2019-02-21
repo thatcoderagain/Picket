@@ -13,6 +13,10 @@ let routes = [
         path: '/about',
         component: require('./views/About').default
     },
+    {
+        path: '/modal',
+        component: require('./views/Slider').default
+    },
 ];
 
 export default new VueRouter({

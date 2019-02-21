@@ -8,6 +8,7 @@
                     <div class="card-body">
                         I'm an example component.
                     </div>
+            
                 </div>
             </div>
         </div>
@@ -15,11 +16,14 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
 
-            }
-        }
-    }
+
+export default {
+  data() {
+    return {};
+  },
+  components: {
+
+  }
+};
 </script>

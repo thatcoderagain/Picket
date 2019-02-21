@@ -12,4 +12,8 @@
         <a class="nav-link">About</a>
     </router-link>
 
+    <router-link tag="li" to="/slider" class="nav-item">
+        <a class="nav-link">Slider</a>
+    </router-link>
+
 </ul>
