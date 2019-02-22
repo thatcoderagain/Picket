@@ -17,9 +17,9 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-// Route::post('signup', 'Auth\RegisterController@create');
-
-Route::group(['middleware' => ['web']], function () {
+// Route::group(['middleware' => ['web', 'api']], function () {
     Auth::routes();
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-});
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+// });
+
+
