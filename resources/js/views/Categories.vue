@@ -1,10 +1,8 @@
 <template>
-    <div>
-        <div class="container-fluid">
-            <div class="row">
-            <div class="col-4" v-for="i in 3">
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-4" v-for="i in 10">
                 <Category></Category>
-            </div>
             </div>
         </div>
     </div>

@@ -17,9 +17,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-// Route::group(['middleware' => ['web', 'api']], function () {
-    Auth::routes();
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-// });
+Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 
