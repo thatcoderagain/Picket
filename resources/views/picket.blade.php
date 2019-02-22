@@ -5,7 +5,6 @@
 @section('content')
     <div class="container-fuild">
         @include('layouts.header')
-
-        <router-view class="mt-3"></router-view>
+        <router-view></router-view>
     </div>
 @endsection

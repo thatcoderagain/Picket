@@ -80,7 +80,6 @@
                     url: url,
                     withCredentials: false,
                     data: {
-                        '_token': window.token,
                         'email': this.email,
                         'password': this.password
                     }
