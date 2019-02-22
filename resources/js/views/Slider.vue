@@ -1,6 +1,6 @@
 <style>
     #slider {
-        max-height: 800px;
+        max-height: 500px;
     }
 </style>
 
