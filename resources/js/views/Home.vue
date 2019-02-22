@@ -4,7 +4,6 @@
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">Home Component</div>
-
                     <div class="card-body">
                         I'm an example component.
                     </div>
@@ -15,7 +14,11 @@
 </template>
 
 <script>
-    export default {
+    import Categories from './Categories';
 
+    export default {
+                components: {
+            'Categories': Categories,
+        }
     }
 </script>

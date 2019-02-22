@@ -13,6 +13,11 @@ let routes = [
         path: '/about',
         component: require('./views/About').default
     },
+    {
+        path: '/categories',
+        component: require('./views/Categories').default
+    },
+
 ];
 
 export default new VueRouter({
