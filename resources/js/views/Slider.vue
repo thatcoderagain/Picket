@@ -1,6 +1,12 @@
+<style>
+    #slider {
+        max-height: 800px;
+    }
+</style>
+
 <template>
     <div id="sliderControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
+        <div id="slider" class="carousel-inner">
             <div class="carousel-item" :class="[key == 0 ? 'active' : '']" v-for="(image, key) in images">
               <img class="d-block w-100" v-bind:src="image" alt="First slide">
             </div>
