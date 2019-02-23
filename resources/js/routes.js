@@ -18,13 +18,8 @@ let routes = [
         component: require('./views/About').default
     },
     {
-<<<<<<< HEAD
-        path: '/modal',
-        component: require('./views/Slider').default
-=======
         path: '/categories',
         component: require('./views/Categories').default
->>>>>>> ea25770692bb65eb84629fcc46dadc9fd94bd024
     },
 ];
 
