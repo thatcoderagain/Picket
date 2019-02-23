@@ -10,7 +10,6 @@
 <script>
     import Categories from './Categories';
     import Slider from './Slider';
-
     export default {
         components: {
             Slider: Slider,
