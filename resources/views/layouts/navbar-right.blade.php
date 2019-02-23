@@ -1,22 +1,20 @@
 <ul class="navbar-nav ml-auto">
-    <li>
-    <nav class="navbar navbar-light bg-dark">
+
+    <li class="mr-4">
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
         </form>
-    </nav>
     </li>
+
     <!-- Authentication Links -->
-   {{--  @guest
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-        </li>
-        @if (Route::has('register'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-            </li>
-        @endif
+    @guest
+        <router-link tag="li" to="/login" class="nav-item">
+            <a class="nav-link">Login</a>
+        </router-link>
+        <router-link tag="li" to="/register" class="nav-item">
+            <a class="nav-link">Register</a>
+        </router-link>
     @else
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -35,5 +33,5 @@
                 </form>
             </div>
         </li>
-    @endguest --}}
+    @endguest
 </ul>

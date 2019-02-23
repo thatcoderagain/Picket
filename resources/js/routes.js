@@ -10,6 +10,10 @@ let routes = [
         component: require('./views/auth/Login').default
     },
     {
+        path: '/register',
+        component: require('./views/auth/Register').default
+    },
+    {
         path: '/about',
         component: require('./views/About').default
     },

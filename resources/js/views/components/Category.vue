@@ -1,7 +1,7 @@
 <template>
     <div class="card-deck">
-        <div class="card border-primary mb-3" style="max-width: 30rem;">
-            <img class="card-img-top" :src="src" alt="Card image cap">
+        <div class="card border-primary mb-3">
+            <img class="card-img-top" v-bind:src="src" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{ title }}</h5>
                 <p class="card-text">{{ content }}</p>
@@ -19,7 +19,7 @@
             return {
                 src: 'https://hdqwalls.com/download/minimalism-plane-ot-1600x900.jpg',
                 title: 'Card title',
-                content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus sed quam, ipsam reiciendis aut temporibus.',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, eveniet!',
                 time: 'Last updated 3 mins ago',
             }
         }
