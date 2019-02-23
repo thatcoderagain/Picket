@@ -11,6 +11,7 @@ new ComponentFactory().installAll();
 
 require(Mix.paths.mix());
 
+
 /**
  * Just in case the user needs to hook into this point
  * in the build process, we'll make an announcement.

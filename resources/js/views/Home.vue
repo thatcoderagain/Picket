@@ -1,35 +1,28 @@
 <template>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Home Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-
-                        <Slider v-bind:src="src" v-bind:title="title" v-bind:msg="msg"></Slider>
-                    </div>
-                </div>
-            </div>
+    <div>
+        <Slider v-bind:images="image_sources"></Slider>
+        <div class="container-fluid mt-4">
+            <Categories></Categories>
         </div>
     </div>
 </template>
 
 <script>
-    import Slider from './Slider.vue';
+    import Categories from './Categories';
+    import Slider from './components/Slider';
 
     export default {
         components: {
-            'Slider': Slider
+            Slider: Slider,
+            'Categories': Categories,
         },
         data() {
             return {
-                src: ["https://picsum.photos/1024/480/?image=10", 
-                    "https://picsum.photos/1024/480/?image=54", 
-                    "https://picsum.photos/1024/480/?image=58"],
-                title: 'Sita Teja',
-                msg: 'Wanna come in relationship'
+                image_sources: [
+                    'https://hdqwalls.com/download/minimalism-plane-ot-1600x900.jpg',
+                    'https://uhdwallpapers.org/uploads/converted/18/03/17/bmw-i8-1600x900_75778-mm-90.jpg',
+                    'http://wallpoper.com/images/00/36/92/04/outer-space_00369204.jpg'
+                ],
             }
         }
     }

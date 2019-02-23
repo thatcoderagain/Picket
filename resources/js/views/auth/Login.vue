@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -11,7 +11,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" v-model="email" required autofocus>
+                                <input id="email" type="email" class="form-control" :class="[ errors != null ? 'is-invalid' : '']" name="email" v-model="email" @keydown="errors = null" required autofocus>
                             </div>
                         </div>
 
@@ -19,11 +19,13 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" v-model="password" required>
+                                <input id="password" type="password" class="form-control" :class="[ errors != null ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null" required>
 
-                                <template v-if="errors">
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ errors }}</strong>
+                                <template v-if="errors != null">
+                                    <span class="text-danger" role="alert">
+                                        <strong v-for="error in errors">
+                                            {{ error }}
+                                        </strong>
                                     </span>
                                 </template>
                             </div>
@@ -43,7 +45,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" v-on:click="attemptLogin()">
+                                <button type="button" class="btn btn-primary" :class="[errors != null ? 'disabled' : '']" v-on:click="attemptLogin()">
                                     Login
                                 </button>
                                 <router-link to="/password-reset" class="btn btn-link">Forgot Your Password?</router-link>
@@ -80,7 +82,6 @@
                     url: url,
                     withCredentials: false,
                     data: {
-                        '_token': window.token,
                         'email': this.email,
                         'password': this.password
                     }
@@ -88,9 +89,9 @@
                 .then((response) => {
                     let json = response.data;
                     console.log(json);
-                    alert(json);
                     if (json.success == true) {
                         this.user = json.user;
+                        window.location = "/";
                     } else {
                         this.errors = json.error;
                     }
@@ -99,9 +100,6 @@
                     console.log(error);
                 });
             }
-        },
-        computed: {
-
         }
     }
 </script>

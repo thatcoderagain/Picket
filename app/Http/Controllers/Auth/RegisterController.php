@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -51,7 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'name' => ['required', 'string', 'max:5'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
@@ -65,10 +66,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $verified = validator($data);
-
-        dd($verified);
-
         $user = User::create([
             'username' => $data['username'],
             'name' => $data['name'],
@@ -76,14 +73,51 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // JSON
-        if ($request->ajax() || $request->wantsJson()) {
+        // return view('auth.login');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        if ($validator->fails()) {
             return response()->json([
-                'user' => $user->toJson(),
+                'errors'=>$validator->errors(),
+                'success' => false
+            ]);
+        }
+        else {
+            $user = $this->create($request->all());
+            event(new Registered($user));
+            return response()->json([
+                'user'=>$user,
                 'success' => true
-            ], 200);
+            ]);
         }
 
-        // return view('auth.login');
+        // return $this->registered($request, $user) ? : redirect($this->redirectPath());
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        //
     }
 }
