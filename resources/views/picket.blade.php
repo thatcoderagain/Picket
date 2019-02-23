@@ -6,6 +6,6 @@
     <div class="container-fuild">
         @include('layouts.header')
 
-        <router-view class="mt-3"></router-view>
+        <router-view class="mt-3 container-fluid"></router-view>
     </div>
 @endsection
