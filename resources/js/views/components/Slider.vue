@@ -1,7 +1,8 @@
 <style>
-    #slider {
-        max-height: 600px;
-    }
+#slider
+{
+max-height: 600px;
+}
 </style>
 
 <template>
