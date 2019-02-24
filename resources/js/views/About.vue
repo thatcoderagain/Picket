@@ -7,6 +7,8 @@
 
                     <div class="card-body">
                         I'm an example component.
+                        {{ devname }}
+                        <button @click="devn()">click</button>
                     </div>
                 </div>
             </div>
@@ -18,7 +20,12 @@
     export default {
         data() {
             return {
-
+                devname: '',
+            }
+        },
+        computed: {
+            devn(){
+                this.devname = this.$store.state.dev;
             }
         }
     }

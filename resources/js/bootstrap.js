@@ -10,11 +10,13 @@ try {
 
 // import moment from 'moment';
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import axios from 'axios';
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 
 window.Vue = Vue;
 Vue.use(VueRouter);
+Vue.use(Vuex);
 window.EventBus = new Vue();
 
 window.axios = axios;
