@@ -1,3 +1,9 @@
+<style>
+#slider
+{
+    max-height: 600px;
+}
+</style>
 <template>
     <div>
         <Slider v-bind:images="image_sources"></Slider>
