@@ -2,6 +2,7 @@
     <div>
         <Slider v-bind:images="image_sources"></Slider>
         <div class="container-fluid mt-4">
+            <Features></Features>
             <Categories></Categories>
         </div>
     </div>
@@ -10,10 +11,12 @@
 <script>
     import Categories from './Categories';
     import Slider from './components/Slider';
+    import Features from './Features';
     export default {
         components: {
             Slider: Slider,
             'Categories': Categories,
+            'Features': Features,
         },
         data() {
             return {
