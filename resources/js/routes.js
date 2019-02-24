@@ -17,6 +17,10 @@ let routes = [
         path: '/about',
         component: require('./views/About').default
     },
+    {
+        path: '/plans',
+        component: require('./views/Plans').default
+    },
 ];
 
 export default new VueRouter({

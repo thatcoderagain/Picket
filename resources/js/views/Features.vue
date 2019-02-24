@@ -2,7 +2,7 @@
 <div class="outer-div">
   <div class="inner-div">
      <h3>Give your photos the right kind of exposure.</h3>
-     <p>We know your photos are the lifeblood of your photography business, and when displaying them online, you need the right tools to protect them. SmugMug helps protect your work with the most advanced privacy controls in the industry.</p>
+     <p>We know your photos are the lifeblood of your photography business, and when displaying them online, you need the right tools to protect them. Picket helps protect your work with the most advanced privacy controls in the industry.</p>
      <ul class="list">
       <li>Custom watermarks and printmarks</li>
       <li>Complete control over who sees and accesses your photos</li>
