@@ -7,9 +7,9 @@
 
                     <div class="card-body">
                         I'm an example component.
-                        {{ devname }}
-                        <button @click="devn()">click</button>
+                        {{ dev }}
                     </div>
+
                 </div>
             </div>
         </div>
@@ -18,14 +18,17 @@
 
 <script>
     export default {
+        created() {
+            // dev() = 'abc';
+        },
         data() {
             return {
-                devname: '',
+
             }
         },
         computed: {
-            devn(){
-                this.devname = this.$store.state.dev;
+            dev(){
+                return this.$store.state.dev;
             }
         }
     }

@@ -21,7 +21,6 @@ let routes = [
         path: '/categories',
         component: require('./views/Categories').default
     },
-
 ];
 
 export default new VueRouter({

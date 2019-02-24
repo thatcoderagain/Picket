@@ -2,13 +2,21 @@
     #slider {
         max-height: 600px;
     }
+    .carousel-caption {
+        top: 50% !important;
+        /*bottom: auto !important;*/
+    }
 </style>
 
 <template>
     <div id="sliderControls" class="carousel slide" data-ride="carousel">
         <div id="slider" class="carousel-inner">
             <div class="carousel-item" :class="[key == 0 ? 'active' : '']" v-for="(image, key) in images">
-              <img class="d-block w-100" v-bind:src="image" alt="First slide">
+                <img class="d-block w-100" v-bind:src="image" alt="First slide">
+                <div class="carousel-caption d-sm-none d-md-block">
+                  <h5>Slide label</h5>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum saepe consequuntur dolores earum a, dolorum aliquid nemo reprehenderit sint velit.</p>
+                </div>
             </div>
         </div>
         <a class="carousel-control-prev" href="#sliderControls" role="button" data-slide="prev">

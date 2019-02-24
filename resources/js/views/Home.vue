@@ -20,8 +20,8 @@
             return {
                 image_sources: [
                     'https://hdqwalls.com/download/minimalism-plane-ot-1600x900.jpg',
-                    'https://uhdwallpapers.org/uploads/converted/18/03/17/bmw-i8-1600x900_75778-mm-90.jpg',
-                    'http://wallpoper.com/images/00/36/92/04/outer-space_00369204.jpg'
+                    // 'https://uhdwallpapers.org/uploads/converted/18/03/17/bmw-i8-1600x900_75778-mm-90.jpg',
+                    // 'http://wallpoper.com/images/00/36/92/04/outer-space_00369204.jpg'
                 ],
             }
         }
