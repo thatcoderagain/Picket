@@ -12,6 +12,7 @@
     import Categories from './Categories';
     import Slider from './components/Slider';
     import Features from './Features';
+
     export default {
         components: {
             Slider: Slider,
