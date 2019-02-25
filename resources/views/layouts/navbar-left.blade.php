@@ -8,8 +8,12 @@
         <a class="nav-link">About</a>
     </router-link>
 
-    <router-link tag="li" to="/categories" class="nav-item">
-        <a class="nav-link">Category</a>
+    <router-link tag="li" to="/plans" class="nav-item">
+        <a class="nav-link">Plans</a>
+    </router-link>
+
+    <router-link tag="li" to="/upload" class="nav-item">
+        <a class="nav-link">Upload</a>
     </router-link>
 
 </ul>

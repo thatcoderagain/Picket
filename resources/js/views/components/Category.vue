@@ -1,13 +1,19 @@
 <template>
-    <div class="card-deck">
-        <div class="card border-primary mb-3">
-            <img class="card-img-top" v-bind:src="src" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{ title }}</h5>
-                <p class="card-text">{{ content }}</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">{{ time }}</small>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-3" v-for="i in 5">
+                <div class="card-deck">
+                    <div class="card border-primary mb-3">
+                        <img class="card-img-top" v-bind:src="src" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">{{ title }}</h4>
+                            <p class="card-text">{{ content }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ time }}</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

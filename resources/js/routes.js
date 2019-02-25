@@ -18,8 +18,12 @@ let routes = [
         component: require('./views/About').default
     },
     {
-        path: '/categories',
-        component: require('./views/Categories').default
+        path: '/plans',
+        component: require('./views/Plans').default
+    },
+    {
+        path: '/upload',
+        component: require('./views/Upload').default
     },
 ];
 
