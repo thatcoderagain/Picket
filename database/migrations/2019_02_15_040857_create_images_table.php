@@ -16,13 +16,12 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->index();
+            $table->string('category');
             $table->string('meme_type');
-            $table->string('slug');
             $table->string('resolution');
             $table->integer('size');
-            $table->string('category');
-            $table->date('date_of_upload');
-            $table->integer('downloads');
+            $table->string('slug');
+            $table->integer('downloads')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

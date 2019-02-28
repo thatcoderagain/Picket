@@ -1,8 +1,14 @@
+<style>
+    .dsa {
+        width:400px; min-height: 400px; margin: auto; padding: 32px;
+        max-width: 650px; margin: auto;
+    }
+</style>
 <template>
     <div class="animated fadeIn">
-        <div class="fullscreen" :style="'background-image:url('+bgimage_src+');'">
-            <div class="card transparent" style="width:400px; min-height: 400px; margin: auto; padding: 32px">
-                <div style="max-width: 650px; margin: auto;">
+        <div class="fullscreen row" :style="'background-image:url('+bgimage_src+');'">
+            <div class="card transparent col-sm-12 col-md-4 offset-md-4 p-5">
+                <div class="container">
                     <h1 class="page-header" style="font:bold">Image Upload</h1>
                     <p class="lead">Select a PNG or JPEG image, having maximum size <span id="max-size"></span> KB.</p>
 
@@ -18,7 +24,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Description</label>
-                                <textarea text="textarea" class="form-control" placeholder="description"></textarea>
+                                <textarea text="textarea" class="form-control" placeholder="Description"></textarea>
                                 <small id="emailHelp" class="form-text text-muted">Enter the description in less than 50 words!</small>
                             </div>
                             <div class="dropdown">
