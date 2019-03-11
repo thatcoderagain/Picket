@@ -25,6 +25,10 @@ let routes = [
         path: '/upload',
         component: require('./views/Upload').default
     },
+    {
+        path: '/image',
+        component: require('./views/components/Image').default
+    },
 ];
 
 export default new VueRouter({
