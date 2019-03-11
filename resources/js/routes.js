@@ -26,8 +26,8 @@ let routes = [
         component: require('./views/Upload').default
     },
     {
-        path: '/image',
-        component: require('./views/components/Image').default
+        path: '/gallery',
+        component: require('./views/Gallery').default
     },
 ];
 

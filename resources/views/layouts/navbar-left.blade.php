@@ -16,4 +16,8 @@
         <a class="nav-link">Upload</a>
     </router-link>
 
+    <router-link tag="li" to="/Gallery" class="nav-item">
+        <a class="nav-link">Gallery</a>
+    </router-link>
+
 </ul>
