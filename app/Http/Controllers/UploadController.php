@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Image;
 use App\Keyword;
+use App\ImageKeyword;
 use Illuminate\Http\Request;
 
 class UploadController extends Controller
@@ -25,18 +26,15 @@ class UploadController extends Controller
                 $checksum = md5_file($request->file('imageFile'));
                 $keywords = $request->input('keywords');
 
-                foreach (explode(',', $keywords) as $keyword) {
-                    Keyword::firstOrCreate([
-                        'keyword' => $keyword
-                    ]);
-                }
-
                 do {
                     $slug = str_random(24);
                 }while(Image::where('slug', $slug)->first() != null);
 
-                if (Image::where('checksum', $checksum)->first() == null)
+                // if (Image::where('checksum', $checksum)->first() == null)
                 {
+                    # Store File
+                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug.$extension);
+
                     $image = Image::create([
                         'user_id' => Auth::user()->id,
                         'category' => $category,
@@ -46,8 +44,14 @@ class UploadController extends Controller
                         'slug' => $slug.$extension,
                         'checksum' => $checksum
                     ]);
-                    # Store File
-                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug.$extension);
+
+                    foreach (explode(',', $keywords) as $keyword) {
+                        $theKeyword = Keyword::firstOrCreate([
+                            'keyword' => $keyword
+                        ]);
+                        // $image->keywords()->attach($theKeyword);
+                    }
+
                     return response()->json(['image' => $image->id], 200);
                 }
                 return response()->json(['error' => 'Duplication Image'], $status = 200);

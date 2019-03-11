@@ -17,6 +17,6 @@ class Image extends Model
 
     public function keywords()
     {
-        return $this->hasMany(App\Keyword::class);
+        return $this->belongsToMany(App\Keyword::class)->withPivot('id');
     }
 }

@@ -14,4 +14,9 @@ class Keyword extends Model
     {
         return $this->belongsToMany(App\Image::class);
     }
+
+    public function images()
+    {
+        return $this->belongsToMany(App\Keyword::class)->withPivot('id');
+    }
 }
