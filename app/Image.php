@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     protected $fillable = [
-        'user_id', 'category', 'meme_type', 'resolution'. 'size', 'slug'
+        'user_id', 'category', 'meme_type', 'resolution', 'size', 'slug', 'checksum'
     ];
 
     public function photographer()

@@ -1,5 +1,6 @@
 
 body {
+    min-width: 468px;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -7,7 +8,7 @@ body {
 
 .fullscreen {
     position: fixed;
-    width: 100%;
+    width: 105%;
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -15,7 +16,17 @@ body {
     align-content: center;
     justify-content: center;
     align-items: center;
-    padding: 32px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff000;
 }
 
 .transparent {

@@ -8,16 +8,25 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
         data() {
             return {
 
             }
         },
-        computed: {
-            dev(){
-                return this.$store.state.dev;
-            }
-        }
+        // computed: mapState({
+        //     dev: (state) => state.dev,
+        // }),
+        computed: mapState([
+            'dev',
+        ])
+
+        // {
+        //     dev(){
+        //         return this.$store.state.dev;
+        //     }
+        // }
     }
 </script>

@@ -20,7 +20,8 @@ class CreateImagesTable extends Migration
             $table->string('meme_type');
             $table->string('resolution');
             $table->integer('size');
-            $table->string('slug');
+            $table->string('slug')->unique();
+            $table->string('checksum')->unique();
             $table->integer('downloads')->default(0);
             $table->timestamps();
 
