@@ -15,8 +15,8 @@ class UploadController extends Controller
         {
             if ($request->file('imageFile')->isValid())
             {
-                $fileName = $request->file('imageFile')->getClientOriginalName();
-                $fileExt = $request->file('imageFile')->getClientOriginalExtension();
+                // $fileName = $request->file('imageFile')->getClientOriginalName();
+                $extension = $request->file('imageFile')->getClientOriginalExtension();
                 $meme_type = $request->file('imageFile')->getMimeType();
                 $size = $request->file('imageFile')->getSize();
                 $imageData = getimagesize($request->file('imageFile'));
@@ -24,7 +24,6 @@ class UploadController extends Controller
                 $category = $request->input('category');
                 $checksum = md5_file($request->file('imageFile'));
                 $keywords = $request->input('keywords');
-
 
                 foreach (explode(',', $keywords) as $keyword) {
                     Keyword::firstOrCreate([
@@ -44,11 +43,11 @@ class UploadController extends Controller
                         'meme_type' => $meme_type,
                         'resolution' => $resolution,
                         'size' => $size,
-                        'slug' => $slug,
+                        'slug' => $slug.$extension,
                         'checksum' => $checksum
                     ]);
                     # Store File
-                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug);
+                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug.$extension);
                     return response()->json(['image' => $image->id], 200);
                 }
                 return response()->json(['error' => 'Duplication Image'], $status = 200);
