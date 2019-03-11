@@ -23,8 +23,8 @@
     export default {
         components: {
             Slider: Slider,
-            'Categories': Categories,
-            'Features': Features,
+            Categories: Categories,
+            Features: Features,
         },
         data() {
             return {
