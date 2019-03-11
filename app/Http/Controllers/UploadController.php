@@ -52,8 +52,6 @@ class UploadController extends Controller
                     return response()->json(['image' => $image->id], 200);
                 }
                 return response()->json(['error' => 'Duplication Image'], $status = 200);
-
-
             }
         }
     }

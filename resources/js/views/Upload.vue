@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <select name="category" class="custom-select" v-model="category" @change="categoryError=false">
                             <option value="">Choose Category</option>
-                            <option v-for="category in categories" v-text="category" href="#"></option>
+                            <option v-for="category in categories" v-text="category"></option>
                         </select>
                         <span class="alert text-danger" role="alert" v-show="categoryError">
                             <strong>You must choose a category for this image.</strong>
