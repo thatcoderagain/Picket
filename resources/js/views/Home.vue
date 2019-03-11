@@ -3,10 +3,14 @@
 {
     max-height: 600px;
 }
+#searchBar {
+    z-index:9999;
+}
 </style>
 
 <template>
     <div>
+        <SearchBar id="searchBar"></SearchBar>
         <Slider v-bind:images="image_sources"></Slider>
         <div class="container-fluid mt-4">
             <Features></Features>
@@ -16,6 +20,7 @@
 </template>
 
 <script>
+    import SearchBar from './components/SearchBar';
     import Categories from './components/Category';
     import Slider from './components/Slider';
     import Features from './Features';
@@ -25,6 +30,7 @@
             Slider: Slider,
             Categories: Categories,
             Features: Features,
+            SearchBar: SearchBar,
         },
         data() {
             return {
