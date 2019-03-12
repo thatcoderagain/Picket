@@ -36,7 +36,7 @@ let routes = [
     {
         path: '/profile',
         component: require('./views/Profile').default
-    },
+    }
 ];
 
 export default new VueRouter({
