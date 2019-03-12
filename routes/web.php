@@ -11,6 +11,15 @@
 |
 */
 
-// Route::get('/', function() { return view('picket'); })->name('picket');
-
+/**
+ * VUE APP ROUTE
+ */
 Route::view('/{path?}', 'picket');
+
+/**
+ * TESTING ROUTE
+ */
+Route::get('/sql', function() {
+    return \App\Image::with('keywords')->where('id', 1)->get();
+});
+

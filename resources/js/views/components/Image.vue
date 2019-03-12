@@ -1,8 +1,8 @@
 <template>
     <div class="card-deck">
-        <div class="card border-primary overflow-hidden m-1 p-0" @mouseover="footer=true" @mouseout="footer=false">
+        <div class="card border-primary overflow-hidden m-1 p-0" @mouseover="footer=true" @mouseleave="footer=false">
 
-            <img class="card-img-top" v-bind:src="StoragePath(image.slug)" alt="Card image cap" v-on:click="openModal(image)">
+            <img class="card-img-top" v-bind:src="this.StoragePath(image.slug)" alt="Card image cap" v-on:click="openModal(image)">
 
             <div class="card-footer animated position-absolute fixed-bottom mb-0 p-0" :class="[footer ? 'slideInUp' : 'slideOutDown']">
 
@@ -13,7 +13,7 @@
                     <div class="form-group m-0 p-0">
                         <button type="button" class="btn btn-primary btn-sm">Photographer</button>
                         <button type="button" class="btn btn-danger btn-sm">Add to Cart</button>
-                        <button type="button" class="btn btn-success btn-sm">Open Image</button>
+                        <router-link tag="a" :to="'/image/' + image.id" class="btn btn-success btn-sm">Open Image</router-link>
                     </div>
                 </div>
             </div>
@@ -37,9 +37,6 @@
                 EventBus.$emit('showModal', {
                     image: image
                 });
-            },
-            StoragePath(string) {
-                return '/storage/image-files/'+string;
             }
         }
     }

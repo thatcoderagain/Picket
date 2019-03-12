@@ -138,7 +138,7 @@
                     this.categoryError = true;
                     return null;
                 }
-                if (this.words(this.caption) <= 5 || this.words(this.caption) >= 30){
+                if (this.words(this.caption) <= 4 || this.words(this.caption) >= 30){
                     this.captionError = true;
                     return null;
                 }
@@ -164,7 +164,7 @@
                     let json = response.data;
                     console.log(json);
                     /* REDIRECT AFTER SUCCESSFUL UPLOAD */
-                    window.location = '/upload'
+                    window.location = '/image/'+json.image;
                 })
                 .catch((error) => {
                     console.log(error);

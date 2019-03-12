@@ -10,13 +10,15 @@ class Image extends Model
         'user_id', 'category', 'caption', 'mime_type', 'resolution', 'size', 'slug', 'checksum'
     ];
 
+    protected $hidden = ['checksum'];
+
     public function photographer()
     {
-        return $this->belongsTo('App\Photographer');
+        return $this->belongsTo('App\User');
     }
 
     public function keywords()
     {
-        return $this->belongsToMany('App\Keyword')->withPivot('ImageKeyword');
+        return $this->belongsToMany('App\Keyword')->withPivot('keyword_id');
     }
 }

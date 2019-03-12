@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router';
 
 /* Components */
-import ImageProfile from './views/ImageProfile';
 import Home from './views/Home';
 import Login from './views/auth/Login';
 import Register from './views/auth/Register';
@@ -10,6 +9,7 @@ import Plans from './views/Plans';
 import Upload from './views/Upload';
 import Gallery from './views/Gallery';
 import Profile from './views/Profile';
+import ImageProfile from './views/ImageProfile';
 
 let routes = [
     {
@@ -41,7 +41,7 @@ let routes = [
         component: Gallery
     },
     {
-        path: '/imageprofile',
+        path: '/image/:id',
         component: ImageProfile
     },
     {
@@ -52,6 +52,6 @@ let routes = [
 
 export default new VueRouter({
     routes: routes,
-    mode: 'history',
+    // mode: 'history',
     linkActiveClass: 'is-active'
 });
