@@ -34,6 +34,11 @@ let routes = [
         component: require('./views/components/SearchBar').default
     },
     {
+
+        path: '/imageprofile',
+        component: require('./views/ImageProfile').default
+    },
+    {
         path: '/profile',
         component: require('./views/Profile').default
     }
