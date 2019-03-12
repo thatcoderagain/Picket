@@ -19,6 +19,9 @@
                         <p class="alert alert-danger mt-2" v-show="sizeError">
                             Image size is too small and can't be uploaded.
                         </p>
+                        <p class="alert alert-danger mt-2" v-show="duplicateError">
+                            Duplicate image found, you can't upload this upload.
+                        </p>
                         <!-- <button type="button" class="btn btn-lg btn-block btn-primary p-1" @click="$refs.FileInput.click()"><i class="fas fa-image"></i> Pick File</button> -->
                     </div>
 
@@ -84,6 +87,7 @@
                 captionError: false,
                 categoryError: false,
                 keywordError: false,
+                duplicateError: false
             }
         },
         created() {

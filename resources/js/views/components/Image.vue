@@ -2,7 +2,7 @@
     <div class="card-deck">
         <div class="card border-primary overflow-hidden m-1 p-0" @mouseover="footer=true" @mouseout="footer=false">
 
-            <img class="card-img-top" v-bind:src="StoragePath(image.slug)" alt="Card image cap" v-on:click="openModal(image)">
+            <img class="card-img-top" v-bind:src="'/storage/image-files/'+image.slug" alt="Card image cap" v-on:click="openModal(image)">
 
             <div class="card-footer animated position-absolute fixed-bottom mb-0 p-0" :class="[footer ? 'slideInUp' : 'slideOutDown']">
 
