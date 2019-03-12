@@ -1,5 +1,6 @@
 <template>
- <div class="container">
+<div class="p-3 mb-2 bg-secondary text-white">
+ <div class="container bg-dark text-white">
     <div class="row mt-3">
         <div class="col-md-6 col-sm-12">
               <img v-bind:src="src"" alt="placeholder"class="img-fluid">
@@ -7,9 +8,11 @@
               <p class="card-text">{{ keywords }}</p>
         </div>
         <div class="col-md-6 col-sm-12">
+<button type="button" class="btn btn-primary btn-lg">Add to Cart</button>
 
         </div>
     </div>
+</div>
 </div>
 </template>
 
