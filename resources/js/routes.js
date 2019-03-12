@@ -34,8 +34,8 @@ let routes = [
         component: require('./views/components/SearchBar').default
     },
     {
-        path: '/cart',
-        component: require('./views/components/Cart').default
+        path: '/profile',
+        component: require('./views/Profile').default
     },
 ];
 
