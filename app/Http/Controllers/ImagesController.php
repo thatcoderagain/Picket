@@ -11,19 +11,44 @@ class ImagesController extends Controller
 {
     public function getImages()
     {
-        return Image::all();
+        return Image::orderBy('id', 'DESC')->get();
     }
 
     public function getCategories()
     {
         return [
-            'Art',
+            'Abstract',
+            'Animal/Wildlife',
+            'Background/Textures',
+            'Beautify/Fashion',
+            'Building/Landmarks',
+            'Business/Finance',
             'Cartoon',
+            'Celebrities',
+            'Editorial',
             'Education',
             'Festival',
+            'Food and Drink',
+            'Healthcare/Medical',
+            'Holidays',
+            'Illustrations/Clip-Art',
+            'Industrial',
+            'Interiors',
+            'Miscellaneous',
             'Music',
-            'Medicinal',
-            'Tourism',
+            'Nature',
+            'Objects',
+            'Parks/Outdoor',
+            'People',
+            'Relegion',
+            'Science',
+            'Signs/Symnols',
+            'Sports/Recreation',
+            'Technology',
+            'The Arts',
+            'Transportation',
+            'Vectors',
+            'Vintage',
         ];
     }
 
@@ -40,6 +65,7 @@ class ImagesController extends Controller
                 $imageData = getimagesize($request->file('imageFile'));
                 $resolution = $imageData[0].' x '.$imageData[1];
                 $category = $request->input('category');
+                $caption = $request->input('caption');
                 $checksum = md5_file($request->file('imageFile'));
                 $keywords = $request->input('keywords');
 
@@ -55,6 +81,7 @@ class ImagesController extends Controller
                     $image = Image::create([
                         'user_id' => Auth::user()->id,
                         'category' => $category,
+                        'caption' => $caption,
                         'meme_type' => $meme_type,
                         'resolution' => $resolution,
                         'size' => $size,

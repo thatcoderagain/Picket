@@ -9,12 +9,6 @@
                 <div class="card bg-white text-dark m-0 p-3">
                     <div class="text-justify">
                         <span class="text-right font-weight-bold">Category: {{ image.category }}</span>
-                        <br>
-                        <span class="text-left font-italic">
-                            <span v-for="keyword in image.keywords">
-                                <span class="badge badge-pill badge-secondary">#{{ keyword }}&nbsp;</span>
-                            </span>
-                        </span>
                     </div>
                     <div class="form-group m-0 p-0">
                         <button type="button" class="btn btn-primary btn-sm">Photographer</button>

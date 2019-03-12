@@ -17,6 +17,7 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->index();
             $table->string('category');
+            $table->string('caption');
             $table->string('meme_type');
             $table->string('resolution');
             $table->integer('size');
