@@ -101,7 +101,8 @@
                     console.log(event);
                     this.avatar = event.target.result;
                 }
-                this.sizeMB(this.imageFile.size) < 2 ? this.sizeError = true : this.sizeError = false;
+                // UNCOMMNET TO PUT SIZE CONDITION BACK
+                //this.sizeMB(this.imageFile.size) < 2 ? this.sizeError = true : this.sizeError = false;
             },
             sizeMB(bytes) {
                 return parseFloat(bytes / (1024*1024)).toFixed(2);
