@@ -29,6 +29,10 @@ let routes = [
         path: '/gallery',
         component: require('./views/Gallery').default
     },
+    {
+        path: '/cart',
+        component: require('./views/components/Cart').default
+    },
 ];
 
 export default new VueRouter({
