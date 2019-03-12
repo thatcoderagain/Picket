@@ -1,46 +1,52 @@
 import VueRouter from 'vue-router';
 
+/* Components */
+import ImageProfile from './views/ImageProfile';
+import Home from './views/Home';
+import Login from './views/auth/Login';
+import Register from './views/auth/Register';
+import About from './views/About';
+import Plans from './views/Plans';
+import Upload from './views/Upload';
+import Gallery from './views/Gallery';
+import Profile from './views/Profile';
+
 let routes = [
     {
         path: '/',
-        component: require('./views/Home').default
+        component: Home
     },
     {
         path: '/login',
-        component: require('./views/auth/Login').default
+        component: Login
     },
     {
         path: '/register',
-        component: require('./views/auth/Register').default
+        component: Register
     },
     {
         path: '/about',
-        component: require('./views/About').default
+        component: About
     },
     {
         path: '/plans',
-        component: require('./views/Plans').default
+        component: Plans
     },
     {
         path: '/upload',
-        component: require('./views/Upload').default
+        component: Upload
     },
     {
         path: '/gallery',
-        component: require('./views/Gallery').default
+        component: Gallery
     },
     {
-        path: '/search',
-        component: require('./views/components/SearchBar').default
-    },
-    {
-
         path: '/imageprofile',
-        component: require('./views/ImageProfile').default
+        component: ImageProfile
     },
     {
         path: '/profile',
-        component: require('./views/Profile').default
+        component: Profile
     }
 ];
 
