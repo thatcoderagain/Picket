@@ -1,34 +1,25 @@
-<style>
-p
-{
-    font-size:18px;
-    color:white;
-}
-.alert-danger
-{
-    color: #dee2e6;
-}
-</style>
-
 <template>
     <div class="card-deck">
         <div class="card border-primary overflow-hidden m-1 p-0" @mouseover="footer=true" @mouseout="footer=false">
 
-            <img class="card-img-top" v-bind:src="image.src" alt="Card image cap" v-on:click="openModal(image)">
+            <img class="card-img-top" v-bind:src="StoragePath(image.slug)" alt="Card image cap" v-on:click="openModal(image)">
 
             <div class="card-footer animated position-absolute fixed-bottom mb-0 p-0" :class="[footer ? 'slideInUp' : 'slideOutDown']">
-                <div class="alert alert-info text-dark m-0">
-                    <small class="align-right"><b>{{ image.category }}</b></small>
-                    <br>
-                    <small class="align-left font-italic">
-                        <template v-for="keyword in image.keywords">
-                            #{{  keyword }}&nbsp;
-                        </template>
-                    </small>
-                    <br>
-                    <div>
-                        <button type="button" class="btn btn-primary btn-sm">Visit Photographer</button>
-                        <button type="button" class="btn btn-primary btn-sm">Add To Cart</button>
+
+                <div class="card bg-white text-dark m-0 p-3">
+                    <div class="text-justify">
+                        <span class="text-right font-weight-bold">Category: {{ image.category }}</span>
+                        <br>
+                        <span class="text-left font-italic">
+                            <span v-for="keyword in image.keywords">
+                                <span class="badge badge-pill badge-secondary">#{{ keyword }}&nbsp;</span>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group m-0 p-0">
+                        <button type="button" class="btn btn-primary btn-sm">Photographer</button>
+                        <button type="button" class="btn btn-danger btn-sm">Add to Cart</button>
+                        <button type="button" class="btn btn-success btn-sm">Open Image</button>
                     </div>
                 </div>
             </div>
@@ -48,10 +39,13 @@ p
             }
         },
         methods: {
-            openModal: (image) => {
+            openModal(image) {
                 EventBus.$emit('showModal', {
                     image: image
                 });
+            },
+            StoragePath(string) {
+                return '/storage/image-files/'+string;
             }
         }
     }

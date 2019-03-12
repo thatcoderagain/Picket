@@ -65,17 +65,7 @@
         data() {
             return {
                 bgimage_src: '/storage/images/upload-page-background.jpeg',
-
-                categories: [
-                    'Art',
-                    'Cartoon',
-                    'Education',
-                    'Festival',
-                    'Music',
-                    'Medicinal',
-                    'Tourism',
-                ],
-
+                categories: [],
                 avatar: null,
                 imageFile: null,
                 uploadPercentage: 0,
@@ -87,8 +77,22 @@
                 keywordError: false,
             }
         },
-
+        created() {
+            this.fetchCategoies();
+        },
         methods: {
+            fetchCategoies(){
+                let url = 'api/fetchCategories';
+                axios.post(url)
+                .then((response) => {
+                    let json = response.data;
+                    console.log(json);
+                    this.categories = json;
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+            },
             onFileSelected(event) {
                 this.imageFile = event.target.files[0];
                 let reader = new FileReader();

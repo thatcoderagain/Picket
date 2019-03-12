@@ -1,3 +1,6 @@
+*{
+    font-family: $font-family-sans-serif;
+}
 
 body {
     min-width: 468px;
@@ -26,7 +29,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ff000;
+    background: #ff0000;
 }
 
 .transparent {

@@ -12,11 +12,11 @@ class Photographer extends Model
 
     public function user()
     {
-        return $this->belongsTo(App\User::class);
+        return $this->belongsTo('App\User');
     }
 
     public function images()
     {
-        return $this->hasMany(App\Image::class);
+        return $this->hasMany('App\Image');
     }
 }

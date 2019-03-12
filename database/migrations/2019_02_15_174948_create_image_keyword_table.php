@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImageKeywordsTable extends Migration
+class CreateImageKeywordTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateImageKeywordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_keywords', function (Blueprint $table) {
+        Schema::create('image_keyword', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('image_id')->index();
             $table->unsignedBigInteger('keyword_id')->index();
@@ -31,6 +31,6 @@ class CreateImageKeywordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('image_keywords');
+        Schema::dropIfExists('image_keyword');
     }
 }

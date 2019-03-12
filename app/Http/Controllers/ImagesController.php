@@ -5,12 +5,29 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Image;
 use App\Keyword;
-use App\ImageKeyword;
 use Illuminate\Http\Request;
 
-class UploadController extends Controller
+class ImagesController extends Controller
 {
-    public function uploadFile(Request $request)
+    public function getImages()
+    {
+        return Image::all();
+    }
+
+    public function getCategories()
+    {
+        return [
+            'Art',
+            'Cartoon',
+            'Education',
+            'Festival',
+            'Music',
+            'Medicinal',
+            'Tourism',
+        ];
+    }
+
+    public function uploadImage(Request $request)
     {
         if ($request->hasFile('imageFile'))
         {
@@ -30,10 +47,10 @@ class UploadController extends Controller
                     $slug = str_random(24);
                 }while(Image::where('slug', $slug)->first() != null);
 
-                // if (Image::where('checksum', $checksum)->first() == null)
+                if (Image::where('checksum', $checksum)->first() == null)
                 {
                     # Store File
-                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug.$extension);
+                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug.'.'.$extension);
 
                     $image = Image::create([
                         'user_id' => Auth::user()->id,
@@ -41,15 +58,15 @@ class UploadController extends Controller
                         'meme_type' => $meme_type,
                         'resolution' => $resolution,
                         'size' => $size,
-                        'slug' => $slug.$extension,
+                        'slug' => $slug.'.'.$extension,
                         'checksum' => $checksum
                     ]);
 
                     foreach (explode(',', $keywords) as $keyword) {
-                        $theKeyword = Keyword::firstOrCreate([
+                        $thekeyword = Keyword::firstOrCreate([
                             'keyword' => $keyword
                         ]);
-                        // $image->keywords()->attach($theKeyword);
+                        $image->keywords()->attach($thekeyword->id);
                     }
 
                     return response()->json(['image' => $image->id], 200);
