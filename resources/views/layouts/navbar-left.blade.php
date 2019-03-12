@@ -12,9 +12,11 @@
         <a class="nav-link">Plans</a>
     </router-link>
 
-    <router-link tag="li" to="/upload" class="nav-item">
-        <a class="nav-link">Upload</a>
-    </router-link>
+    @auth
+        <router-link tag="li" to="/upload" class="nav-item">
+            <a class="nav-link">Upload</a>
+        </router-link>
+    @endauth
 
     <router-link tag="li" to="/Gallery" class="nav-item">
         <a class="nav-link">Gallery</a>

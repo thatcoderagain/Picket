@@ -33,6 +33,13 @@
                     </div>
 
                     <div class="form-group">
+                        <textarea text="textarea" class="form-control" placeholder="Write caption" v-model="caption" @keypress="captionError=false"></textarea>
+                        <span class="alert text-danger" role="alert" v-show="captionError">
+                            <strong>You must write a caption for this image between 5 to 30 words.</strong>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
                         <textarea text="textarea" class="form-control" placeholder="Keywords" v-model="keyword" @keypress="keywordError=false"></textarea>
                         <span class="alert text-danger" role="alert" v-show="keywordError">
                             <strong>You must specify some keywords for this image.</strong>
@@ -71,8 +78,10 @@
                 uploadPercentage: 0,
                 keyword: '',
                 category: '',
+                caption: '',
                 keywords: [],
                 sizeError: false,
+                captionError: false,
                 categoryError: false,
                 keywordError: false,
             }
@@ -107,6 +116,9 @@
             sizeMB(bytes) {
                 return parseFloat(bytes / (1024*1024)).toFixed(2);
             },
+            words(string) {
+                return this.caption.split(' ').length;
+            },
             keywordMaker() {
                 this.keywords = this.keyword.split(' ').filter((s) => {
                     return s != '' && s.length > 2
@@ -122,6 +134,10 @@
                     this.categoryError = true;
                     return null;
                 }
+                if (this.words(this.caption) <= 5 || this.words(this.caption) >= 30){
+                    this.captionError = true;
+                    return null;
+                }
                 if (this.keywords.length == 0){
                     this.keywordError = true;
                     return null;
@@ -130,6 +146,7 @@
                 const formData = new FormData();
                 formData.append('imageFile', this.imageFile);
                 formData.append('category', this.category);
+                formData.append('caption', this.caption);
                 formData.append('keywords', this.keywords);
 
                 let url = 'api/upload';
@@ -142,6 +159,8 @@
                 .then((response) => {
                     let json = response.data;
                     console.log(json);
+                    /* REDIRECT AFTER SUCCESSFUL UPLOAD */
+                    window.location = '/upload'
                 })
                 .catch((error) => {
                     console.log(error);
