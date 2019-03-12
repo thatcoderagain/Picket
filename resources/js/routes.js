@@ -30,8 +30,12 @@ let routes = [
         component: require('./views/Gallery').default
     },
     {
-        path: '/cart',
-        component: require('./views/components/Cart').default
+        path: '/search',
+        component: require('./views/components/SearchBar').default
+    },
+    {
+        path: '/imageprofile',
+        component: require('./views/ImageProfile').default
     },
 ];
 

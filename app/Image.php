@@ -12,11 +12,11 @@ class Image extends Model
 
     public function photographer()
     {
-        return $this->belongsTo(App\Photographer::class);
+        return $this->belongsTo('App\Photographer');
     }
 
     public function keywords()
     {
-        return $this->hasMany(App\Keyword::class);
+        return $this->belongsToMany('App\Keyword')->withPivot('ImageKeyword');
     }
 }

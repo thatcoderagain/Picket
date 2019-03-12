@@ -19,5 +19,7 @@ use Illuminate\Http\Request;
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::post('/upload', 'UploadController@uploadFile');
+Route::post('/upload', 'ImagesController@uploadImage');
+Route::post('/fetchImages', 'ImagesController@getImages');
+Route::post('/fetchCategories', 'ImagesController@getCategories');
 
