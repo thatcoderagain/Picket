@@ -36,9 +36,9 @@
         data() {
             return {
                 sliderImages: [
-                    'https://uhdwallpapers.org/uploads/converted/18/03/17/bmw-i8-1600x900_75778-mm-90.jpg',
-                    'http://wallpoper.com/images/00/36/92/04/outer-space_00369204.jpg',
-                    'https://hdqwalls.com/download/minimalism-plane-ot-1600x900.jpg',
+                    'https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940/bmw-i8-1600x900_75778-mm-90.jpg',
+                    'https://images.pexels.com/photos/1563355/pexels-photo-1563355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+                    'https://images.pexels.com/photos/1252869/pexels-photo-1252869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
                 ],
             }
         }
