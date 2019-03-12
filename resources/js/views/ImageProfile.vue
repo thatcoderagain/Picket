@@ -1,31 +1,26 @@
-<style type="text/css">
-.btn {
-  background-color: DodgerBlue;
-  border: none;
-  color: white;
-  padding: 12px 30px;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-/* Darker background on mouse-over */
-.btn:hover {
-  background-color: RoyalBlue;
-}
-</style>
-
 <template>
     <div class="container-fluid bg-light-grey p-4">
         <div class="container bg-white" style="box-shadow: 1px 1px 1px grey;">
             <div class="row">
                 <div class="col-md-6 col-sm-12 p-3">
+                    <div>
                       <img v-bind:src="src"" alt="placeholder"class="img-fluid">
-                      <h4 class="card-title mt-3">{{ caption }}</h4>
-                      <p class="card-text">{{ keywords }}</p>
+                    </div>
+                    <div class="m-1 p-1">
+                        <img class="rounded-circle img-fluid"" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" width="50" height="50" />
+                        <button class="btn btn-link">@{{ artist }}</button>
+                    </div>
+                    <div>
+                      <h4 class="mt-3">{{ caption }}</h4>
+                      <p>{{ keywords }}</p>
+                    </div>
                 </div>
                 <div class="col-md-6 col-sm-12 p-3">
-                    <p class="card-text">{{ data }}</p>
-                    <button class="btn"><i class="fa fa-download"></i> ADD to Cart</button>
+                    <p>{{ category }}</p>
+                    <p>{{ mime_type }}</p>
+                    <p>{{ resolution }}</p>
+                    <p>{{ size }}</p>
+                    <button type="button" class="btn btn-danger btn-lg"> <i class="fas fa-cart-plus"></i>>ADD TO CART</button>
                 </div>
             </div>
         </div>
@@ -37,12 +32,13 @@
         data() {
             return {
                 src: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg',
+                artist: 'Ankita',
                 caption: 'Caption',
                 keywords: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, eveniet!',
-                data: '6720 px x 4480 px  |  56.9cm x 37.9cm @ 300 dpi  |  JPEG',
-
-
-
+                category: 'diet',
+                mime_type: 'JPEG',
+                resolution: '6720 px x 4480 px',
+                size: '56.9cm x 37.9cm @ 300 dpi56.9cm x 37.9cm @ 300 dpi',
             }
         }
 
