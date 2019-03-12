@@ -54,7 +54,7 @@ class ImagesController extends Controller
 
     public function getImageInfo(Request $request, Image $id)
     {
-        return Image::with('keywords')->where('id', $id->id)->first();
+        return Image::with('user')->with('keywords')->where('id', $id->id)->first();
     }
 
     public function uploadImage(Request $request)

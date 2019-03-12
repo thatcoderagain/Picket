@@ -1,7 +1,7 @@
 <template>
     <div class="animated fadeIn">
-        <div class="fullscreen row pt-5 pb-5" :style="'background-image:url('+bgimage_src+');'">
-            <div class="card transparent col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 p-4">
+        <div class="fullscreen row pb-5" :style="'background-image:url('+bgimage_src+');'">
+            <div class="card transparent col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 p-4 mt-5 mb-5">
                 <div class="container">
 
                     <h1 class="page-header">Image Upload</h1>
@@ -53,12 +53,12 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" :disabled="categoryError || keywordError || sizeError || imageFile == null"><i class="fas fa-upload"></i> Upload Image</button>
+                        <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" :disabled="categoryError || keywordError || sizeError || imageFile == null" v-show="uploadPercentage==0"><i class="fas fa-upload"></i> Upload Image</button>
                     </div>
 
                     <div role="alert">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="{width: uploadPercentage+'%'}" :class="[uploadPercentage == 100 ? ' bg-success' : 'progress-bar-animated']">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="{width: uploadPercentage+'%'}" :class="[uploadPercentage == 100 ? ' bg-success' : 'progress-bar-animated', duplicateError ? 'bg-danger' : '']">
                                 <small class="text-white">{{ uploadPercentage }}%</small>
                             </div>
                         </div>
@@ -163,8 +163,13 @@
                 .then((response) => {
                     let json = response.data;
                     console.log(json);
-                    /* REDIRECT AFTER SUCCESSFUL UPLOAD */
-                    window.location = '/image/'+json.image;
+                    if (json.hasOwnProperty('image')) {
+                        /* REDIRECT AFTER SUCCESSFUL UPLOAD */
+                        window.location = '/#/image/'+json.image;
+                    } else {
+                        this.duplicateError = true;
+                        uploadPercentage = 0;
+                    }
                 })
                 .catch((error) => {
                     console.log(error);

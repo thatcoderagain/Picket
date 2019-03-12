@@ -10,7 +10,7 @@
                         <div class="media">
                             <img :src="this.StoragePath(image.slug)" class="m-3 rounded-circle" alt="..." width="50" height="50">
                             <div class="media-body">
-                                <button class="btn btn-link btn-lg pl-0 mt-3">@{{ artist }}</button>
+                                <button class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</button>
                                 <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>
                                 <big>
                                     <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary">#{{ keyword.keyword }}</span>&nbsp;
@@ -50,7 +50,7 @@
             }
         },
         created() {
-            this.fetchImageInfo()
+            this.fetchImageInfo();
         },
         methods: {
             fetchImageInfo(){

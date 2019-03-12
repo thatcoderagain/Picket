@@ -12,7 +12,7 @@ class Image extends Model
 
     protected $hidden = ['checksum'];
 
-    public function photographer()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }

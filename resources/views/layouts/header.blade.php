@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-inverse bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
     <div class="container-fluid">
         <router-link to="/">
             <a class="navbar-brand btn-link">{{ config('app.name', 'Laravel') }}</a>

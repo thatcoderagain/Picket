@@ -4,11 +4,11 @@
          </button>
 
          <div class="modal fade mt-5" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-lg pt-5" role="document">
                 <div class="modal-content">
                     <div class="m-0 p-0">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" :src="StoragePath(modalSrc)" allowfullscreen/>
+                        <div class="">
+                            <img class="img-thumbnail w-100" :src="StoragePath(modalSrc)" allowfullscreen/>
                         </div>
                     </div>
                 </div>
@@ -56,9 +56,6 @@
                 .catch((error) => {
                     console.log(error);
                 });
-            },
-            StoragePath(string) {
-                return '/storage/image-files/'+string;
             }
         }
     }
