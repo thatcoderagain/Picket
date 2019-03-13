@@ -8,19 +8,18 @@
                             <img :src="StoragePath(image.slug)" alt="placeholder" class="img-fluid" style="max-height: 600px">
                         </center>
                     </div>
-                    <div>
-                        <div class="media">
-                            <img :src="StoragePath(image.slug)" class="m-3 rounded-circle" alt="..." width="50" height="50">
-                            <div class="media-body">
-                                <button class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</button>
-                                <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>
-                                <big>
-                                    <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary">#{{ keyword.keyword }}</span>&nbsp;
-                                </big>
-                          </div>
+                    <div class="media">
+                        <img :src="StoragePath(image.slug)" class="m-3 rounded-circle" alt="" width="50" height="50">
+                        <div class="media-body">
+                            <button class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</button>
+                            <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>
+                            <big>
+                                <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary">#{{ keyword.keyword }}</span>&nbsp;
+                            </big>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4 col-sm-12 p-3">
                     <div class="card">
                         <div class="card-body">
@@ -45,8 +44,6 @@
     export default {
         data() {
             return {
-                artist: 'Ankita',
-
                 id: this.$route.params.id,
                 image: {},
             }

@@ -10,6 +10,10 @@ import Upload from './views/Upload';
 import Gallery from './views/Gallery';
 import Profile from './views/Profile';
 import ImageProfile from './views/ImageProfile';
+import EditProfile from './views/EditProfile';
+import Subscribe from './views/Subscribe';
+import Payment from './views/Payment';
+import PaymentStatus from './views/PaymentStatus';
 
 let routes = [
     {
@@ -47,6 +51,22 @@ let routes = [
     {
         path: '/profile',
         component: Profile
+    },
+    {
+        path: '/edit',
+        component: EditProfile
+    },
+    {
+        path: '/subscribe',
+        component: Subscribe
+    },
+    {
+        path: '/payment',
+        component: Payment
+    },
+    {
+        path: '/payment-status',
+        component: PaymentStatus
     }
 ];
 

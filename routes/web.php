@@ -18,6 +18,18 @@ Route::get('/sql', function() {
     return \App\Image::with('user')->with('keywords')->where('id', 1)->get();
 });
 
+Route::get('/payment', function () {
+    return redirect()->to('/#/payment');
+});
+
+Route::post('/make-payment', 'PaymentController@payWithpaypal')->name('make-payment');
+
+Route::get('/status', 'PaymentController@getPaymentStatus')->name('status');
+
+Route::get('/payment-status', function() {
+    return view('payment-status');
+})->name('status');
+
 
 /**
  * VUE APP ROUTE
