@@ -11,6 +11,7 @@ import Gallery from './views/Gallery';
 import Profile from './views/Profile';
 import ImageProfile from './views/ImageProfile';
 import EditProfile from './views/EditProfile';
+import Subscribe from './views/Subscribe';
 
 let routes = [
     {
@@ -52,6 +53,10 @@ let routes = [
     {
         path: '/edit',
         component: EditProfile
+    },
+    {
+        path: '/Subscribe',
+        component: Subscribe
     }
 ];
 

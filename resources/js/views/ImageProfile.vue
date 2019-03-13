@@ -1,10 +1,20 @@
+<style>
+    .image-title {
+    margin: 0;
+    color: #03021A;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+</style>
 <template>
     <div class="container-fluid bg-light-grey pt-5 pb-5">
         <div class="col-sm-12 col-md-10 offset-1 shadow bg-white rounded">
             <div class="row">
                 <div class="col-md-8 col-sm-12 p-3">
                     <div>
-                      <img :src="this.StoragePath(image.slug)" alt="placeholder" class="img-fluid">
+                        <img :src="this.StoragePath(image.slug)" alt="placeholder" class="img-fluid">
                     </div>
                     <div>
                         <div class="media">
@@ -19,6 +29,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4 col-sm-12 p-3">
                     <div class="card">
                         <div class="card-body">
@@ -43,8 +54,6 @@
     export default {
         data() {
             return {
-                artist: 'Ankita',
-
                 id: this.$route.params.id,
                 image: {},
             }
