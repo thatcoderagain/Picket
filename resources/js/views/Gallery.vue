@@ -16,7 +16,7 @@
         </div>
 
         <div class="container-fluid">
-            <div class="row">
+            <div class="row" id="im">
                 <div class="col-sm-6 col-md-4 col-lg-3" v-for="image in images">
                     <ImageCard :image="image" :key="image.id"></ImageCard>
                 </div>
@@ -27,6 +27,7 @@
 
 <script>
     import ImageCard from './components/Image';
+
     export default {
         components: {
             ImageCard: ImageCard,

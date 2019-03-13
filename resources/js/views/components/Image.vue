@@ -1,9 +1,9 @@
 <template>
     <div class="card-deck">
         <div class="card border-primary overflow-hidden m-1 p-0" @mouseover="footer=true" @mouseleave="footer=false">
-
-            <img class="card-img-top" v-bind:src="this.StoragePath(image.slug)" alt="Card image cap" v-on:click="openModal(image)">
-
+            <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item card-img-top" v-bind:src="this.StoragePath(image.slug)" alt="Card image cap" @click="openModal(image)">
+            </div>
             <div class="card-footer animated position-absolute fixed-bottom mb-0 p-0" :class="[footer ? 'slideInUp' : 'slideOutDown']">
 
                 <div class="card bg-white text-dark m-0 p-3">
@@ -17,12 +17,12 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
+
     export default {
         props: [
             'image'
