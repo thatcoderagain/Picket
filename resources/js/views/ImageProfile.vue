@@ -3,12 +3,14 @@
         <div class="col-sm-12 col-md-10 offset-1 shadow bg-white rounded">
             <div class="row">
                 <div class="col-md-8 col-sm-12 p-3">
-                    <div>
-                      <img :src="this.StoragePath(image.slug)" alt="placeholder" class="img-fluid">
+                    <div class="" style="align-content: center;">
+                        <center>
+                            <img :src="StoragePath(image.slug)" alt="placeholder" class="img-fluid" style="max-height: 600px">
+                        </center>
                     </div>
                     <div>
                         <div class="media">
-                            <img :src="this.StoragePath(image.slug)" class="m-3 rounded-circle" alt="..." width="50" height="50">
+                            <img :src="StoragePath(image.slug)" class="m-3 rounded-circle" alt="..." width="50" height="50">
                             <div class="media-body">
                                 <button class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</button>
                                 <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>

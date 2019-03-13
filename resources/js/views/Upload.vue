@@ -13,7 +13,7 @@
 
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept="image/*" v-show="true" ref="FileInput" @change="onFileSelected">
+                            <input type="file" class="custom-file-input" accept="image/*" v-show="true" @change="onFileSelected">
                             <label class="custom-file-label" for="customFile">Choose image</label>
                         </div>
                         <p class="alert alert-danger mt-2" v-show="sizeError">
@@ -22,7 +22,6 @@
                         <p class="alert alert-danger mt-2" v-show="duplicateError">
                             Duplicate image found, you can't upload this upload.
                         </p>
-                        <!-- <button type="button" class="btn btn-lg btn-block btn-primary p-1" @click="$refs.FileInput.click()"><i class="fas fa-image"></i> Pick File</button> -->
                     </div>
 
                     <div class="form-group">

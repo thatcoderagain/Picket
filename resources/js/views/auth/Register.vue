@@ -11,7 +11,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" :class="[ errors != null && errors.hasOwnProperty('name') ? 'is-invalid' : '']" name="name" v-model="name" @keydown="errors = null" required autofocus autocomplete="off">
+                                <input type="text" class="form-control" :class="[ errors != null && errors.hasOwnProperty('name') ? 'is-invalid' : '']" name="name" v-model="name" @keydown="errors = null" required autofocus autocomplete="off">
 
                                 <template v-if="errors != null && errors.hasOwnProperty('name')">
                                     <span class="text-danger" role="alert">
@@ -110,7 +110,7 @@
                 username: '',
                 email: '',
                 password: '',
-                'password_confirmation': '',
+                password_confirmation: '',
 
                 errors: null
             }
