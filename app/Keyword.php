@@ -12,6 +12,6 @@ class Keyword extends Model
 
     public function images()
     {
-        return $this->belongsToMany('App\Keyword')->withPivot('ImageKeyword');
+        return $this->belongsToMany('App\Keyword')->withPivot('image_id');
     }
 }

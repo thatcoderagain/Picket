@@ -1,10 +1,8 @@
 <style>
-    #slider
-    {
+    #slider {
         max-height: 600px;
     }
-    #searchBar
-    {
+    #searchBar {
         z-index:999;
     }
 </style>

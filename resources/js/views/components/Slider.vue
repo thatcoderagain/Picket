@@ -15,8 +15,6 @@
                 <div class="carousel-caption d-sm-none d-md-block">
                   <h2>Lorem ipsum dolor sit amet.</h2>
                   <p><big>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum saepe consequuntur dolores earum a, dolorum aliquid nemo reprehenderit sint velit.</big></p>
-                    
-                    <SearchBar></SearchBar>
                 </div>
             </div>
         </div>

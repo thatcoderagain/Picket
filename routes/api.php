@@ -22,4 +22,5 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/upload', 'ImagesController@uploadImage');
 Route::post('/fetchImages', 'ImagesController@getImages');
 Route::post('/fetchCategories', 'ImagesController@getCategories');
+Route::post('/fetchImageInfo/{id}', 'ImagesController@getImageInfo');
 

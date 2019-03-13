@@ -52,6 +52,11 @@ class ImagesController extends Controller
         ];
     }
 
+    public function getImageInfo(Request $request, Image $id)
+    {
+        return Image::with('user')->with('keywords')->where('id', $id->id)->first();
+    }
+
     public function uploadImage(Request $request)
     {
         if ($request->hasFile('imageFile'))
@@ -60,7 +65,7 @@ class ImagesController extends Controller
             {
                 // $fileName = $request->file('imageFile')->getClientOriginalName();
                 $extension = $request->file('imageFile')->getClientOriginalExtension();
-                $meme_type = $request->file('imageFile')->getMimeType();
+                $mime_type = $request->file('imageFile')->getMimeType();
                 $size = $request->file('imageFile')->getSize();
                 $imageData = getimagesize($request->file('imageFile'));
                 $resolution = $imageData[0].' x '.$imageData[1];
@@ -82,7 +87,7 @@ class ImagesController extends Controller
                         'user_id' => Auth::user()->id,
                         'category' => $category,
                         'caption' => $caption,
-                        'meme_type' => $meme_type,
+                        'mime_type' => $mime_type,
                         'resolution' => $resolution,
                         'size' => $size,
                         'slug' => $slug.'.'.$extension,

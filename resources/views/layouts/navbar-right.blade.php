@@ -1,11 +1,11 @@
 <ul class="navbar-nav ml-auto">
 
-    <li class="mr-4">
+    {{-- <li class="mr-4">
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
         </form>
-    </li>
+    </li> --}}
 
     <!-- Authentication Links -->
     @guest

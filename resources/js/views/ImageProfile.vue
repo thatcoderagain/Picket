@@ -9,28 +9,41 @@
 }
 </style>
 <template>
-    <div class="container-fluid bg-light-grey p-4">
-        <div class="container bg-white" style="box-shadow: 1px 1px 1px grey;">
+    <div class="container-fluid bg-light-grey pt-5 pb-5">
+        <div class="col-sm-12 col-md-10 offset-1 shadow bg-white rounded">
             <div class="row">
-                <div class="col-md-6 col-sm-12 p-3">
-                    <div class="animated fadeIn">
-                      <img v-bind:src="src" alt="placeholder"class="img-fluid">
-                    </div>
-                    <div class="animated fadeIn m-1 p-1">
-                        <img class="rounded-circle img-fluid"" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" width="50" height="50" />
-                        <button class="btn btn-link">@{{ artist }}</button>
+                <div class="col-md-8 col-sm-12 p-3">
+                    <div>
+                        <img :src="this.StoragePath(image.slug)" alt="placeholder" class="img-fluid">
                     </div>
                     <div>
-                      <h4 class="mt-3">{{ caption }}</h4>
-                      <p>{{ keywords }}</p>
+                        <div class="media">
+                            <img :src="this.StoragePath(image.slug)" class="m-3 rounded-circle" alt="..." width="50" height="50">
+                            <div class="media-body">
+                                <button class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</button>
+                                <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>
+                                <big>
+                                    <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary">#{{ keyword.keyword }}</span>&nbsp;
+                                </big>
+                          </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12 p-3">
-                    <h1 class="image-title">{{ category}}</h1>
-                    <div class="image-title" >
-                          <span>{{ resolution }} &nbsp;|&nbsp;{{ size }} &nbsp;|&nbsp;{{ mime_type }}        </span>
-                     </div>
-                    <button type="button" class="btn btn-danger btn-lg"> <i class="fas fa-cart-plus"></i> ADD TO CART</button>
+
+                <div class="col-md-4 col-sm-12 p-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="m-1">
+                                <h4 class="mt-0 text-left font-weight-bold">Category: <span class="font-italic small">{{ image.category }}</span></h4>
+                                <h4 class="mt-0 text-left font-weight-bold">Type: <span class="font-italic small">{{ image.mime_type }}</span></h4>
+                                <h4 class="mt-0 text-left font-weight-bold">Resolution: <span class="font-italic small">{{ image.resolution }}</span></h4>
+                                <h4 class="mt-0 text-left font-weight-bold">Size: <span class="font-italic small">{{ image.size | fsize }}</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-danger w-50"> <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;ADD TO CART</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,17 +54,27 @@
     export default {
         data() {
             return {
-                src: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg',
-                artist: 'Ankita',
-                caption: 'Caption',
-                keywords: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, eveniet!',
-                category: 'Diet',
-                mime_type: 'JPEG',
-                resolution: '6720 px x 4480 px',
-                size: '56.9cm x 37.9cm @ 300 dpi56.9cm x 37.9cm @ 300 dpi',
+                id: this.$route.params.id,
+                image: {},
+            }
+        },
+        created() {
+            this.fetchImageInfo();
+        },
+        methods: {
+            fetchImageInfo(){
+                let url = '/api/fetchImageInfo/'+this.id;
+                axios.post(url)
+                .then((response) => {
+                    let json = response.data;
+                    console.log(json);
+                    this.image = json;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             }
         }
-
     }
 
 </script>
