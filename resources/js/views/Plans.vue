@@ -25,7 +25,7 @@
             </p>
 
             <div class="card-group m-5">
-                <PlanCard class="m-3" v-for="plan in plans" :plan="plan"></PlanCard>
+                <PlanCard class="m-3" v-for="plan in plans" :key="plan.name" :plan="plan"></PlanCard>
             </div>
 
         </div>

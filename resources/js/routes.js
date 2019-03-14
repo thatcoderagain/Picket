@@ -14,6 +14,8 @@ import EditProfile from './views/EditProfile';
 import Subscribe from './views/Subscribe';
 import Payment from './views/Payment';
 import PaymentStatus from './views/PaymentStatus';
+import Subscription from './views/Subscription';
+
 
 let routes = [
     {
@@ -67,6 +69,10 @@ let routes = [
     {
         path: '/payment-status',
         component: PaymentStatus
+    },
+    {
+        path: '/subscription',
+        component: Subscription   
     }
 ];
 
