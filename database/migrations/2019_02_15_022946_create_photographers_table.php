@@ -19,9 +19,11 @@ class CreatePhotographersTable extends Migration
             $table->enum('sex', ['male', 'female', 'other'])->nullable();
             $table->date('dob')->nullable();
             $table->string('mobile')->unique()->nullable();
-            $table->string('specialization');
-            $table->string('location');
-            $table->float('charges', 10, 2);
+            $table->string('specialization')->nullable();
+            $table->string('location')->nullable();
+            $table->float('charges', 10, 2)->nullable();
+            $table->string('bio')->nullable();
+            $table->blob('image')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

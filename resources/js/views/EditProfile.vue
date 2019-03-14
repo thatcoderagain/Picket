@@ -12,7 +12,7 @@
 
                             <div class="form-group" v-show="avatar != null">
                                 <div class="col-6 offset-4">
-                                    <img :src="avatar" class="img-fluid img-thumbnail square-240" alt="Responsive image">
+                                    <img :src="user.photographer.avatar" class="img-fluid img-thumbnail square-240" alt="Responsive image">
                                 </div>
                             </div>
 
@@ -28,7 +28,6 @@
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" :class="[ errors != null && errors.hasOwnProperty('name') ? 'is-invalid' : '']" name="name" v-model="user.name" @keydown="errors = null" required autocomplete="off">
 
@@ -78,7 +77,8 @@
                                 <label for="bio" class="col-md-4 col-form-label text-md-right">Bio</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" :class="[ errors != null && errors.hasOwnProperty('bio') ? 'is-invalid' : '']" name="bio" v-model="user.photographer.bio" @keydown="errors = null" required autocomplete="off">
+
+                                    <textarea text="textarea" class="form-control" placeholder="Bio..." :class="[ errors != null && errors.hasOwnProperty('bio') ? 'is-invalid' : '']" name="bio" v-model="user.photographer.bio" @keydown="errors = null" required autocomplete="off"></textarea>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('bio')">
                                         <span class="text-danger" role="alert">
@@ -126,15 +126,21 @@
                                 <label class="col-md-4 col-form-label text-md-right">Radios</label>
                                 <div class="col-">
                                     <div class="form-check">
-                                        <input class="" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                                        <label class="form-check-label" for="gridRadios1">
+                                        <input class="" type="radio" name="maleRadio" value="male" v-model="user.photographer.sex" checked>
+                                        <label class="form-check-label" for="maleRadio">
                                             Male
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                                        <label class="form-check-label" for="gridRadios2">
+                                        <input class="" type="radio" name="femaleRadio" value="female" v-model="user.photographer.sex">
+                                        <label class="form-check-label" for="femaleRadio">
                                             Female
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="" type="radio" name="otherRadio" value="other" v-model="user.photographer.sex">
+                                        <label class="form-check-label" for="otherRadio">
+                                            Other
                                         </label>
                                     </div>
                                 </div>
@@ -160,7 +166,7 @@
                                 <label for="age" class="col-md-4 col-form-label text-md-right">Age</label>
 
                                 <div class="col-md-6">
-                                    <input type="mobile" class="form-control" :class="[ errors != null && errors.hasOwnProperty('age') ? 'is-invalid' : '']" name="age" v-model="user.photographer.age" @keydown="errors = null" required>
+                                    <input type="number" min="5" class="form-control" :class="[ errors != null && errors.hasOwnProperty('age') ? 'is-invalid' : '']" name="age" v-model="user.photographer.age" @keydown="errors = null" required>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('age')">
                                         <span class="text-danger" role="alert">
@@ -254,7 +260,7 @@
                 })
                 .catch((error) => {
                     console.log(error);
-                })
+                });
             }
         }
     }

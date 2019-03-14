@@ -22,7 +22,7 @@ use Session;
 use URL;
 
 
-class PaymentController extends Controller
+class PaymentsController extends Controller
 {
     private $_api_context;
     /**
