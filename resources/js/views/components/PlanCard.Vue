@@ -1,11 +1,15 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title" style="text-align: center;"><b>{{ plan.name }}</b></h5>
+            <h3 class="card-title w-100 text-center m-0">{{ plan.name }}</h3>
             <p class="card-text">{{ plan.duration }}</p>
             <p class="card-text"><span v-html="plan.benifit"></span></p>
             <p class="card-text">{{ plan.detail }}</p>
-            <button type="button" class="btn btn-outline-danger btn-lg btn-block"><i class="fab fa-paypal"></i>&nbsp Subscribe</button>
+            <div class="row justify-content-center">
+                <router-link tag="a" to="/subscribe" class="btn btn-outline-danger btn-lg btn-block w-75">
+                   </i>&nbsp Subscribe{{ plan.name }}
+                </router-link>
+            </div>
         </div>
     </div>
 </template>

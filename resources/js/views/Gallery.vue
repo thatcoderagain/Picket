@@ -7,7 +7,7 @@
             <div class="modal-dialog modal-lg pt-5" role="document">
                 <div class="modal-content">
                     <div class="m-0 p-0">
-                        <div class="">
+                        <div style="border: 1px solid red;">
                             <img class="img-thumbnail w-100" :src="StoragePath(modalSrc)" allowfullscreen/>
                         </div>
                     </div>
@@ -17,8 +17,8 @@
 
         <div class="container-fluid">
             <div class="row" id="im">
-                <div class="col-sm-6 col-md-4 col-lg-3" v-for="image in images">
-                    <ImageCard :image="image" :key="image.id"></ImageCard>
+                <div class="col-sm-6 col-md-4 col-lg-3" v-for="image in images" :key="image.id">
+                    <ImageCard :image="image"></ImageCard>
                 </div>
             </div>
         </div>

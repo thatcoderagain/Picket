@@ -7,7 +7,7 @@
 </style>
 
 <template>
-    <div class="animated slideInUp">
+    <div class="animated slideInDown">
         <div class="position-absolute heading">
             <h1 class="text-center text-white">
                 Have we got a plan for you.<br/>

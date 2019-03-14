@@ -1,8 +1,13 @@
 <template>
     <div class="card-deck">
         <div class="card border-primary overflow-hidden m-1 p-0" @mouseover="footer=true" @mouseleave="footer=false">
-            <div class="embed-responsive embed-responsive-16by9">
-                <img class="embed-responsive-item card-img-top" v-bind:src="this.StoragePath(image.slug)" alt="Card image cap" @click="openModal(image)">
+            <div class="embed-responsive embed-responsive-16by9" if="loaded">
+                <div class="embed-responsive-item card-img-top d-flex justify-content-center pt-5" :class="[ loaded ? 'visible' : '']">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <img class="embed-responsive-item card-img-top" :src="StoragePath(image.slug)" alt="Card Image" @click="openModal(image)" onload="loaded=true" :class="[ loaded ? 'visible' : '']">
             </div>
             <div class="card-footer animated position-absolute fixed-bottom mb-0 p-0" :class="[footer ? 'slideInUp' : 'slideOutDown']">
 
@@ -29,6 +34,7 @@
         ],
         data() {
             return {
+                loaded: true,
                 footer: false,
             }
         },
@@ -41,3 +47,7 @@
         }
     }
 </script>
+
+<style>
+
+</style>

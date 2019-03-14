@@ -1,4 +1,4 @@
-*{
+h1, h2, h3, h4, h5, h6, p, span {
     font-family: $font-family-sans-serif;
 }
 
@@ -29,7 +29,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ff0000;
+    background: transparent;
 }
 
 .transparent {
@@ -45,4 +45,10 @@ body {
     max-height: 100px;
     min-height: 100px;
     min-width: 100px;
+
+.square-240 {
+    max-height: 240px;
+    min-height: 240px;
+    max-width: 240px;
+    min-width: 240px;
 }

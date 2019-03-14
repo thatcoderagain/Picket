@@ -10,8 +10,16 @@ import Upload from './views/Upload';
 import Gallery from './views/Gallery';
 import Profile from './views/Profile';
 import ImageProfile from './views/ImageProfile';
+import EditProfile from './views/EditProfile';
 import Subscribe from './views/Subscribe';
+<<<<<<< HEAD
 import Cart from './views/Components/Cart';
+=======
+import Payment from './views/Payment';
+import PaymentStatus from './views/PaymentStatus';
+import Subscription from './views/Subscription';
+
+>>>>>>> 67ea0fda715fb9962784eac6b68e4dc3d53a74c1
 
 let routes = [
     {
@@ -51,13 +59,28 @@ let routes = [
         component: Profile
     },
     {
-        path: '/Subscribe',
+        path: '/edit-profile',
+        component: EditProfile
+    },
+    {
+        path: '/subscribe',
         component: Subscribe
     },
     {
         path: '/Cart',
         component: Cart
     },
+        path: '/payment',
+        component: Payment
+    },
+    {
+        path: '/payment-status',
+        component: PaymentStatus
+    },
+    {
+        path: '/subscription',
+        component: Subscription
+    }
 ];
 
 export default new VueRouter({
