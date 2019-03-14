@@ -11,6 +11,7 @@ import Gallery from './views/Gallery';
 import Profile from './views/Profile';
 import ImageProfile from './views/ImageProfile';
 import Subscribe from './views/Subscribe';
+import Cart from './views/Components/Cart';
 
 let routes = [
     {
@@ -52,7 +53,11 @@ let routes = [
     {
         path: '/Subscribe',
         component: Subscribe
-    }
+    },
+    {
+        path: '/Cart',
+        component: Cart
+    },
 ];
 
 export default new VueRouter({
