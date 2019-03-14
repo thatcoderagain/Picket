@@ -23,4 +23,5 @@ Route::post('/upload', 'ImagesController@uploadImage');
 Route::post('/fetchImages', 'ImagesController@getImages');
 Route::post('/fetchCategories', 'ImagesController@getCategories');
 Route::post('/fetchImageInfo/{id}', 'ImagesController@getImageInfo');
+Route::post('/editProfile', 'UsersController@userInfo');
 

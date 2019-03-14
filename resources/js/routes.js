@@ -53,7 +53,7 @@ let routes = [
         component: Profile
     },
     {
-        path: '/edit',
+        path: '/edit-profile',
         component: EditProfile
     },
     {

@@ -18,10 +18,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    // public function photographer()
-    // {
-    //     return $this->hasOne('App\Photographer');
-    // }
+    public function photographer()
+    {
+        return $this->hasOne('App\Photographer');
+    }
 
     public function images()
     {

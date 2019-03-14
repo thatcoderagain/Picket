@@ -1,6 +1,6 @@
 <template>
     <div class="animated fadeIn">
-        <div class="fullscreen row pb-5" :style="'background-image:url('+bgimage_src+');'">
+        <div class="fullscreen row pb-5" :style="'background-image:url('+bgImageSrc+');'">
             <div class="card transparent col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 p-4 mt-5 mb-5">
                 <div class="container">
 
@@ -73,7 +73,7 @@
     export default {
         data() {
             return {
-                bgimage_src: '/storage/images/upload-page-background.jpeg',
+                bgImageSrc: '/storage/images/upload-page-background.jpeg',
                 categories: [],
                 avatar: null,
                 imageFile: null,
