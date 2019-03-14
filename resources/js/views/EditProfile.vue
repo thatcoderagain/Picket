@@ -12,7 +12,7 @@
 
                             <div class="form-group" v-show="avatar != null">
                                 <div class="col-6 offset-4">
-                                    <img :src="user.photographer.avatar" class="img-fluid img-thumbnail square-240" alt="Responsive image">
+                                    <img :src="avatar" class="img-fluid img-thumbnail square-240" alt="Responsive image">
                                 </div>
                             </div>
 

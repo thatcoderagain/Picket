@@ -8,7 +8,7 @@
                     <p class="lead">Select an image to upload, having minimum size of 2 MegaBytes.</p>
 
                     <div class="form-group" v-show="avatar != null">
-                        <img :src="avatar" class="img-fluid img-thumbnail" alt="Responsive image">
+                        <img :src="avatar" class="img-fluid img-thumbnail square-420" alt="Responsive image">
                     </div>
 
                     <div class="form-group">

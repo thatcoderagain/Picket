@@ -12,14 +12,11 @@ import Profile from './views/Profile';
 import ImageProfile from './views/ImageProfile';
 import EditProfile from './views/EditProfile';
 import Subscribe from './views/Subscribe';
-<<<<<<< HEAD
-import Cart from './views/Components/Cart';
-=======
 import Payment from './views/Payment';
 import PaymentStatus from './views/PaymentStatus';
 import Subscription from './views/Subscription';
 
->>>>>>> 67ea0fda715fb9962784eac6b68e4dc3d53a74c1
+import Cart from './views/components/Cart';
 
 let routes = [
     {
@@ -70,6 +67,7 @@ let routes = [
         path: '/Cart',
         component: Cart
     },
+    {
         path: '/payment',
         component: Payment
     },
