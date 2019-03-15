@@ -24,10 +24,10 @@
                         <div class="col-sm-3 col-md-3 p-3">Images Left</div>
                     </div>
                     <div class="row bg-light text-black">
-                        <div class="col-sm-3 col-md-2 pt-1 pb-1">Plan Name</div>
-                        <div class="col-sm-3 col-md-3 pt-1 pb-1">From</div>
-                        <div class="col-sm-3 col-md-3 pt-1 pb-1">Validity</div>
-                        <div class="col-sm-3 col-md-3 pt-1 pb-1">Images Left</div>                
+                        <div class="col-sm-3 col-md-2 pt-1 pb-1">{{PlanName}}</div>
+                        <div class="col-sm-3 col-md-3 pt-1 pb-1">{{From}}</div>
+                        <div class="col-sm-3 col-md-3 pt-1 pb-1">{{Validity}}</div>
+                        <div class="col-sm-3 col-md-3 pt-1 pb-1">{{Images_Left}}</div>                
                     </div>
                 </div>
             </div>
@@ -52,16 +52,16 @@
                     <div class="col-sm-3 col-md-3 p-3">Bill</div>
                 </div>
                 <div class="row bg-light text-dark">
-                    <div class="col-sm-3 col-md-2 pt-1 pb-1">Plan Name</div>
-                    <div class="col-sm-3 col-md-3 pt-1 pb-1">From</div>
-                    <div class="col-sm-3 col-md-3 pt-1 pb-1">Validity</div>
-                    <div class="col-sm-3 col-md-3 pt-1 pb-1">Bill</div>                
+                    <div class="col-sm-3 col-md-2 pt-1 pb-1">{{PlanName}}</div>
+                    <div class="col-sm-3 col-md-3 pt-1 pb-1">{{From}}</div>
+                    <div class="col-sm-3 col-md-3 pt-1 pb-1">{{Validity}}</div>
+                    <div class="col-sm-3 col-md-3 pt-1 pb-1">{{Bill}}</div>                
                 </div>
                 <div class="row bg-light text-dark">
-                    <div class="col-sm-3 col-md-2 pt-1 pb-1">Plan Name</div>
-                    <div class="col-sm-3 col-md-3 pt-1 pb-1">From</div>
-                    <div class="col-sm-3 col-md-3 pt-1 pb-1">Validity</div>
-                    <div class="col-sm-3 col-md-3 pt-1 pb-1">Bill</div>                
+                    <div class="col-sm-3 col-md-2 pt-1 pb-1">{{PlanName}}</div>
+                    <div class="col-sm-3 col-md-3 pt-1 pb-1">{{From}}</div>
+                    <div class="col-sm-3 col-md-3 pt-1 pb-1">{{Validity}}</div>
+                    <div class="col-sm-3 col-md-3 pt-1 pb-1">{{Bill}}</div>                
                 </div>
             </div>
             </div>
@@ -69,3 +69,18 @@
             </div>
 </div>
 </template>
+<script>
+    export default {
+        props: [],
+        data() {
+            return {
+                PlanName:'basic',
+                From: 'march',
+                Validity: 'jan',
+                Bill:'1500',
+                Images_Left:'2'
+
+            }
+        }
+    }
+    </script>

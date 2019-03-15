@@ -15,6 +15,8 @@ import Subscribe from './views/Subscribe';
 import Payment from './views/Payment';
 import PaymentStatus from './views/PaymentStatus';
 import Subscription from './views/Subscription';
+import Transactions from './views/Transactions';
+
 
 import Cart from './views/components/Cart';
 
@@ -78,6 +80,10 @@ let routes = [
     {
         path: '/subscription',
         component: Subscription
+    },
+    {
+        path: '/transactions',
+        component: Transactions
     }
 ];
 
