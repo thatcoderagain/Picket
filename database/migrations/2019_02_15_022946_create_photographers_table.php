@@ -23,7 +23,7 @@ class CreatePhotographersTable extends Migration
             $table->string('location')->nullable();
             $table->float('charges', 10, 2)->nullable();
             $table->string('bio')->nullable();
-            $table->blob('image')->nullable();
+            $table->binary('image')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
