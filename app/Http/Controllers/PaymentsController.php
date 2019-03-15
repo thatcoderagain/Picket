@@ -41,11 +41,6 @@ class PaymentsController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
 
-    public function index()
-    {
-        return view('paywithpaypal');
-    }
-
     public function payWithpaypal(Request $request)
     {
         $payer = new Payer();
@@ -53,7 +48,7 @@ class PaymentsController extends Controller
 
         $item_1 = new Item();
         $item_1->setName('Item 1') /** item name **/
-            ->setCurrency('USD')
+            ->setCurrency('INR')
             ->setQuantity(1)
             ->setPrice($request->get('amount')); /** unit price **/
 
@@ -61,7 +56,7 @@ class PaymentsController extends Controller
         $itemList->setItems(array($item_1));
 
         $amount = new Amount();
-        $amount->setCurrency('USD')
+        $amount->setCurrency('INR')
             ->setTotal($request->get('amount'));
 
         $transaction = new Transaction();
@@ -90,10 +85,10 @@ class PaymentsController extends Controller
         } catch (\PayPal\Exception\PPConnectionException $ex) {
             if (\Config::get('app.debug')) {
                 Session::put('error', 'Connection timeout');
-                return Redirect::to('/timeout');
+                return Redirect::to('/');
             } else {
                 Session::put('error', 'Some error occur, sorry for inconvenient');
-                return Redirect::to('/sorry');
+                return Redirect::to('/');
             }
         }
 
@@ -111,7 +106,7 @@ class PaymentsController extends Controller
             return Redirect::away($redirect_url);
         }
         Session::put('error', 'Unknown error occurred');
-        return Redirect::to('/error');
+        return Redirect::to('/');
     }
 
 
