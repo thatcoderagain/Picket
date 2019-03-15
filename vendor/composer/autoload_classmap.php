@@ -17,6 +17,10 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\ImagesController' => $baseDir . '/app/Http/Controllers/ImagesController.php',
     'App\\Http\\Controllers\\PaymentsController' => $baseDir . '/app/Http/Controllers/PaymentsController.php',
+<<<<<<< HEAD
+=======
+    'App\\Http\\Controllers\\PhotosController' => $baseDir . '/app/Http/Controllers/PhotosController.php',
+>>>>>>> bf6b65cb2848b99eea3140996dc10aad3e397f33
     'App\\Http\\Controllers\\UsersController' => $baseDir . '/app/Http/Controllers/UsersController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

@@ -24,11 +24,26 @@ Route::get('/payment', function () {
 
 Route::post('/make-payment', 'PaymentsController@payWithpaypal')->name('make-payment');
 
-Route::get('/status', 'PaymentsController@getPaymentStatus')->name('status');
+Route::get('/status', 'PaymentsController@getPaymentStatus');
 
 Route::get('/payment-status', function() {
     return view('payment-status');
 })->name('status');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**

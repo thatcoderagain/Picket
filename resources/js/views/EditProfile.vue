@@ -61,7 +61,15 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" :class="[ errors != null && errors.hasOwnProperty('password') ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null" required>
+
+
+                                    <div class="input-group">
+                                        <input id="password" :type="[ showPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('password') ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null" required>
+                                        <div class="input-group-append" @click="showPassword=!showPassword">
+                                            <button class="btn" type="button" v-show="showPassword"> <i class="fas fa-eye"></i> </button>
+                                            <button class="btn" type="button" v-show="!showPassword"> <i class="fas fa-eye-slash"></i> </button>
+                                        </div>
+                                    </div>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('password')">
                                         <span class="text-danger" role="alert">
@@ -123,7 +131,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">Radios</label>
+                                <label class="col-md-4 col-form-label text-md-right">Sex</label>
                                 <div class="col-">
                                     <div class="form-check">
                                         <input class="" type="radio" name="maleRadio" value="male" v-model="user.photographer.sex" checked>
@@ -194,10 +202,9 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" v-on:click="attemptRegister()">
+                                    <button type="submit" class="btn btn-primary" @click="attemptRegister()">
                                         Save Changes
                                     </button>
                                 </div>
@@ -222,6 +229,7 @@
                 avatar: null,
                 imageFile: null,
                 password: '',
+                showPassword: false,
                 user: {
                     name: '',
                     email: '',
@@ -231,6 +239,7 @@
                         dob: '',
                         location: '',
                         mobile: '',
+                        bio: '',
                         specialization: '',
                         charges: '',
                     }
@@ -251,12 +260,36 @@
                 }
             },
             fetchUserInfo() {
-                let url = '/api/editProfile';
+                let url = '/api/user/fetch';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;
                     console.log(json);
                     this.user = json;
+
+                    this.updateUserInfo();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+            updateUserInfo() {
+                let url = '/api/user/update';//+this.user.id;
+                let formData = new FormData();
+                formData.append('name', this.user.name);
+                formData.append('email', this.user.email);
+                formData.append('sex', this.user.sex);
+                formData.append('dob', this.user.dob);
+                formData.append('location', this.user.location);
+                formData.append('mobile', this.user.mobile);
+                formData.append('specialization', this.user.specialization);
+                formData.append('bio', this.user.bio);
+                formData.append('charges', this.user.charges);
+
+                axios.post(url, formData)
+                .then((response) => {
+                    let json = response.data;
+                    console.log(json);
                 })
                 .catch((error) => {
                     console.log(error);

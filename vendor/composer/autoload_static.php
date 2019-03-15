@@ -375,6 +375,10 @@ class ComposerStaticInitfd3bd907ba37148ca691cb317d6a01b9
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ImagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImagesController.php',
         'App\\Http\\Controllers\\PaymentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentsController.php',
+<<<<<<< HEAD
+=======
+        'App\\Http\\Controllers\\PhotosController' => __DIR__ . '/../..' . '/app/Http/Controllers/PhotosController.php',
+>>>>>>> bf6b65cb2848b99eea3140996dc10aad3e397f33
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

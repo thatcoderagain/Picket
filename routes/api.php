@@ -17,11 +17,24 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+/**
+    POST        /user/fetch/{user}
+    POST        /users/store/{user}         store           users.store
+    POST        /users/update/{user}        update          users.update
+    POST        /users/delete/{user}        destroy         photos.destroy
+**/
+
+// Auth
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// User
+Route::post('/user/fetch', 'UsersController@fetch');
+Route::post('/user/update', 'UsersController@update');
+
+// Image
 Route::post('/upload', 'ImagesController@uploadImage');
 Route::post('/fetchImages', 'ImagesController@getImages');
 Route::post('/fetchCategories', 'ImagesController@getCategories');
 Route::post('/fetchImageInfo/{id}', 'ImagesController@getImageInfo');
-Route::post('/editProfile', 'UsersController@userInfo');
 
