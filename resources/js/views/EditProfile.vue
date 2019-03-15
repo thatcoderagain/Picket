@@ -29,7 +29,7 @@
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" :class="[ errors != null && errors.hasOwnProperty('name') ? 'is-invalid' : '']" name="name" v-model="user.name" @keydown="errors = null" required autocomplete="off">
+                                    <input type="text" class="form-control" :class="[ errors != null && errors.hasOwnProperty('name') ? 'is-invalid' : '']" name="name" v-model="name" @keydown="errors = null" required autocomplete="off">
 
                                     <template v-if="errors != null && errors.hasOwnProperty('name')">
                                         <span class="text-danger" role="alert">
@@ -45,7 +45,7 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" :class="[ errors != null && errors.hasOwnProperty('email') ? 'is-invalid' : '']" name="email" v-model="user.email" @keydown="errors = null" required autocomplete="off">
+                                    <input type="email" class="form-control" :class="[ errors != null && errors.hasOwnProperty('email') ? 'is-invalid' : '']" name="email" v-model="email" @keydown="errors = null" required autocomplete="off">
 
                                     <template v-if="errors != null && errors.hasOwnProperty('email')">
                                         <span class="text-danger" role="alert">
@@ -86,7 +86,7 @@
 
                                 <div class="col-md-6">
 
-                                    <textarea text="textarea" class="form-control" placeholder="Bio..." :class="[ errors != null && errors.hasOwnProperty('bio') ? 'is-invalid' : '']" name="bio" v-model="user.photographer.bio" @keydown="errors = null" required autocomplete="off"></textarea>
+                                    <textarea text="textarea" class="form-control" placeholder="Bio..." :class="[ errors != null && errors.hasOwnProperty('bio') ? 'is-invalid' : '']" name="bio" v-model="bio" @keydown="errors = null" required autocomplete="off"></textarea>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('bio')">
                                         <span class="text-danger" role="alert">
@@ -102,7 +102,7 @@
                                 <label for="location" class="col-md-4 col-form-label text-md-right">Location</label>
 
                                 <div class="col-md-6">
-                                    <input type="location" class="form-control" :class="[ errors != null && errors.hasOwnProperty('location') ? 'is-invalid' : '']" name="location" v-model="user.photographer.location" @keydown="errors = null" required>
+                                    <input type="location" class="form-control" :class="[ errors != null && errors.hasOwnProperty('location') ? 'is-invalid' : '']" name="location" v-model="location" @keydown="errors = null" required>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('location')">
                                         <span class="text-danger" role="alert">
@@ -118,7 +118,7 @@
                                 <label for="specialization" class="col-md-4 col-form-label text-md-right">Specialization</label>
 
                                 <div class="col-md-6">
-                                    <input type="specialization" class="form-control" :class="[ errors != null && errors.hasOwnProperty('specialization') ? 'is-invalid' : '']" name="specialization" v-model="user.photographer.specialization" @keydown="errors = null" required>
+                                    <input type="specialization" class="form-control" :class="[ errors != null && errors.hasOwnProperty('specialization') ? 'is-invalid' : '']" name="specialization" v-model="specialization" @keydown="errors = null" required>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('specialization')">
                                         <span class="text-danger" role="alert">
@@ -134,19 +134,19 @@
                                 <label class="col-md-4 col-form-label text-md-right">Sex</label>
                                 <div class="col-">
                                     <div class="form-check">
-                                        <input class="" type="radio" name="maleRadio" value="male" v-model="user.photographer.sex" checked>
+                                        <input class="" type="radio" name="maleRadio" value="male" v-model="sex" checked>
                                         <label class="form-check-label" for="maleRadio">
                                             Male
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="" type="radio" name="femaleRadio" value="female" v-model="user.photographer.sex">
+                                        <input class="" type="radio" name="femaleRadio" value="female" v-model="sex">
                                         <label class="form-check-label" for="femaleRadio">
                                             Female
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="" type="radio" name="otherRadio" value="other" v-model="user.photographer.sex">
+                                        <input class="" type="radio" name="otherRadio" value="other" v-model="sex">
                                         <label class="form-check-label" for="otherRadio">
                                             Other
                                         </label>
@@ -158,7 +158,7 @@
                                 <label for="mobile" class="col-md-4 col-form-label text-md-right">Mobile</label>
 
                                 <div class="col-md-6">
-                                    <input type="mobile" class="form-control" :class="[ errors != null && errors.hasOwnProperty('mobile') ? 'is-invalid' : '']" name="mobile" v-model="user.photographer.mobile" @keydown="errors = null" required>
+                                    <input type="mobile" class="form-control" :class="[ errors != null && errors.hasOwnProperty('mobile') ? 'is-invalid' : '']" name="mobile" v-model="mobile" @keydown="errors = null" required>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('mobile')">
                                         <span class="text-danger" role="alert">
@@ -171,15 +171,15 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="age" class="col-md-4 col-form-label text-md-right">Age</label>
+                                <label for="dob" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
 
                                 <div class="col-md-6">
-                                    <input type="number" min="5" class="form-control" :class="[ errors != null && errors.hasOwnProperty('age') ? 'is-invalid' : '']" name="age" v-model="user.photographer.age" @keydown="errors = null" required>
+                                    <input type="number" min="5" class="form-control" :class="[ errors != null && errors.hasOwnProperty('dob') ? 'is-invalid' : '']" name="dob" v-model="dob" @keydown="errors = null" required>
 
-                                    <template v-if="errors != null && errors.hasOwnProperty('age')">
+                                    <template v-if="errors != null && errors.hasOwnProperty('dob')">
                                         <span class="text-danger" role="alert">
                                             <strong>
-                                                {{ errors.age[0] }}
+                                                {{ errors.dob[0] }}
                                             </strong>
                                         </span>
                                     </template>
@@ -190,7 +190,7 @@
                                 <label for="charges" class="col-md-4 col-form-label text-md-right">Charges</label>
 
                                 <div class="col-md-6">
-                                    <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="user.photographer.charges" @keydown="errors = null" required>
+                                    <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="charges" @keydown="errors = null" required>
 
                                     <template v-if="errors != null && errors.hasOwnProperty('charges')">
                                         <span class="text-danger" role="alert">
@@ -230,20 +230,17 @@
                 imageFile: null,
                 password: '',
                 showPassword: false,
-                user: {
-                    name: '',
-                    email: '',
-                    email_verified_at: '',
-                    photographer: {
-                        sex: '',
-                        dob: '',
-                        location: '',
-                        mobile: '',
-                        bio: '',
-                        specialization: '',
-                        charges: '',
-                    }
-                },
+
+                name: '',
+                email: '',
+                email_verified_at: '',
+                sex: '',
+                dob: '',
+                mobile: '',
+                specialization: '',
+                location: '',
+                charges: '',
+                bio: '',
             }
         },
         mounted(){
@@ -265,7 +262,17 @@
                 .then((response) => {
                     let json = response.data;
                     console.log(json);
-                    this.user = json;
+
+                    this.name = json.name;
+                    this.email = json.email;
+                    this.email_verified_at = json.email_verified_at;
+                    this.sex = json.photographer.sex;
+                    this.dob = json.photographer.dob;
+                    this.mobile = json.photographer.mobile;
+                    this.specialization = json.photographer.specialization;
+                    this.location = json.photographer.location;
+                    this.charges = json.photographer.charges;
+                    this.bio = json.photographer.bio;
 
                     this.updateUserInfo();
                 })
@@ -274,17 +281,17 @@
                 });
             },
             updateUserInfo() {
-                let url = '/api/user/update';//+this.user.id;
+                let url = '/api/user/update';
                 let formData = new FormData();
-                formData.append('name', this.user.name);
-                formData.append('email', this.user.email);
-                formData.append('sex', this.user.sex);
-                formData.append('dob', this.user.dob);
-                formData.append('location', this.user.location);
-                formData.append('mobile', this.user.mobile);
-                formData.append('specialization', this.user.specialization);
-                formData.append('bio', this.user.bio);
-                formData.append('charges', this.user.charges);
+                formData.append('name', this.name);
+                formData.append('email', this.email);
+                formData.append('sex', this.sex);
+                formData.append('dob', this.dob);
+                formData.append('mobile', this.mobile);
+                formData.append('specialization', this.specialization);
+                formData.append('location', this.location);
+                formData.append('charges', this.charges);
+                formData.append('bio', this.bio);
 
                 axios.post(url, formData)
                 .then((response) => {
