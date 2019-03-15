@@ -15,8 +15,8 @@ import Subscribe from './views/Subscribe';
 import Payment from './views/Payment';
 import PaymentStatus from './views/PaymentStatus';
 import Subscription from './views/Subscription';
-
-import Cart from './views/components/Cart';
+import CartComponent from './views/components/CartComponent';
+import Cart from './views/Cart';
 
 let routes = [
     {
@@ -64,8 +64,8 @@ let routes = [
         component: Subscribe
     },
     {
-        path: '/Cart',
-        component: Cart
+        path: '/CartComponent',
+        component: CartComponent
     },
     {
         path: '/payment',
@@ -78,6 +78,10 @@ let routes = [
     {
         path: '/subscription',
         component: Subscription
+    },
+    {
+        path: '/Cart',
+        component: Cart
     }
 ];
 
