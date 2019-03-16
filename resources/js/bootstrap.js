@@ -8,7 +8,7 @@ try {
 } catch (e) {}
 
 
-// import moment from 'moment';
+import moment from 'moment';
 import Vue from 'vue';
 import axios from 'axios';
 import VueRouter from 'vue-router';
