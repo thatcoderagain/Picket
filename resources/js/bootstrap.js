@@ -13,10 +13,12 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
+import BootstrapVue from 'bootstrap-vue'
 
 window.Vue = Vue;
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.use(BootstrapVue);
 window.EventBus = new Vue();
 
 window.axios = axios;
