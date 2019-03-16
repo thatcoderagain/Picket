@@ -15,11 +15,8 @@ import Subscribe from './views/Subscribe';
 import Payment from './views/Payment';
 import PaymentStatus from './views/PaymentStatus';
 import Subscription from './views/Subscription';
-
 import Transactions from './views/Transactions';
-import Cart from './views/components/Cart';
-
-import CartComponent from './views/components/CartComponent';
+import CartModal from './views/components/CartModal';
 import Cart from './views/Cart';
 
 let routes = [
@@ -68,8 +65,8 @@ let routes = [
         component: Subscribe
     },
     {
-        path: '/CartComponent',
-        component: CartComponent
+        path: '/CartModal',
+        component: CartModal
     },
     {
         path: '/payment',
@@ -84,13 +81,12 @@ let routes = [
         component: Subscription
     },
     {
-<<<<<<< HEAD
         path: '/transactions',
         component: Transactions
-=======
+    },
+    {
         path: '/Cart',
         component: Cart
->>>>>>> f1643ddfa6152ddb81f5ddb5c916c38d634e5d04
     }
 ];
 

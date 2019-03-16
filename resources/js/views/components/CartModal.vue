@@ -7,7 +7,8 @@
     <div>
         <button class="btn btn-primary" id="modalButton" type="button" data-toggle="modal" data-target="#modalVM" v-show="true" ref="modalButton">Modal
         </button>
-        <div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <button @click="$refs.modalButton.click()">click</button>
+        <div class="modal fade animated slideInRight delay-2" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-model="modal">
             <div class="p-0 m-0" role="document">
                 <div class="w-100 h-100">
                     <div class="row">
@@ -96,6 +97,7 @@
     export default {
         data() {
             return {
+                modal: null,
                 caption: 'Maybelline New York Fit Me Matte',
                 price: '₹1000',
                 resolution: '500x800',
