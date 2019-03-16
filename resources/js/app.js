@@ -10,3 +10,5 @@ new Vue({
     store: store,
     mixins: [mixin],
 });
+
+import Slider from './components/Slider';
