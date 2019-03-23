@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container-fuild">
-        @include('layouts.header')
+        <Navbar></Navbar>
         <router-view></router-view>
     </div>
 @endsection

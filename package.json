@@ -9,7 +9,7 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "devDependencies": {
+    "dependencies": {
         "@fortawesome/fontawesome-free": "^5.7.2",
         "animate.css": "^3.7.0",
         "axios": "^0.18",
@@ -28,6 +28,8 @@
         "vue": "^2.6.9",
         "vue-router": "^3.0.2",
         "vue-template-compiler": "^2.6.9",
-        "vuex": "^3.1.0"
+        "vuex": "^3.1.0",
+        "vuex-persist": "^2.0.0",
+        "vuex-persistedstate": "^2.5.4"
     }
 }

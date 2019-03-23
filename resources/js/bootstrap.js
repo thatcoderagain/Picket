@@ -19,10 +19,10 @@ if (token) {
 }
 
 
-import moment from 'moment';
 import Vue from 'vue';
-import axios from 'axios';
 import Vuex from 'vuex';
+import axios from 'axios';
+import moment from 'moment';
 import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue'
 

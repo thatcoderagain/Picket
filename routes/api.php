@@ -19,7 +19,7 @@ Route::post('/user/update', 'UsersController@update');
 
 // Image
 Route::post('/upload', 'ImagesController@uploadImage');
-Route::post('/fetchImages', 'ImagesController@getImages');
+Route::post('/fetchAllImages', 'ImagesController@getImages');
 Route::post('/fetchCategories', 'ImagesController@getCategories');
 Route::post('/fetchImageInfo/{id}', 'ImagesController@getImageInfo');
 
