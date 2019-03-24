@@ -15,6 +15,7 @@ export const store = new Vuex.Store({
         auth: {user: null},
     },
     mutations: {
+        // login: (state, payload) => { state.guest = false; state.auth.user = payload.user },
         login: (state) => state.guest = false,
         logout: (state) => state.guest = true,
     },

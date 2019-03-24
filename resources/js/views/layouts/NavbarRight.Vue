@@ -1,6 +1,5 @@
 <template>
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a href="#" class="nav-link">{{ guest }}</a></li>
         <!-- Authentication Links -->
         <template v-if="guest">
             <router-link tag="li" to="/login" class="nav-item">
@@ -17,7 +16,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }} <span class="caret"></span>
+                    @{{ auth.user.name }} <span class="caret"></span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -40,7 +39,7 @@
     export default {
         computed: {
             ...mapState([
-                'guest',
+                'guest', 'auth'
             ])
         },
         methods: {
@@ -61,8 +60,8 @@
                         this.errors = json.error;
                     }
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch((e) => {
+                    console.error(e);
                 });
             }
         }
