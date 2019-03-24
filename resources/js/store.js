@@ -3,7 +3,7 @@ import VuexPersist from 'vuex-persist';
 
 const vuexLocalStorage = new VuexPersist({
     key: 'picket',
-    storage: window.localStorage, // or window.sessionStorage or localForage
+    storage: window.localStorage, // window.localStorage or window.sessionStorage or localForage
 })
 
 export const store = new Vuex.Store({

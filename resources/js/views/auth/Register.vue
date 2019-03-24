@@ -118,24 +118,19 @@
         methods: {
             attemptRegister() {
                 let url = '/api/register';
-                axios({
-                    method: 'post',
-                    responseType: 'json',
-                    url: url,
-                    data: {
-                        'name': this.name,
-                        'username': this.username,
-                        'email': this.email,
-                        'password': this.password,
-                        'password_confirmation': this.password_confirmation
-                    }
+                axios.post(url, {
+                    'name': this.name,
+                    'username': this.username,
+                    'email': this.email,
+                    'password': this.password,
+                    'password_confirmation': this.password_confirmation
                 })
                 .then((response) => {
                     let json = response.data;
                     console.log(json);
                     if (json.success == true) {
                         this.user = json.user;
-                        window.location = "/login"
+                        this.$router.push('/login');
                     } else {
                         this.errors = json.errors;
                     }

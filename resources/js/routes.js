@@ -21,16 +21,16 @@ import Cart from './views/Cart';
 
 let routes = [
     {
-        path: '/',
-        component: Home
-    },
-    {
         path: '/login',
-        component: Login
+        component: Login,
     },
     {
         path: '/register',
         component: Register
+    },
+    {
+        path: '/',
+        component: Home
     },
     {
         path: '/about',
@@ -90,8 +90,25 @@ let routes = [
     }
 ];
 
-export default new VueRouter({
-    routes: routes,
+
+export const router = new VueRouter({
     // mode: 'history',
+    routes: routes,
     linkActiveClass: 'is-active'
 });
+
+// GLOBAL MIDDLEWARE
+router.beforeEach((to, from, next) => {
+    console.log(JSON.parse(localStorage.picket).guest)
+    // console.log(to);
+    // console.log(from);
+    if (JSON.parse(localStorage.picket).guest)
+        console.log('Guest');
+    else
+        console.log('User');
+    next();
+});
+
+
+
+router.onError(err => console.error('Error - ' + err.message));

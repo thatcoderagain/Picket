@@ -48,9 +48,6 @@
                                 <button type="button" class="btn btn-primary" :class="[errors != null ? 'disabled' : '']" v-on:click="attemptLogin()">
                                     Login
                                 </button>
-                                <button type="button" class="btn btn-primary" v-on:click="login()">
-                                    Fake Login
-                                </button>
                                 <router-link to="/password-reset" class="btn btn-link">Forgot Your Password?</router-link>
                                 </a>
                             </div>
@@ -84,15 +81,9 @@
             ]),
             attemptLogin() {
                 let url = '/api/login';
-                axios({
-                    method: 'post',
-                    responseType: 'json',
-                    url: url,
-                    withCredentials: false,
-                    data: {
-                        'email': this.email,
-                        'password': this.password
-                    }
+                axios.post(url, {
+                    'email': this.email,
+                    'password': this.password
                 })
                 .then((response) => {
                     let json = response.data;
@@ -100,7 +91,7 @@
                     if (json.success == true) {
                         this.user = json.user;
                         this.login();
-                        // window.location = "/";
+                        this.$router.push('/');
                     } else {
                         this.errors = json.error;
                     }

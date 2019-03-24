@@ -1,10 +1,3 @@
-<style>
-#s {
-    div {
-        border: 1px solid red;
-    }
-}
-</style>
 <template>
     <div>
         <button class="btn btn-primary" id="modalButton" type="button" data-toggle="modal"
