@@ -1,5 +1,4 @@
-database/*.sqlite
-/node_m/odules
+/node_modules
 /public/css/app.css
 /public/js/app.js
 /public/hot

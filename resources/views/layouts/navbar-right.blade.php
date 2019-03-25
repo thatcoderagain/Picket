@@ -16,6 +16,9 @@
             <a class="nav-link">Register</a>
         </router-link>
     @else
+        <li class="nav-item">
+            <button class="btn text-white"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Cart </button>
+        </li>
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }} <span class="caret"></span>

@@ -1,15 +1,16 @@
 
+// Variables
+@import 'variables';
+
 // Fonts
 @import '~raleway-webfont/raleway.min.css';
 
 // Font awesome
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
-// Variables
-@import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
 
 // Animate.css
 @import '~animate.css/animate.css';

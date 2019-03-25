@@ -151,6 +151,13 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
+        // JSON
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true
+            ], 200);
+        }
+
         return $this->loggedOut($request) ?: redirect('/');
     }
 

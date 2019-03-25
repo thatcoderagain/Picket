@@ -7,18 +7,6 @@ try {
     require('bootstrap');
 } catch (e) {}
 
-
-// import moment from 'moment';
-import Vue from 'vue';
-import axios from 'axios';
-import VueRouter from 'vue-router';
-import Vuex from 'vuex';
-
-window.Vue = Vue;
-Vue.use(VueRouter);
-Vue.use(Vuex);
-window.EventBus = new Vue();
-
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -29,3 +17,18 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
+import moment from 'moment';
+import VueRouter from 'vue-router';
+import BootstrapVue from 'bootstrap-vue'
+
+window.Vue = Vue;
+window.EventBus = new Vue();
+
+Vue.use(Vuex);
+Vue.use(VueRouter);
+Vue.use(BootstrapVue);

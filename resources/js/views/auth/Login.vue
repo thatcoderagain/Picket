@@ -11,7 +11,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" :class="[ errors != null ? 'is-invalid' : '']" name="email" v-model="email" @keydown="errors = null" required autofocus>
+                                <input id="email" type="email" class="form-control" :class="[ errors != null ? 'is-invalid' : '']" name="email" v-model="email" @keydown="errors = null" v-on:keyup.enter="attemptLogin()" required autofocus>
                             </div>
                         </div>
 
@@ -19,7 +19,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" :class="[ errors != null ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null" required>
+                                <input id="password" type="password" class="form-control" :class="[ errors != null ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null"v-on:keyup.enter="attemptLogin()" required>
 
                                 <template v-if="errors != null">
                                     <span class="text-danger" role="alert">
@@ -61,6 +61,8 @@
 </template>
 
 <script>
+    import { mapState, mapMutations, mapActions } from 'vuex';
+
     export default {
         props: [],
         data() {
@@ -74,24 +76,22 @@
             }
         },
         methods: {
+            ...mapActions([
+                'login'
+            ]),
             attemptLogin() {
                 let url = '/api/login';
-                axios({
-                    method: 'post',
-                    responseType: 'json',
-                    url: url,
-                    withCredentials: false,
-                    data: {
-                        'email': this.email,
-                        'password': this.password
-                    }
+                axios.post(url, {
+                    'email': this.email,
+                    'password': this.password
                 })
                 .then((response) => {
                     let json = response.data;
                     console.log(json);
                     if (json.success == true) {
                         this.user = json.user;
-                        window.location = "/";
+                        this.login();
+                        this.$router.push('/');
                     } else {
                         this.errors = json.error;
                     }

@@ -15,78 +15,131 @@ import Subscribe from './views/Subscribe';
 import Payment from './views/Payment';
 import PaymentStatus from './views/PaymentStatus';
 import Subscription from './views/Subscription';
-import CartComponent from './views/components/CartComponent';
+import Transactions from './views/Transactions';
+import CartModal from './views/components/CartModal';
 import Cart from './views/Cart';
+
+function guest() {
+    if (JSON.parse(localStorage.picket).guest)
+        return true;
+    else
+        return false;
+}
+
+function auth() {
+    return !guest();
+}
 
 let routes = [
     {
+        name: 'login',
+        path: '/login',
+        component: Login,
+        beforeEnter: (to, from, next) => {
+            guest() ? next() : next(false);
+        }
+    },
+    {
+        name: 'register',
+        path: '/register',
+        component: Register,
+        beforeEnter: (to, from, next) => {
+            guest() ? next() : next(false);
+        }
+    },
+    {
+        name: 'edit-profile',
+        path: '/edit-profile',
+        component: EditProfile,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+        }
+    },
+    {
+        name: 'home',
         path: '/',
         component: Home
     },
     {
-        path: '/login',
-        component: Login
-    },
-    {
-        path: '/register',
-        component: Register
-    },
-    {
+        name: 'about',
         path: '/about',
         component: About
     },
     {
+        name: 'plans',
         path: '/plans',
         component: Plans
     },
     {
+        name: 'upload',
         path: '/upload',
         component: Upload
     },
     {
+        name: 'gallery',
         path: '/gallery',
         component: Gallery
     },
     {
+        name: 'image',
         path: '/image/:id',
         component: ImageProfile
     },
     {
+        name: 'profile',
         path: '/profile',
         component: Profile
     },
     {
-        path: '/edit-profile',
-        component: EditProfile
-    },
-    {
+        name: 'subscribe',
         path: '/subscribe',
         component: Subscribe
     },
     {
-        path: '/CartComponent',
-        component: CartComponent
+        name: 'CartModal',
+        path: '/CartModal',
+        component: CartModal
     },
     {
+        name: 'payment',
         path: '/payment',
         component: Payment
     },
     {
+        name: 'payment-status',
         path: '/payment-status',
         component: PaymentStatus
     },
     {
+        name: 'subscription',
         path: '/subscription',
         component: Subscription
     },
     {
+        name: 'transactions',
+        path: '/transactions',
+        component: Transactions
+    },
+    {
+        name: 'Cart',
         path: '/Cart',
         component: Cart
     }
 ];
 
-export default new VueRouter({
-    routes: routes,
+
+export const router = new VueRouter({
     // mode: 'history',
+    routes: routes,
     linkActiveClass: 'is-active'
 });
+
+// GLOBAL MIDDLEWARE
+router.onError((e) => console.error(e.message));
+
+router.beforeEach((to, from, next) => {
+    next();
+});
+
+
+

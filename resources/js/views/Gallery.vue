@@ -47,7 +47,7 @@
         },
         methods: {
             fetchImages() {
-                let url = 'api/fetchImages';
+                let url = 'api/fetchAllImages';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;
