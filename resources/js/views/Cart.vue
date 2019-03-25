@@ -11,15 +11,9 @@
                     <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Paypal</a>
                 </div>
             </div>
-
-            <div class="col-5 w-100 mt-3 p-5 shadow bg-white">
-                <div class="tab-pane fade show active position-absoulte" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                    <h4 class="mb-3">PayPal <span class="text-primary"><i class="fab fa-cc-paypal"></i></span></h4>
-
-            <div class="col-6 w-100 mt-3 p-5 shadow bg-white tab-content">
+            <div class="col-5 w-100 mt-3 p-5 shadow bg-white tab-content">
                 <div class="tab-pane fade show active position-relative" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                     <h4 class="mb-3">Credit/Debit Card <span class="text-primary"><i class="fas fa-credit-card"></i></span></h4>
-
                     <div class="mb-3">
                         <label>Email</label>
                         <input type="email" class="form-control" placeholder="name@example.com">
@@ -55,34 +49,32 @@
                         <button type="button" class="btn btn-outline-danger">Continue</button>
                     </div>
                 </div>
-
-                <div class="tab-pane fade position-absoulte" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                    <h4 class="mb-3">Credit/Debit Card <span class="text-primary"><i class="fas fa-credit-card"></i></span></h4>
-
                 <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                     <h4 class="mb-3">PayPal <span class="text-primary"><i class="fab fa-cc-paypal"></i></span></h4>
-
                     <div class="mb-3">
                          <label>Card Number</label>
                          <input type="text" class="form-control" placeholder="0000 0000 0000 0000" required="">
                      </div>
-                     <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <label>Expiration</label>
-                            <input type="text" class="form-control" id="cc-expiration" placeholder="MM/YY" required="">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                             <label>CVV</label>
-                            <input type="text" class="form-control" id="cc-cvv" placeholder="000" required="">
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div class="col-3 w-100 mt-3 p-5 m-3 shadow bg-white">
-                jhu
+            <div class="col-3 w-100 mt-3 p-5 m-2 shadow bg-white tab-content">
+                <CartBucket/>
             </div>
+
          </div>
     </div>
-
-
 </template>
+<script>
+    import CartBucket from './components/CartBucket';
+
+export default {
+        components: {
+            CartBucket: CartBucket,
+            },
+        data() {
+            return {
+                    }
+        }
+    }
+</script>
+
