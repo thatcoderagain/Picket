@@ -19,8 +19,14 @@ import Transactions from './views/Transactions';
 import CartModal from './views/components/CartModal';
 import Cart from './views/Cart';
 
+function localStore() {
+    return localStorage.picket ? true : false;
+}
+
 function guest() {
-    if (localStorage.picket !== undefined && JSON.parse(localStorage.picket).guest)
+    if (!localStore()) return true;
+
+    if (JSON.parse(localStorage.picket).guest)
         return true;
     else
         return false;
