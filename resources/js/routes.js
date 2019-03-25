@@ -20,7 +20,7 @@ import CartModal from './views/components/CartModal';
 import Cart from './views/Cart';
 
 function guest() {
-    if (JSON.parse(localStorage.picket).guest)
+    if (localStorage.picket !== undefined && JSON.parse(localStorage.picket).guest)
         return true;
     else
         return false;
