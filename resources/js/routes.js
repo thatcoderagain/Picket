@@ -18,6 +18,7 @@ import Subscription from './views/Subscription';
 import Transactions from './views/Transactions';
 import CartModal from './views/components/CartModal';
 import Cart from './views/Cart';
+import PurchasedImages from './views/PurchasedImages';
 
 function guest() {
     if (localStorage.picket !== undefined && JSON.parse(localStorage.picket).guest)
@@ -124,6 +125,11 @@ let routes = [
         name: 'Cart',
         path: '/Cart',
         component: Cart
+    },
+    {
+        name: 'PurchasedImages',
+        path: '/PurchasedImages',
+        component: PurchasedImages
     }
 ];
 
