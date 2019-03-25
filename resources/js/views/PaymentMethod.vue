@@ -11,7 +11,7 @@
                     <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Paypal</a>
                 </div>
             </div>
-            <div class="col-6 w-100 mt-3 p-5 shadow bg-white tab-content">
+            <div class="col-5 w-100 mt-3 p-5 shadow bg-white tab-content">
                 <div class="tab-pane fade show active position-relative" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
                     <h4 class="mb-3">Credit/Debit Card <span class="text-primary"><i class="fas fa-credit-card"></i></span></h4>
                     <div class="mb-3">
@@ -57,8 +57,24 @@
                      </div>
                 </div>
             </div>
+            <div class="col-3 w-100 mt-3 p-5 m-2 shadow bg-white tab-content">
+                <CartBucket/>
+            </div>
+
          </div>
     </div>
-
-
 </template>
+<script>
+    import CartBucket from './components/CartBucket';
+
+export default {
+        components: {
+            CartBucket: CartBucket,
+            },
+        data() {
+            return {
+                    }
+        }
+    }
+</script>
+
