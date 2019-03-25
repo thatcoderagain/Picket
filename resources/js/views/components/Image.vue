@@ -13,12 +13,15 @@
 
                 <div class="card bg-white text-dark m-0 p-3">
                     <div class="text-justify">
-                        <span class="text-right font-weight-bold">Category: {{ image.category }}</span>
+                        <span class="text-right font-weight-bold text-muted">Category: {{ image.category }}</span>
                     </div>
                     <div class="form-group m-0 p-0">
-                        <button type="button" class="btn btn-primary btn-sm">Photographer</button>
-                        <button type="button" class="btn btn-danger btn-sm">Add to Cart</button>
-                        <router-link tag="a" :to="'/image/' + image.id" class="btn btn-success btn-sm">Open Image</router-link>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-link btn-sm">Photographer</button>
+                        <button type="button" class="btn btn-link btn-sm" @click="addImageToCart()">Add to Cart</button>
+                        <button type="button" class="btn btn-link btn-sm" @click="removeImageFromCart()">Remove From Cart</button>
+                        <router-link tag="a" :to="'/image/' + image.id" class="btn btn-link btn-sm">Open Image</router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -27,6 +30,7 @@
 </template>
 
 <script>
+    import { mapState, mapMutations, mapActions } from 'vuex';
 
     export default {
         props: [
@@ -39,10 +43,20 @@
             }
         },
         methods: {
+            ...mapActions([
+                'addToCart',
+                'removeFromCart'
+            ]),
             openModal(image) {
                 EventBus.$emit('showModal', {
                     image: image
                 });
+            },
+            addImageToCart() {
+                this.addToCart({image: this.image});
+            },
+            removeImageFromCart() {
+                this.removeFromCart({image: this.image});
             }
         }
     }

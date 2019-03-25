@@ -179,11 +179,11 @@
         filters: {
             keyworder(string) {
                 let keywords = string.split(' ').filter((s) => {
-                    return s != '' && s.length > 2
+                    return s != '' && s.length > 2;
                 });
                 if (keywords.length > 0)
                     return keywords.map((s) => {
-                        return '#'+s
+                        return '#'+s;
                     }).join(' ');
                 else
                     return null;

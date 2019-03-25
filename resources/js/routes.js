@@ -1,14 +1,14 @@
 import VueRouter from 'vue-router';
 
 /* Components */
-import Home from './views/Home';
 import Login from './views/auth/Login';
 import Register from './views/auth/Register';
-import About from './views/About';
-import Plans from './views/Plans';
 import Upload from './views/Upload';
+import Photographer from './views/Photographer';
+
+import Home from './views/Home';
+import Plans from './views/Plans';
 import Gallery from './views/Gallery';
-import Profile from './views/Profile';
 import ImageProfile from './views/ImageProfile';
 import EditProfile from './views/EditProfile';
 import Subscribe from './views/Subscribe';
@@ -16,8 +16,7 @@ import Payment from './views/Payment';
 import PaymentStatus from './views/PaymentStatus';
 import Subscription from './views/Subscription';
 import Transactions from './views/Transactions';
-import CartModal from './views/components/CartModal';
-import Cart from './views/Cart';
+import PaymentMethod from './views/PaymentMethod';
 
 function localStore() {
     return localStorage.picket ? true : false;
@@ -62,25 +61,29 @@ let routes = [
         }
     },
     {
+        name: 'upload',
+        path: '/upload',
+        component: Upload,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+        }
+    },
+    {
+        name: 'Photographer',
+        path: '/Photographer',
+        component: Photographer
+    },
+    {
         name: 'home',
         path: '/',
         component: Home
-    },
-    {
-        name: 'about',
-        path: '/about',
-        component: About
     },
     {
         name: 'plans',
         path: '/plans',
         component: Plans
     },
-    {
-        name: 'upload',
-        path: '/upload',
-        component: Upload
-    },
+
     {
         name: 'gallery',
         path: '/gallery',
@@ -91,30 +94,13 @@ let routes = [
         path: '/image/:id',
         component: ImageProfile
     },
-    {
-        name: 'profile',
-        path: '/profile',
-        component: Profile
-    },
+
+
+
     {
         name: 'subscribe',
         path: '/subscribe',
         component: Subscribe
-    },
-    {
-        name: 'CartModal',
-        path: '/CartModal',
-        component: CartModal
-    },
-    {
-        name: 'payment',
-        path: '/payment',
-        component: Payment
-    },
-    {
-        name: 'payment-status',
-        path: '/payment-status',
-        component: PaymentStatus
     },
     {
         name: 'subscription',
@@ -127,9 +113,19 @@ let routes = [
         component: Transactions
     },
     {
-        name: 'Cart',
-        path: '/Cart',
-        component: Cart
+        name: 'payment',
+        path: '/payment',
+        component: Payment
+    },
+    {
+        name: 'payment-status',
+        path: '/payment-status',
+        component: PaymentStatus
+    },
+    {
+        name: 'PaymentMethod',
+        path: '/PaymentMethod',
+        component: PaymentMethod
     }
 ];
 
@@ -143,9 +139,6 @@ export const router = new VueRouter({
 // GLOBAL MIDDLEWARE
 router.onError((e) => console.error(e.message));
 
-router.beforeEach((to, from, next) => {
-    next();
-});
-
-
-
+// router.beforeEach((to, from, next) => {
+//     next();
+// });

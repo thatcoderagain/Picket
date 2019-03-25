@@ -90,7 +90,7 @@
                     console.log(json);
                     if (json.success == true) {
                         this.user = json.user;
-                        this.login();
+                        this.login({user: this.user});
                         this.$router.push('/');
                     } else {
                         this.errors = json.error;

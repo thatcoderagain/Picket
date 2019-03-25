@@ -17,11 +17,25 @@
             <a class="nav-link">Gallery</a>
         </router-link>
 
-        <!-- @auth -->
+        <template v-if="!guest">
             <router-link tag="li" to="/upload" class="nav-item">
                 <a class="nav-link">Upload</a>
             </router-link>
-        <!-- @endauth -->
+        </template>
 
     </ul>
 </template>
+
+<script>
+    import { mapState, mapMutations, mapActions } from 'vuex';
+
+    export default {
+        computed: {
+            ...mapState([
+                'guest', 'auth'
+            ])
+        },
+    }
+
+
+</script>
