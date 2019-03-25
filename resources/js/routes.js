@@ -17,7 +17,7 @@ import PaymentStatus from './views/PaymentStatus';
 import Subscription from './views/Subscription';
 import Transactions from './views/Transactions';
 import PaymentMethod from './views/PaymentMethod';
-import PurchasedImages from './views/PurchasedImages';
+// import PurchasedImages from './views/PurchasedImages';
 
 function localStore() {
     return localStorage.picket ? true : false;
@@ -128,11 +128,11 @@ let routes = [
         path: '/PaymentMethod',
         component: PaymentMethod
     },
-    {
-        name: 'PurchasedImages',
-        path: '/PurchasedImages',
-        component: PurchasedImages
-    }
+    // {
+    //     name: 'PurchasedImages',
+    //     path: '/PurchasedImages',
+    //     component: PurchasedImages
+    // }
 ];
 
 
