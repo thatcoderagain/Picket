@@ -2,7 +2,8 @@
     <span>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <button class="btn text-white" data-toggle="modal" data-target="#modalVM"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Cart</button>
+                <button class="btn text-white" id="CartModalButton" type="button" data-toggle="modal"
+        data-target="#CartModal"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Cart&nbsp;&nbsp;<span class="badge badge-light">{{ cartCount }}</span></button>
             </li>
             <!-- Authentication Links -->
             <template v-if="guest">
@@ -36,13 +37,16 @@
 </template>
 
 <script>
-    import { mapState, mapMutations, mapActions } from 'vuex';
+    import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
     export default {
         computed: {
             ...mapState([
                 'guest', 'auth'
-            ])
+            ]),
+            ...mapGetters([
+                'cartCount'
+            ]),
         },
         methods: {
             ...mapActions([

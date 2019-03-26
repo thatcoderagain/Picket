@@ -16,6 +16,22 @@ export const store = new Vuex.Store({
         guest: true,
         auth: {user: null},
         cart: [],
+        discount: 5,
+    },
+
+    getters: {
+        cartCount: (state) => { return state.cart.length },
+        bagTotal: (state) => {
+            let amount = 0.0;
+            state.cart.forEach((image) => {
+                let resolutions = image.resolution.split(' x ');
+                amount += resolutions[0]*resolutions[1]/102400;
+            });
+            return String(amount);
+        },
+        grandTotal: (state, getters) => {
+            return getters.bagTotal - ((getters.bagTotal*state.discount)/100);
+        }
     },
 
     mutations: {
