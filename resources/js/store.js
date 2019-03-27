@@ -17,6 +17,7 @@ export const store = new Vuex.Store({
         auth: {user: null},
         cart: [],
         discount: 5,
+        showCartModal: false,
     },
 
     getters: {
@@ -48,7 +49,8 @@ export const store = new Vuex.Store({
             state.cart = state.cart.filter((image) => {
                 return image.id !== payload.image.id;
             });
-        }
+        },
+        cartModal: (state, payload) => { state.showCartModal = payload.showCartModal },
     },
 
     actions: {
@@ -56,5 +58,6 @@ export const store = new Vuex.Store({
         logout: ({commit}) => commit('logout'),
         addToCart: ({commit}, payload) => commit('addToCart', payload),
         removeFromCart: ({commit}, payload) => commit('removeFromCart', payload),
+        cartModal: ({commit}, payload) => commit('cartModal', payload),
     }
 });

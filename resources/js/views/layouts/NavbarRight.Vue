@@ -2,8 +2,11 @@
     <span>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <button class="btn text-white" id="CartModalButton" type="button" data-toggle="modal"
-        data-target="#CartModal"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Cart&nbsp;&nbsp;<span class="badge badge-light">{{ cartCount }}</span></button>
+                <button class="btn text-white" data-toggle="modal" data-target="#CartModal" @click="cartModal({showCartModal: true})">
+                    <i class="fas fa-shopping-cart">
+                    </i>&nbsp;&nbsp;Cart&nbsp;&nbsp;
+                    <span class="badge badge-light">{{ cartCount }}</span>
+                </button>
             </li>
             <!-- Authentication Links -->
             <template v-if="guest">
@@ -42,7 +45,7 @@
     export default {
         computed: {
             ...mapState([
-                'guest', 'auth'
+                'guest', 'auth', 'showCartModal'
             ]),
             ...mapGetters([
                 'cartCount'
@@ -50,7 +53,7 @@
         },
         methods: {
             ...mapActions([
-                'logout'
+                'logout', 'cartModal'
             ]),
             attemptLogout() {
                 let url = '/api/logout';

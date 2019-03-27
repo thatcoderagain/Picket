@@ -35,7 +35,7 @@
         },
         methods: {
             fetchCategoies(){
-                let url = 'api/fetchCategories';
+                let url = 'api/categories/fetch';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;

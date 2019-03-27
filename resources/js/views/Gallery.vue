@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import ImageCard from './components/Image';
+    import ImageCard from './components/ImageCard';
 
     export default {
         components: {
@@ -47,7 +47,7 @@
         },
         methods: {
             fetchImages() {
-                let url = 'api/fetchAllImages';
+                let url = 'api/image/fetch-all';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;

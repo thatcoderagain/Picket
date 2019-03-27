@@ -15,13 +15,15 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // User
 Route::post('/user/fetch', 'UsersController@fetch');
+Route::post('/user/fetch/{username}', 'UsersController@fetch');
 Route::post('/user/update', 'UsersController@update');
 
 // Image
-Route::post('/upload', 'ImagesController@uploadImage');
-Route::post('/fetchAllImages', 'ImagesController@getImages');
-Route::post('/fetchCategories', 'ImagesController@getCategories');
-Route::post('/fetchImageInfo/{id}', 'ImagesController@getImageInfo');
+Route::post('/categories/fetch', 'ImagesController@categories');
+Route::post('/image/store', 'ImagesController@store');
+
+Route::post('/image/fetch-all', 'ImagesController@fetchAll');
+Route::post('/image/fetch/{id}', 'ImagesController@fetch');
 
 
 

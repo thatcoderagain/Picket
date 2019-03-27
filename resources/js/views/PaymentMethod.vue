@@ -58,23 +58,19 @@
                 </div>
             </div>
             <div class="col-3 w-100 mt-3 p-5 m-2 shadow bg-white tab-content">
-                <CartBucket/>
+                <!-- <CartBucket/> -->
             </div>
 
          </div>
     </div>
 </template>
 <script>
-    import CartBucket from './components/CartBucket';
+    // import CartBucket from './components/CartBucket';
 
 export default {
-        components: {
-            CartBucket: CartBucket,
-            },
-        data() {
-            return {
-                    }
-        }
+    components: {
+        // CartBucket: CartBucket,
+        },
     }
 </script>
 

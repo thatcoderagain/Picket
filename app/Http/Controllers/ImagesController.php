@@ -9,12 +9,7 @@ use Illuminate\Http\Request;
 
 class ImagesController extends Controller
 {
-    public function getImages()
-    {
-        return Image::orderBy('id', 'DESC')->get();
-    }
-
-    public function getCategories()
+    public function categories()
     {
         return [
             'Abstract',
@@ -52,18 +47,27 @@ class ImagesController extends Controller
         ];
     }
 
-    public function getImageInfo(Request $request, Image $id)
+    public function fetchAll()
+    {
+        return Image::with('user')->orderBy('id', 'DESC')->get();
+    }
+
+    public function fetch(Request $request, Image $id)
     {
         return Image::with('user')->with('keywords')->where('id', $id->id)->first();
     }
 
-    public function uploadImage(Request $request)
+    // public function base64Converter($image)
+    // {
+    //     'data:image/jpeg;base64,'.base64_encode($image)
+    // }
+
+    public function store(Request $request)
     {
         if ($request->hasFile('imageFile'))
         {
             if ($request->file('imageFile')->isValid())
             {
-                // $fileName = $request->file('imageFile')->getClientOriginalName();
                 $extension = $request->file('imageFile')->getClientOriginalExtension();
                 $mime_type = $request->file('imageFile')->getMimeType();
                 $size = $request->file('imageFile')->getSize();

@@ -3,21 +3,24 @@ import VueRouter from 'vue-router';
 /* Components */
 import Login from './views/auth/Login';
 import Register from './views/auth/Register';
+import EditProfile from './views/EditProfile';
 import Upload from './views/Upload';
-import Photographer from './views/Photographer';
 
+
+// TODO
+
+import Image from './views/Image';
+import Photographer from './views/Photographer';
 import Home from './views/Home';
 import Plans from './views/Plans';
 import Gallery from './views/Gallery';
-import ImageProfile from './views/ImageProfile';
-import EditProfile from './views/EditProfile';
-import Subscribe from './views/Subscribe';
 import Payment from './views/Payment';
-import PaymentStatus from './views/PaymentStatus';
+
+import Subscribe from './views/Subscribe';
 import Subscription from './views/Subscription';
-import Transactions from './views/Transactions';
 import PaymentMethod from './views/PaymentMethod';
-// import PurchasedImages from './views/PurchasedImages';
+import PaymentStatus from './views/PaymentStatus';
+import Transactions from './views/Transactions';
 
 function localStore() {
     return localStorage.picket ? true : false;
@@ -69,9 +72,15 @@ let routes = [
             auth() ? next() : next(false);
         }
     },
+    // TODO
+    {
+        name: 'image',
+        path: '/image/:id',
+        component: Image
+    },
     {
         name: 'Photographer',
-        path: '/Photographer',
+        path: '/photographer/:username',
         component: Photographer
     },
     {
@@ -90,11 +99,7 @@ let routes = [
         path: '/gallery',
         component: Gallery
     },
-    {
-        name: 'image',
-        path: '/image/:id',
-        component: ImageProfile
-    },
+
 
 
 
@@ -128,11 +133,6 @@ let routes = [
         path: '/PaymentMethod',
         component: PaymentMethod
     },
-    // {
-    //     name: 'PurchasedImages',
-    //     path: '/PurchasedImages',
-    //     component: PurchasedImages
-    // }
 ];
 
 

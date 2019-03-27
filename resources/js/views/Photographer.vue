@@ -1,60 +1,121 @@
-<style>
-.containerProfile
-{
-    background-size: cover;
-    background-color: rgba(0, 0, 0, 1.0);
-    min-width: 100%;
-    padding: 16px;
-}
-.bottomMargin {
-    margin-bottom: 20px;
-}
-.nameFont {
-    font-family: -webkit-pictograp;
-    font-size:35px;
-    color: white;
-}
-.quotes {
-    font-size:20px;
-    display: inline;
-}
-</style>
-
 <template>
-    <div>
-        <div class="containerProfile">
-            <div class="teacher-name" style="padding-top:20px;">
-                <div class="row" style="margin-top:0px;">
-                    <div class="col-md-9">
-                        <h2><strong class="nameFont">Ishita Taneja</strong></h2>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="button" style="float:right;">
-                            <a href="#" class="btn btn-outline-success btn-sm">Edit Profile</a>
-                        </div>
+    <div class="bg-dark border border-white p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 class="font-weight-bold text-white text-center animated shake">{{ name }}</strong></h2>
+                </div>
+                <div class="col-md-9">
+                    <div class="animated pulse">
+                        <router-link tag="a" to="/edit-profile" class="btn btn-outline-success float-right">Edit Profile</router-link>
+                        <router-link tag="a" to="/edit-profile" class="btn btn-outline-success float-right">Book Photographer</router-link>
                     </div>
                 </div>
             </div>
 
-            <div class="row" style="margin-top:20px;">
+            <div class="row mt-3">
                 <div class="col-md-3">
-                  <a href="#"> <img class="rounded-circle bottomMargin" src="https://as.ftcdn.net/r/v1/pics/ea2e0032c156b2d3b52fa9a05fe30dedcb0c47e3/landing/images_photos.jpg" alt="Kamal" style="width:200px;height:200px"></a>
-              </div>
-
-              <div class="col-md-6">
-                    <h5 style="color:#3AAA64">Assistant Photographer, <small>Dept. of Photography, CSA University</small></h5>
-                    <p style="color: white ; font-size:18px;"><div style="text-align: left; color: white; font-size:18px;"><i>"Patient observer of the stars. Grinning wild-child of the mountain and its rivers. Adventurous spirit with camera in hand. Captures moments of wonder and serenity. Based in Portland, OR, Isaac is an advertising photographer/director with a focus in adventure, automotive, and active lifestyle."</i></div></p>
-              </div>
-
-              <div class="col-md-3 text-center">
-                  <span class="number" style="font-size:18px; color:white">Phone:<strong> +8801732226402</strong></span>
-                  <span class="number" style="font-size:18px; color:white; display: block;">Location:<strong> Chicago, USA</strong></span>
-                  <div class="button" style="padding-top:18px">
-                    <a href="mailto:ahmkctg@yahoo.com" class="btn btn-outline-success btn-block">Send Email</a>
+                    <img class="border border-white rounded square-240 animated slideInLeft" src="https://as.ftcdn.net/r/v1/pics/ea2e0032c156b2d3b52fa9a05fe30dedcb0c47e3/landing/images_photos.jpg">
                 </div>
 
+                <div class="col-md-5 w-100">
+                    <div class="animated slideInUp">
+                        <h3 class="text-success">Age: <span class="text-white float-right">{{ dob | age }}</span></h3>
+                        <h3 class="text-success">Gender: <span class="text-white float-right text-capitalize">{{ sex }}</span></h3>
+                        <h4 class="text-success">Location: <span class="text-white float-right text-capitalize">{{ location }}</span></h4>
+                        <h3 class="text-success">Charges: <span class="text-white float-right">{{ charges | inr }}&nbsp;<span class="text-muted">per/day</span></span></h3>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h4 class="text-success text-capitalize text-right animated slideInRight">{{ specialization }}</h4>
+                    <p class="text-white text-right animated slideInRight">{{ bio }}</p>
+                    <p class="text-white text-right animated slideInRight"></p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                username: this.$route.params.username,
+                image: null,
+                name: '',
+                email: '',
+                sex: '',
+                dob: '',
+                mobile: '',
+                specialization: '',
+                location: '',
+                charges: '',
+                bio: '',
+            }
+        },
+        created(){
+            this.fetchUserInfo();
+        },
+        methods: {
+            fetchUserInfo() {
+                let url = '/api/user/fetch/'+this.username;
+                axios.post(url)
+                .then((response) => {
+                    let json = response.data;
+                    console.log(json);
+
+                    this.name = json.name;
+                    this.email = json.email;
+                    this.sex = json.photographer.sex;
+                    this.dob = json.photographer.dob;
+                    this.mobile = json.photographer.mobile;
+                    this.specialization = json.photographer.specialization;
+                    this.location = json.photographer.location;
+                    this.charges = json.photographer.charges;
+                    this.bio = json.photographer.bio;
+                    this.image = json.photographer.image;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+            updateUserInfo() {
+                let url = '/api/user/update';
+                let formData = new FormData();
+                formData.append('name', this.name);
+                formData.append('email', this.email);
+                formData.append('sex', this.sex);
+                formData.append('dob', this.dob);
+                formData.append('mobile', this.mobile);
+                formData.append('specialization', this.specialization);
+                formData.append('location', this.location);
+                formData.append('charges', this.charges);
+                formData.append('bio', this.bio);
+                formData.append('image', this.imageFile);
+
+                if(this.password.length > 0) {
+                    formData.append('password', this.password);
+                    formData.append('old_password', this.old_password);
+                }
+
+                axios.post(url, formData)
+                .then((response) => {
+                    let json = response.data;
+                    console.log(json);
+
+                    if (json.hasOwnProperty('success') && json.success) {
+                        this.updated = true;
+                        setTimeout(() => {this.updated = false}, 3000);
+                    }
+                    else {
+                        this.errors = json.errors;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+        }
+    }
+</script>
