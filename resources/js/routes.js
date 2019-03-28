@@ -14,12 +14,11 @@ import Photographer from './views/Photographer';
 import Home from './views/Home';
 import Plans from './views/Plans';
 import Gallery from './views/Gallery';
-import Payment from './views/Payment';
+import PaymentMode from './views/PaymentMode';
+
 
 import Subscribe from './views/Subscribe';
 import Subscription from './views/Subscription';
-import PaymentMethod from './views/PaymentMethod';
-import PaymentStatus from './views/PaymentStatus';
 import Transactions from './views/Transactions';
 
 function localStore() {
@@ -72,7 +71,6 @@ let routes = [
             auth() ? next() : next(false);
         }
     },
-    // TODO
     {
         name: 'image',
         path: '/image/:id',
@@ -93,16 +91,22 @@ let routes = [
         path: '/plans',
         component: Plans
     },
+    {
+        name: 'PaymentMode',
+        path: '/payment-mode',
+        component: PaymentMode,
+        afterEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+            this.cartModal({showCartModal: false});
+        }
+    },
+    // TODO
 
     {
         name: 'gallery',
         path: '/gallery',
         component: Gallery
     },
-
-
-
-
     {
         name: 'subscribe',
         path: '/subscribe',
@@ -117,21 +121,6 @@ let routes = [
         name: 'transactions',
         path: '/transactions',
         component: Transactions
-    },
-    {
-        name: 'payment',
-        path: '/payment',
-        component: Payment
-    },
-    {
-        name: 'payment-status',
-        path: '/payment-status',
-        component: PaymentStatus
-    },
-    {
-        name: 'PaymentMethod',
-        path: '/PaymentMethod',
-        component: PaymentMethod
     },
 ];
 

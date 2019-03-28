@@ -21,6 +21,7 @@ use Redirect;
 use Session;
 use URL;
 
+use App\Image;
 
 class PaymentsController extends Controller
 {
@@ -41,23 +42,45 @@ class PaymentsController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
 
+    public function price(Image $image)
+    {
+        $resolutions = explode(' x ', $image->resolution);
+        return round($resolutions[0]*$resolutions[1]/102400, 2);
+    }
+
     public function payWithpaypal(Request $request)
     {
-        $payer = new Payer();
-        $payer->setPaymentMethod('paypal');
-
-        $item_1 = new Item();
-        $item_1->setName('Item 1') /** item name **/
-            ->setCurrency('INR')
-            ->setQuantity(1)
-            ->setPrice($request->get('amount')); /** unit price **/
-
+        echo "<pre>";
         $itemList = new ItemList();
-        $itemList->setItems(array($item_1));
+        $items = [];
+        $totalAmount = 0;
+        $images = explode(',', $request->input('items'));
+        foreach ($images as $id) {
+            $image = Image::where('id', $id)->get()->first();
+            $totalAmount += $price = $this->price($image);
+
+            // If image exists and image is not already purchased by the user
+            $item = new Item();
+            $item->setName('('.$image->id.') - '.$image->resolution)
+                ->setCurrency('USD')
+                ->setQuantity(1)
+                ->setPrice($price);
+            array_push($items, $item);
+        }
+
+        $itemList->setItems($items);
 
         $amount = new Amount();
-        $amount->setCurrency('INR')
-            ->setTotal($request->get('amount'));
+        $amount->setCurrency('USD')
+            ->setTotal($totalAmount);
+
+
+        // echo "</pre>";
+        // dd('stopped!');
+
+
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal');
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
@@ -75,15 +98,17 @@ class PaymentsController extends Controller
             ->setCancelUrl(URL::to('status'));
 
         $payment = new Payment();
-        $payment->setIntent('Sale')
+        $payment->setIntent('order')
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
             ->setTransactions(array($transaction));
 
         try {
             $payment->create($this->_api_context);
-        } catch (\PayPal\Exception\PPConnectionException $ex) {
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             if (\Config::get('app.debug')) {
+                // echo $ex->getCode(); // Prints the Error Code
+                // echo $ex->getData(); // Prints the detailed error message
                 Session::put('error', 'Connection timeout');
                 return Redirect::to('/');
             } else {
@@ -108,7 +133,6 @@ class PaymentsController extends Controller
         Session::put('error', 'Unknown error occurred');
         return Redirect::to('/');
     }
-
 
     public function getPaymentStatus()
     {

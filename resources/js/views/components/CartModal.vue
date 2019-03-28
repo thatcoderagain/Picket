@@ -76,7 +76,7 @@
                                             <span class="text-center font-weight-bold m-0">Grand Total: </span>{{ grandTotal | inr }}
                                         </h4>
                                         <div class="float-right w-50 m-0">
-                                            <button type="button" class="btn btn-block btn-danger m-0">PROCEED</button>
+                                            <router-link tag="a" :to="'/payment-mode'" class="btn btn-block btn-danger m-0">Proceed</router-link>
                                         </div>
                                     </div>
                                 </div>
