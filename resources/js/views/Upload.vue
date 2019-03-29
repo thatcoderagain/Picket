@@ -93,8 +93,8 @@
             this.fetchCategoies();
         },
         methods: {
-            fetchCategoies(){
-                let url = 'api/fetchCategories';
+            fetchCategoies() {
+                let url = 'api/categories/fetch';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;
@@ -152,7 +152,7 @@
                 formData.append('caption', this.caption);
                 formData.append('keywords', this.keywords);
 
-                let url = 'api/upload';
+                let url = 'api/image/store';
                 axios.post(url, formData, {
                     onUploadProgress: event => {
                         this.uploadPercentage = parseInt(Math.round((event.loaded*100)/event.total));
@@ -179,11 +179,11 @@
         filters: {
             keyworder(string) {
                 let keywords = string.split(' ').filter((s) => {
-                    return s != '' && s.length > 2
+                    return s != '' && s.length > 2;
                 });
                 if (keywords.length > 0)
                     return keywords.map((s) => {
-                        return '#'+s
+                        return '#'+s;
                     }).join(' ');
                 else
                     return null;

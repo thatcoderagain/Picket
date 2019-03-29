@@ -3,7 +3,9 @@ import './bootstrap';
 import {router} from './routes';
 import {store} from './store';
 import {mixin} from './mixins';
-import {components} from './components';
+import {components} from './component';
+
+console.log(components);
 
 new Vue({
     el: '#app',
@@ -25,6 +27,6 @@ function getCookie (key) {
     return "";
 }
 
-console.log(localStorage.picket);
-console.log(decodeURIComponent(document.cookie));
-console.log(getCookie('XSRF-TOKEN'));
+// console.log(localStorage.picket);
+// console.log(decodeURIComponent(document.cookie));
+// console.log(getCookie('XSRF-TOKEN'));

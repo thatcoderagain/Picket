@@ -11,8 +11,9 @@
     <div>
         <SearchBar class="row col-12" id="searchBar"></SearchBar>
         <Slider v-bind:images="sliderImages"></Slider>
-        <div class="container-fluid mt-4">
+        <div class="container-fluid mt-4 mb-4">
             <Features></Features>
+            <hr>
             <Categories></Categories>
         </div>
     </div>

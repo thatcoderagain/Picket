@@ -61,7 +61,7 @@
 </template>
 
 <script>
-    import { mapState, mapMutations, mapActions } from 'vuex';
+    import { mapState, mapActions } from 'vuex';
 
     export default {
         props: [],
@@ -90,7 +90,7 @@
                     console.log(json);
                     if (json.success == true) {
                         this.user = json.user;
-                        this.login();
+                        this.login({user: this.user});
                         this.$router.push('/');
                     } else {
                         this.errors = json.error;

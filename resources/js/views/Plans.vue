@@ -19,10 +19,10 @@
 
         <div class="container-fluid">
 
-            <h3>Plans at a glance.</h3>
-            <p>
+            <h1 class="text-gray-dark text-center mt-4">Plans at a glance.</h1>
+            <h4 class="text-muted">
                 Unlimited uploads come standard for every Picket plan along with all the tools you need to create a beautiful photo site, share easily, and order personalized prints and gifts. Each plan is designed to protect and preserve the photos you care about: which means all of them.
-            </p>
+            </h4>
 
             <div class="card-group m-5">
                 <PlanCard class="m-3" v-for="plan in plans" :key="plan.name" :plan="plan"></PlanCard>
