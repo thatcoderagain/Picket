@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 use PayPal\Api\Amount;
-// use PayPal\Api\Details;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
@@ -22,15 +21,13 @@ use Session;
 use URL;
 
 use App\Image;
+use App\User;
+use App\Purchase;
 
 class PaymentsController extends Controller
 {
     private $_api_context;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         /** PayPal api context **/
@@ -48,18 +45,40 @@ class PaymentsController extends Controller
         return round($resolutions[0]*$resolutions[1]/102400, 2);
     }
 
+    public function purchased()
+    {
+        return $purchases = auth()->user()->purchases()->get()
+            ->map(function($purchase) {
+                return $purchase->image_id;
+            })->toArray();
+    }
+
     public function payWithpaypal(Request $request)
     {
-        echo "<pre>";
+        \DB::beginTransaction();
         $itemList = new ItemList();
         $items = [];
         $totalAmount = 0;
+        $purchases = $this->purchased();
         $images = explode(',', $request->input('items'));
-        foreach ($images as $id) {
+        foreach ($images as $id)
+        {
             $image = Image::where('id', $id)->get()->first();
             $totalAmount += $price = $this->price($image);
 
-            // If image exists and image is not already purchased by the user
+            if(in_array($image->id, $purchases))
+            {
+                \DB::rollback();
+                Session::put('error', 'Invalid Cart.');
+                return Redirect::to('/');
+            }
+
+            Purchase::create([
+                'user_id' => auth()->user()->id,
+                'image_id' => $image->id,
+                'amount' => $price,
+            ]);
+
             $item = new Item();
             $item->setName('('.$image->id.') - '.$image->resolution)
                 ->setCurrency('USD')
@@ -74,11 +93,6 @@ class PaymentsController extends Controller
         $amount->setCurrency('USD')
             ->setTotal($totalAmount);
 
-
-        // echo "</pre>";
-        // dd('stopped!');
-
-
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
@@ -90,11 +104,12 @@ class PaymentsController extends Controller
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($itemList)
-            ->setDescription("Payment description")
+            ->setDescription("Buy Images")
             ->setInvoiceNumber(uniqid());
 
-        $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl(URL::to('status')) /** Specify return URL **/
+        $redirectUrls = new RedirectUrls(); /** Specify return URL **/
+        $redirectUrls
+            ->setReturnUrl(URL::to('status'))
             ->setCancelUrl(URL::to('status'));
 
         $payment = new Payment();
@@ -107,12 +122,12 @@ class PaymentsController extends Controller
             $payment->create($this->_api_context);
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             if (\Config::get('app.debug')) {
-                // echo $ex->getCode(); // Prints the Error Code
-                // echo $ex->getData(); // Prints the detailed error message
+                // Prints the Error Code & the detailed error message
+                // echo $ex->getCode().$ex->getData();
                 Session::put('error', 'Connection timeout');
                 return Redirect::to('/');
             } else {
-                Session::put('error', 'Some error occur, sorry for inconvenient');
+                Session::put('error', 'Some error occur, sorry for the inconvenient');
                 return Redirect::to('/');
             }
         }
@@ -128,6 +143,8 @@ class PaymentsController extends Controller
         Session::put('paypal_payment_id', $payment->getId());
         if (isset($redirect_url)) {
             /** redirect to paypal **/
+            // \DB::commit();
+            Session::put('success', 'Payment successful');
             return Redirect::away($redirect_url);
         }
         Session::put('error', 'Unknown error occurred');
@@ -136,14 +153,13 @@ class PaymentsController extends Controller
 
     public function getPaymentStatus()
     {
-        /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
-
-        /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
+
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
             Session::put('error', 'Payment failed');
-            return Redirect::to('/payment-status');
+            return 'Session Expired';
+            // return Redirect::to('/');
         }
         $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
@@ -151,11 +167,46 @@ class PaymentsController extends Controller
 
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
+        Session::put('result', $result);
+
+
+        \App\Payment::where('id',$result->id)->first();
+        $new_payment = \App\Payment::create([
+            'id' => $result->id,
+            'intent' => $result->intent,
+            'state' => $result->state,
+            'cart' => $result->cart,
+            'payment_method' => $result->payer->payment_method,
+            'status' => $result->payer->status,
+            'payer_id' => $result->payer->payer_info->payer_id,
+            'country_code' =>$result->payer->payer_info->country_code,
+            'email' => $result->payer->payer_info->email,
+            'first_name' => $result->payer->payer_info->first_name,
+            'last_name' => $result->payer->payer_info->last_name,
+            'invoice_number' => $result->transactions[0]->invoice_number,
+            'amount' => $result->transactions[0]->amount->total,
+            'currency' => $result->transactions[0]->amount->currency,
+            'merchant_id' => $result->transactions[0]->payee->merchant_id,
+            'description' => $result->transactions[0]->description,
+        ]);
+
+        foreach ($result->transactions[0]->item_list->items as $key => $item) {
+            \App\Item::create([
+                'payment_id' => $result->id,
+                'name' => $item->name,
+                'price' => $item->price,
+                'currency' => $item->currency,
+                'quantity' => $item->quantity,
+            ]);
+        }
+
         if ($result->getState() == 'approved') {
             Session::put('success', 'Payment success');
-            return Redirect::to('/payment-status');
+            return 'Payment success';
+            // return Redirect::to('/');
         }
         Session::put('error', 'Payment failed');
-        return Redirect::to('/payment-status');
+        return 'Payment failed';
+        // return Redirect::to('/');
     }
 }

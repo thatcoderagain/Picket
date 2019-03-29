@@ -15,7 +15,7 @@ class User extends Authenticatable
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'
     ];
 
     public function photographer()
@@ -26,5 +26,10 @@ class User extends Authenticatable
     public function images()
     {
         return $this->hasMany('App\Image');
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany('App\Purchase');
     }
 }

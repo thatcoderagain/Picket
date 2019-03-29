@@ -10,7 +10,9 @@ class Image extends Model
         'user_id', 'category', 'caption', 'mime_type', 'resolution', 'size', 'slug', 'checksum'
     ];
 
-    protected $hidden = ['checksum'];
+    protected $hidden = [
+        'checksum', 'created_at', 'updated_at'
+    ];
 
     public function user()
     {
@@ -20,5 +22,10 @@ class Image extends Model
     public function keywords()
     {
         return $this->belongsToMany('App\Keyword')->withPivot('keyword_id');
+    }
+
+    public function buyer()
+    {
+        return $this->belongsToMany('App\Image')->withPivot('image_id');
     }
 }

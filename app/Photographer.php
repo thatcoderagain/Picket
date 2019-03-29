@@ -10,6 +10,10 @@ class Photographer extends Model
         'user_id', 'sex', 'dob', 'mobile'. 'specialization', 'location', 'charges', 'bio', 'image'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User');

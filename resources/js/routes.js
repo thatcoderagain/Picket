@@ -95,6 +95,9 @@ let routes = [
         name: 'PaymentMode',
         path: '/payment-mode',
         component: PaymentMode,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next({path: '/login'});
+        },
         afterEnter: (to, from, next) => {
             auth() ? next() : next(false);
             this.cartModal({showCartModal: false});

@@ -5,8 +5,6 @@ import {store} from './store';
 import {mixin} from './mixins';
 import {components} from './component';
 
-console.log(components);
-
 new Vue({
     el: '#app',
     store: store,

@@ -13,22 +13,18 @@
 /**
  * TESTING ROUTE
  */
-Route::get('/sql', function() {
-    return auth()->user()->with('photographer')->first();
-    return \App\User::with('photographer')->where('id', auth()->user()->id)->get();
-});
+// Route::get('/sql', function() {
+//     return auth()->user()->with('photographer')->first();
+//     return \App\User::with('photographer')->where('id', auth()->user()->id)->get();
+// });
 
 Route::get('/payment', function () {
     return redirect()->to('/#/payment');
 });
 
-Route::post('/make-payment', 'PaymentsController@payWithpaypal')->name('make-payment');
+Route::post('/make-payment', 'PaymentsController@payWithpaypal');
 
 Route::get('/status', 'PaymentsController@getPaymentStatus');
-
-Route::get('/payment-status', function() {
-    return view('payment-status');
-})->name('status');
 
 
 

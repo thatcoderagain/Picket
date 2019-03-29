@@ -156,7 +156,6 @@
                 axios.post(url, formData, {
                     onUploadProgress: event => {
                         this.uploadPercentage = parseInt(Math.round((event.loaded*100)/event.total));
-                        console.log(this.uploadPercentage);
                     }
                 })
                 .then((response) => {

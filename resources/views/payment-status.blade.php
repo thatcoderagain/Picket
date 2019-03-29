@@ -4,7 +4,6 @@
 
 @section('content')
         Payment STATUS
-        {{ method_field('PATCH') }}
         @if ($message = Session::get('success'))
             <div class="alert-success">
                 <p>{!! $message !!}</p>
