@@ -63,16 +63,13 @@
                         <h6 class="text-muted"> By submitting this form,you agree to our Terms of Service and Privacy Policy.</h6>
                         <h6 class="text-muted"> If you do not wish to receive information about Picket plans , please send us an email at <a href="#" class="btn-link">plans@picket.com</a></h6>
                         <button type="button" class="btn btn-outline-danger m-1" disabled>Continue</button>
-                        <p class="w-100 text-danger">Sorry this payment option is not available right now please choose other options.</p>
+                        <p class="w-100 text-danger">Sorry this payment option is not available right now please choose other option.</p>
                     </div>
                 </div>
 
             </div>
-        <!-- <div class="col-3 mt-3 p-5 m-2 shadow bg-white tab-content" v-show="false">
-              CART ITEMS
-        </div> -->
+        </div>
     </div>
-</div>
 </template>
 
 <script>

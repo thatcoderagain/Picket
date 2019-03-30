@@ -1,15 +1,14 @@
 <template>
     <div>
         <transition-group enter-active-class="animated fast slideInRight" leave-active-class="animated fast slideOutRight" mode="out-in">
-            <!--  -->
 
-            <div class="modal animated h-100" :key="'modal'" id="CartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" :aria-hidden="!showCartModal" :aria-modal="showCartModal"  @click="hideCartModal" :class="[showCartModal ? 'd-block slideInRight' : 'd-none slideOutRight']">
+            <div class="modal animated h-100 w-100" :key="'modal'" id="CartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" :aria-hidden="!showCartModal" :aria-modal="showCartModal"  @click="hideCartModal" :class="[showCartModal ? 'd-block slideInRight' : 'd-none slideOutRight faster']">
 
                 <div id="cart" class="col-sm-11 offset-sm-1 col-md-7 offset-md-5 col-lg-4 offset-lg-8" role="document">
                     <!-- CART -->
                     <div class="row bg-white border border-white p-0">
                         <div class="col-12 p-0">
-                            <div class="p-2 shadow bg-danger text-white mb-2 mt-0 ml-0 mr-0 pt-3">
+                            <div class="p-2 shadow bg-dark text-white mb-2 mt-0 ml-0 mr-0 pt-3">
                                 <h4 class="text-center font-weight-bold"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;CART</h4>
                             </div>
                         </div>
@@ -22,7 +21,7 @@
                                     <div class="media-body ml-1 mt-1">
                                         <div class="w-100">
                                             <div class="float-right">
-                                                <button class="btn btn-link text-danger btn-sm"><i class="fas fa-trash-alt" @click="removeImageFromCart(image)"></i>
+                                                <button class="btn btn-link text-dark btn-sm"><i class="fas fa-trash-alt" @click="removeImageFromCart(image)"></i>
                                                 </button>
                                             </div>
                                             <div class="m-0 p-0">
@@ -46,7 +45,7 @@
                         <div class="col-12">
                             <div class="border shadow mt-1">
                                 <div class="card">
-                                    <div class="card-header bg-danger text-white pb-1">
+                                    <div class="card-header bg-dark text-white pb-1">
                                         <h4 class="font-weight-bold">
                                             Payment Details
                                         </h4>
@@ -76,8 +75,8 @@
                                             <span class="text-center font-weight-bold m-0">Grand Total: </span>{{ grandTotal | inr }}
                                         </h4>
                                         <div class="float-right w-50 m-0">
-                                            <router-link tag="button" :to="'/payment-mode'" class="btn btn-block btn-danger m-0">Proceed</router-link>
-                                            <!-- <button class="btn btn-block btn-danger m-0" @click="payment()">Proceed</button> -->
+                                            <!-- <router-link tag="button" :to="'/payment-mode'" class="btn btn-block btn-dark m-0">Proceed</router-link> -->
+                                            <button class="btn btn-block btn-dark m-0" @click="payment()">Proceed</button>
                                         </div>
                                     </div>
                                 </div>
@@ -117,8 +116,9 @@
                     this.cartModal({showCartModal: false});
             },
             payment() {
-                this.cartModal({showCartModal: false});
-                document.getElementById('modal-backdrop').click;
+                $('#CartModal').click();
+                if (this.$router.history.current.name !== 'PaymentMode')
+                    this.$router.push('/payment-mode');
             }
         },
     }
