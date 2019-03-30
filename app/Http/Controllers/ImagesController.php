@@ -35,7 +35,7 @@ class ImagesController extends Controller
             'Objects',
             'Parks/Outdoor',
             'People',
-            'Relegion',
+            'Religion',
             'Science',
             'Signs/Symnols',
             'Sports/Recreation',
