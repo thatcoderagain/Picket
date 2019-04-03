@@ -1,7 +1,16 @@
 export const mixin = Vue.mixin({
     methods: {
-        StoragePath: function(string) {
-            return '/storage/image-files/'+string;
+        StorageWebImages: function(string) {
+            return '/storage/web-images/'+string;
+        },
+        StorageImageFiles: function(string) {
+            return '/storage/images/files/'+string;
+        },
+        StorageImageWatermarks: function(string) {
+            return '/storage/images/watermarks/'+string;
+        },
+        StorageImageThumbnails: function(string) {
+            return '/storage/images/thumbnails/'+string;
         },
         imagePrice(image) {
             let resolutions = image.resolution.split(' x ');

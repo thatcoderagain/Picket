@@ -51,6 +51,7 @@ export const store = new Vuex.Store({
             });
         },
         cartModal: (state, payload) => { state.showCartModal = payload.showCartModal },
+        clearCart: (state) => { state.cart = [] },
     },
 
     actions: {
@@ -59,5 +60,6 @@ export const store = new Vuex.Store({
         addToCart: ({commit}, payload) => commit('addToCart', payload),
         removeFromCart: ({commit}, payload) => commit('removeFromCart', payload),
         cartModal: ({commit}, payload) => commit('cartModal', payload),
+        clearCart: ({commit}) => commit('clearCart'),
     }
 });

@@ -15,8 +15,13 @@ class Purchase extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function images()
+    public function image()
     {
         return $this->belongsTo('App\Image');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo('App\Payment');
     }
 }

@@ -7,16 +7,16 @@
                         <div class="p-3">
                             <div class="animated zoomIn">
                                 <center>
-                                    <img :src="StoragePath(image.slug)" alt="placeholder" class="img-fluid" style="max-height: 600px">
+                                    <img :src="StorageImageWatermarks(image.slug)" alt="placeholder" class="img-fluid" style="max-height: 600px">
                                 </center>
                             </div>
                             <div class="media animated slideInUp">
-                                <img :src="StoragePath(image.slug)" class="m-3 rounded-circle" alt="" width="50" height="50">
+                                <img :src="StorageImageThumbnails(image.slug)" class="m-3 rounded-circle" alt="" width="50" height="50">
                                 <div class="media-body">
                                     <router-link tag="button" :to="'/photographer/' + image.user.username" class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</router-link>
                                     <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>
                                     <big>
-                                        <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary animated swing slower infinite">#{{ keyword.keyword }}</span>&nbsp;
+                                        <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary animated heartBeat slower infinite">#{{ keyword.keyword }}</span>&nbsp;
                                     </big>
                                 </div>
                             </div>

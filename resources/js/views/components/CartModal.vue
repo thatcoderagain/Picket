@@ -16,7 +16,7 @@
                             <div class="p-2 shadow bg-white border border-white">
                                 <div class="media bg-light border border-white shadow">
                                     <div class="p-2 mr-1">
-                                        <img class="align-self-start square-80 " :src="StoragePath(image.slug)" alt="Cart Item Image" >
+                                        <img class="align-self-start square-80 " :src="StorageImageThumbnails(image.slug)" alt="Cart Item Image" >
                                     </div>
                                     <div class="media-body ml-1 mt-1">
                                         <div class="w-100">

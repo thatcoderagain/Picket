@@ -7,6 +7,9 @@ use App\Image;
 use App\Keyword;
 use Illuminate\Http\Request;
 
+use Intervention;
+use File;
+
 class ImagesController extends Controller
 {
     public function categories()
@@ -47,35 +50,21 @@ class ImagesController extends Controller
         ];
     }
 
-    public function fetchAll()
-    {
-        return Image::with('user')->orderBy('id', 'DESC')->get();
-    }
-
-    public function fetch(Request $request, Image $id)
-    {
-        return Image::with('user')->with('keywords')->where('id', $id->id)->first();
-    }
-
-    // public function base64Converter($image)
-    // {
-    //     'data:image/jpeg;base64,'.base64_encode($image)
-    // }
-
     public function store(Request $request)
     {
         if ($request->hasFile('imageFile'))
         {
             if ($request->file('imageFile')->isValid())
             {
-                $extension = $request->file('imageFile')->getClientOriginalExtension();
-                $mime_type = $request->file('imageFile')->getMimeType();
-                $size = $request->file('imageFile')->getSize();
-                $imageData = getimagesize($request->file('imageFile'));
+                $originalImage = $request->file('imageFile');
+                $extension = $originalImage->getClientOriginalExtension();
+                $mime_type = $originalImage->getMimeType();
+                $size = $originalImage->getSize();
+                $checksum = md5_file($originalImage);
+                $imageData = getimagesize($originalImage);
                 $resolution = $imageData[0].' x '.$imageData[1];
-                $category = $request->input('category');
                 $caption = $request->input('caption');
-                $checksum = md5_file($request->file('imageFile'));
+                $category = $request->input('category');
                 $keywords = $request->input('keywords');
 
                 do {
@@ -85,7 +74,32 @@ class ImagesController extends Controller
                 if (Image::where('checksum', $checksum)->first() == null)
                 {
                     # Store File
-                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug.'.'.$extension);
+                    $originalImage->storeAs('public/images/files/', $slug.'.'.$extension);
+
+                    $height = 100;
+                    $width = 100;
+                    $thumbnailPath = storage_path('/app/public/images/thumbnails/');
+                    $thumbnailImage = Intervention::make($originalImage);
+                    $thumbnailImage->resize($width, $height);
+                    $thumbnailImage->save($thumbnailPath.$slug.'.'.$extension);
+
+                    $height = $imageData[0];
+                    $width = $imageData[1];
+                    $ratio = ($width + $height) / ( ($width * $height) / 576);
+                    $new_width = $height * $ratio;
+                    $new_height = $width * $ratio;
+                    $new_width/=($new_height/576);
+                    $new_height/=($new_height/576);
+                    $watermarkPath = storage_path('/app/public/images/watermarks/');
+                    $watermarkImage = Intervention::make($originalImage);
+                    $watermarkImage->resize($new_width, $new_height);
+                    $WATERMARK = Intervention::make(storage_path('/app/public/web-images/watermark.png'));
+
+                    for ($i = -100; $i < $new_width; $i+=100)
+                        for ($j = -100; $j < $new_height; $j+=100)
+                            $watermarkImage->insert($WATERMARK, 'top-left', $i, $j);
+
+                    $watermarkImage->save($watermarkPath.$slug.'.'.$extension);
 
                     $image = Image::create([
                         'user_id' => Auth::user()->id,
@@ -95,7 +109,7 @@ class ImagesController extends Controller
                         'resolution' => $resolution,
                         'size' => $size,
                         'slug' => $slug.'.'.$extension,
-                        'checksum' => $checksum
+                        'checksum' => $checksum.str_random($length = 16)
                     ]);
 
                     foreach (explode(',', $keywords) as $keyword) {
@@ -104,11 +118,43 @@ class ImagesController extends Controller
                         ]);
                         $image->keywords()->attach($thekeyword->id);
                     }
-
                     return response()->json(['image' => $image->id], 200);
                 }
                 return response()->json(['error' => 'Duplication Image'], $status = 200);
             }
         }
+    }
+
+    public function fetchAll()
+    {
+        return $this->purchased()->merge($this->unpurchased())->sortByDesc(function ($image) {
+            return $image->id;
+        })->values()->all();
+    }
+
+    public function fetch(Request $request, Image $id)
+    {
+        return Image::with('user')->with('keywords')->where('id', $id->id)->first();
+    }
+
+    /** Purchaeses **/
+    public function purchased()
+    {
+        return Image::with('user')->get()
+            ->diff($this->unpurchased())
+            ->filter(function($image) {
+                $image['purchased'] = true;
+                return $image;
+            });
+    }
+
+    public function unpurchased()
+    {
+        return Image::with('user')->get()
+            ->diff(auth()->user()->purchases)
+            ->filter(function($image) {
+                $image['purchased'] = false;
+                return $image;
+            });
     }
 }

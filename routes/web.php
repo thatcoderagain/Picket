@@ -13,34 +13,41 @@
 /**
  * TESTING ROUTE
  */
-// Route::get('/sql', function() {
-//     return auth()->user()->with('photographer')->first();
-//     return \App\User::with('photographer')->where('id', auth()->user()->id)->get();
-// });
+Route::get('/sql', 'ImagesController@unpurchased'
+//     function() {
+//     // $purchased = auth()->user()->purchases
+//     //     ->map(function($purchase) {
+//     //         return $purchase->image_id;
+//     //     });
+//     // return
+//     // App\Image::all()->whereNotIn('id', $purchased);
 
-Route::get('/payment', function () {
-    return redirect()->to('/#/payment');
-});
+//     return auth()->user()->unpurchased;
+// }
+);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Payment Gateway ROUTES
+ */
 Route::post('/make-payment', 'PaymentsController@payWithpaypal');
-
-Route::get('/status', 'PaymentsController@getPaymentStatus');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::get('/payment-status', 'PaymentsController@getPaymentStatus');
 
 /**
  * VUE APP ROUTE

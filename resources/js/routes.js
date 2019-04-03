@@ -137,6 +137,6 @@ export const router = new VueRouter({
 // GLOBAL MIDDLEWARE
 router.onError((e) => console.error(e.message));
 
-// router.beforeEach((to, from, next) => {
-//     next();
-// });
+router.beforeEach((to, from, next) => {
+    next();
+});

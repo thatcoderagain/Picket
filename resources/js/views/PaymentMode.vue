@@ -19,11 +19,13 @@
                 <div class="tab-pane fade show active position-relative" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                     <h4 class="mb-3">PayPal <span class="text-primary"><i class="fab fa-cc-paypal"></i></span></h4>
                     <div class="mb-3">
-                        <h6 class="text-muted">Proceed payemt with the <span class="text-primary font-weight-bold">PayPal <i class="fab fa-paypal"></i></span></h6>
+                        <h6 class="text-muted">Proceed the payemt with <span class="text-primary font-weight-bold">PayPal <i class="fab fa-paypal"></i></span></h6>
                         <form class="form-inline" method="POST" id="payment-form"  action="/make-payment">
                             <input type="hidden" name="_token" v-model="csrf_token">
                             <input type="hidden" name="items" v-model="images">
-                            <button class="btn btn-outline-primary m-1"><i class="fas fa-shopping-cart"></i> Checkout</button>
+                            <input type="hidden" name="help" v-model="discount">
+                            <h6 class="text-danger w-100 font-weight-bold" v-if="images.length==0">Cart is empty !!</h6>
+                            <button class="btn btn-outline-primary m-1" :disabled="images.length==0"><i class="fas fa-shopping-cart"></i> Checkout</button>
                         </form>
                     </div>
                 </div>

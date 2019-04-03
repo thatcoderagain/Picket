@@ -1,14 +1,7 @@
-<style>
-#bg
-{
- background-color: #DFE4EC;
-}
-</style>
-
 <template>
     <div class="container-fluid">
         <h1 class="text-center font-weight-bold p-5">Orders</h1>
-        <div class="container" id="bg">
+        <div class="container">
             <div class="row">
                 <div class="col-12 col-md-4"><b>Order</b> #{{number}}</div>
                 <div class="col-6 col-md-5 font-weight-bold">User Name:</div>
@@ -92,14 +85,14 @@
             </div>
             <div class="text-center p-3 mb-1">
             <button type="button" class="btn btn-primary btn-lg">Load More</button>
-            
+
         </div>
-        
+
         <div class="float-right">
             <h4><span class="badge badge-danger p-2">Grand Total: {{total}}</span></h4>
         </div>
         </div>
-        
+
 
     </div>
 </template>

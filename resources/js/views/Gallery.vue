@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-dark bg-faded">
          <button class="btn btn-primary" id="ImageModalButton" type="button" data-toggle="modal" data-target="#ImageModal" v-show="false">Modal
          </button>
 
@@ -8,17 +8,22 @@
                 <div class="modal-content">
                     <div class="m-0 p-0">
                         <div class="border border-white">
-                            <img class="img-thumbnail w-100" :src="StoragePath(modalSrc)" allowfullscreen/>
+                            <img class="img-thumbnail w-100" :src="StorageImageWatermarks(modalSrc)" allowfullscreen/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row" id="im">
+        <div class="container-fluid border border-white">
+            <div class="row">
                 <div class="col-sm-6 col-md-4 col-lg-3" v-for="image in images" :key="image.id">
                     <ImageCard :image="image"></ImageCard>
+                </div>
+            </div>
+            <div v-if="images.length == 0" class="mt-3 row">
+                <div class="alert alert-secondary border border-white col-sm-12 col-md-8 offset-md-2">
+                    <p class="text-muted font-weight-bold">No Images found.</p>
                 </div>
             </div>
         </div>

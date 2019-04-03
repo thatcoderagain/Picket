@@ -85,7 +85,7 @@
                                         <label for="location" class="col-md-4 col-form-label text-md-right">Location</label>
 
                                         <div class="col-md-6">
-                                            <input type="location" class="form-control" :class="[ errors != null && errors.hasOwnProperty('location') ? 'is-invalid' : '']" name="location" v-model="location" @keydown="errors = null">
+                                            <input type="location" class="form-control" :class="[ errors != null && errors.hasOwnProperty('location') ? 'is-invalid' : '']" name="location" v-model="location" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('location')">
                                                 <span class="text-danger" role="alert">
@@ -101,7 +101,7 @@
                                         <label for="specialization" class="col-md-4 col-form-label text-md-right">Specialization</label>
 
                                         <div class="col-md-6">
-                                            <input type="specialization" class="form-control" :class="[ errors != null && errors.hasOwnProperty('specialization') ? 'is-invalid' : '']" name="specialization" v-model="specialization" @keydown="errors = null">
+                                            <input type="specialization" class="form-control" :class="[ errors != null && errors.hasOwnProperty('specialization') ? 'is-invalid' : '']" name="specialization" v-model="specialization" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('specialization')">
                                                 <span class="text-danger" role="alert">
@@ -141,7 +141,7 @@
                                         <label for="mobile" class="col-md-4 col-form-label text-md-right">Mobile</label>
 
                                         <div class="col-md-6">
-                                            <input type="mobile" class="form-control" :class="[ errors != null && errors.hasOwnProperty('mobile') ? 'is-invalid' : '']" name="mobile" v-model="mobile" @keydown="errors = null">
+                                            <input type="mobile" class="form-control" :class="[ errors != null && errors.hasOwnProperty('mobile') ? 'is-invalid' : '']" name="mobile" v-model="mobile" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('mobile')">
                                                 <span class="text-danger" role="alert">
@@ -157,7 +157,7 @@
                                         <label for="dob" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
 
                                         <div class="col-md-6">
-                                            <input type="date" min="5" class="form-control" :class="[ errors != null && errors.hasOwnProperty('dob') ? 'is-invalid' : '']" name="dob" v-model="dob" @keydown="errors = null">
+                                            <input type="date" min="5" class="form-control" :class="[ errors != null && errors.hasOwnProperty('dob') ? 'is-invalid' : '']" name="dob" v-model="dob" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('dob')">
                                                 <span class="text-danger" role="alert">
@@ -173,7 +173,7 @@
                                         <label for="charges" class="col-md-4 col-form-label text-md-right">Charges</label>
 
                                         <div class="col-md-6">
-                                            <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="charges" @keydown="errors = null">
+                                            <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="charges" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('charges')">
                                                 <span class="text-danger" role="alert">
@@ -190,7 +190,7 @@
 
                                         <div class="col-md-6">
                                             <div class="input-group">
-                                                <input id="password" :type="[ showPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('password') ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null">
+                                                <input id="password" :type="[ showPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('password') ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null" autocomplete="off">
                                                 <div class="input-group-append" @click="showPassword=!showPassword">
                                                     <button class="btn" type="button" v-show="showPassword"> <i class="fas fa-eye"></i> </button>
                                                     <button class="btn" type="button" v-show="!showPassword"> <i class="fas fa-eye-slash"></i> </button>
@@ -212,7 +212,7 @@
 
                                         <div class="col-md-6">
                                             <div class="input-group">
-                                                <input id="password" :type="[ showOldPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('old_password') ? 'is-invalid' : '']" name="old_password" v-model="old_password" @keydown="errors = null">
+                                                <input id="password" :type="[ showOldPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('old_password') ? 'is-invalid' : '']" name="old_password" v-model="old_password" @keydown="errors = null" autocomplete="off">
                                                 <div class="input-group-append" @click="showOldPassword=!showOldPassword">
                                                     <button class="btn" type="button" v-show="showOldPassword"> <i class="fas fa-eye"></i> </button>
                                                     <button class="btn" type="button" v-show="!showOldPassword"> <i class="fas fa-eye-slash"></i> </button>
@@ -232,7 +232,7 @@
                                     <div class="form-group row mb-0">
                                         <div class="col-md-6 offset-md-4">
                                             <button type="submit" class="btn btn-primary" @click="updateUserInfo()">
-                                                Save Changes
+                                                <i class="fas fa-save"></i>&nbsp;&nbsp;&nbsp;Save Changes
                                             </button>
                                         </div>
                                     </div>
@@ -252,7 +252,7 @@
         props: [],
         data() {
             return {
-                bgImageSrc: '/storage/images/upload-page-background.jpeg',
+                bgImageSrc: this.StorageWebImages('edit-profile-page-background.jpeg'),
 
                 errors: null,
                 avatar: null,

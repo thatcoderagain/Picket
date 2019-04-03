@@ -30,6 +30,8 @@ class PaymentsController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
+
         $paypal_conf = \Config::get('paypal');
         $this->_api_context = new ApiContext(
             new OAuthTokenCredential(
@@ -40,10 +42,11 @@ class PaymentsController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
 
-    public function price(Image $image)
+    public function price(Image $image, $discount)
     {
         $resolutions = explode(' x ', $image->resolution);
-        return round($resolutions[0]*$resolutions[1]/102400, 2);
+        $total = (float)round($resolutions[0]*$resolutions[1]/102400, 2);
+        return $total - (($total*$discount)/100);
     }
 
     public function purchased()
@@ -57,18 +60,30 @@ class PaymentsController extends Controller
     public function payWithpaypal(Request $request)
     {
         \DB::beginTransaction();
+
+        Purchase::where([
+            'user_id' => auth()->user()->id,
+            'payment_id' => null
+        ])->delete();
+
         $itemList = new ItemList();
         $items = [];
         $totalAmount = 0;
         $purchases = $this->purchased();
+        $discount = $request->input('help');
         $images = explode(',', $request->input('items'));
+        if (count($images) == 1 && strlen($images[0]) == 0)
+        {
+            \DB::rollback();
+            Session::put('error', 'Cart is empty');
+            return Redirect::to('/');
+        }
         foreach ($images as $id)
         {
             $image = Image::where('id', $id)->get()->first();
-            $totalAmount += $price = $this->price($image);
+            $totalAmount += $price = $this->price($image, $discount);
 
-            if(in_array($image->id, $purchases))
-            {
+            if(in_array($image->id, $purchases)) {
                 \DB::rollback();
                 Session::put('error', 'Few items in the cart are already purchases');
                 return Redirect::to('/');
@@ -110,8 +125,8 @@ class PaymentsController extends Controller
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls
-            ->setReturnUrl(URL::to('/status'))
-            ->setCancelUrl(URL::to('/status'));
+            ->setReturnUrl(URL::to('/payment-status'))
+            ->setCancelUrl(URL::to('/spayment-tatus'));
 
         $payment = new Payment();
         $payment->setIntent('order')
@@ -133,7 +148,8 @@ class PaymentsController extends Controller
             }
         }
 
-        foreach ($payment->getLinks() as $link) {
+        foreach ($payment->getLinks() as $link)
+        {
             if ($link->getRel() == 'approval_url') {
                 $redirect_url = $link->getHref();
                 break;
@@ -193,7 +209,8 @@ class PaymentsController extends Controller
             'description' => $result->transactions[0]->description,
         ]);
 
-        foreach ($result->transactions[0]->item_list->items as $key => $item) {
+        foreach ($result->transactions[0]->item_list->items as $key => $item)
+        {
             \App\Item::create([
                 'payment_id' => $payment_id,
                 'name' => $item->name,
