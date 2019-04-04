@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-dark bg-faded">
+    <div class="bg-white bg-faded">
          <button class="btn btn-primary" id="ImageModalButton" type="button" data-toggle="modal" data-target="#ImageModal" v-show="false">Modal
          </button>
 
@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="container-fluid border border-white">
+        <div class="container-fluid border border-white" style="min-height: 576px;">
             <div class="row">
                 <div class="col-sm-6 col-md-4 col-lg-3" v-for="image in images" :key="image.id">
                     <ImageCard :image="image"></ImageCard>
@@ -23,7 +23,7 @@
             </div>
             <div v-if="images.length == 0" class="mt-3 row">
                 <div class="alert alert-secondary border border-white col-sm-12 col-md-8 offset-md-2">
-                    <p class="text-muted font-weight-bold">No Images found.</p>
+                    <h3 class="text-muted font-weight-bold">No Images found.</h3>
                 </div>
             </div>
         </div>

@@ -95,8 +95,8 @@ class ImagesController extends Controller
                     $watermarkImage->resize($new_width, $new_height);
                     $WATERMARK = Intervention::make(storage_path('/app/public/web-images/watermark.png'));
 
-                    for ($i = -100; $i < $new_width; $i+=100)
-                        for ($j = -100; $j < $new_height; $j+=100)
+                    for ($i = -100; $i < $new_width; $i+=200)
+                        for ($j = -100; $j < $new_height; $j+=200)
                             $watermarkImage->insert($WATERMARK, 'top-left', $i, $j);
 
                     $watermarkImage->save($watermarkPath.$slug.'.'.$extension);
@@ -109,7 +109,7 @@ class ImagesController extends Controller
                         'resolution' => $resolution,
                         'size' => $size,
                         'slug' => $slug.'.'.$extension,
-                        'checksum' => $checksum.str_random($length = 16)
+                        'checksum' => $checksum
                     ]);
 
                     foreach (explode(',', $keywords) as $keyword) {
@@ -122,6 +122,22 @@ class ImagesController extends Controller
                 }
                 return response()->json(['error' => 'Duplication Image'], $status = 200);
             }
+        }
+    }
+
+    public function purchasedImagesIDs()
+    {
+        if (auth()->user())
+        {
+            return auth()->user()->purchases
+                ->filter(function($purchase) {
+                    return $purchase->payment_id;
+                })
+                ->map(function($purchase) {
+                        return $purchase->image_id;
+                });
+        } else {
+            return [];
         }
     }
 
@@ -140,21 +156,18 @@ class ImagesController extends Controller
     /** Purchaeses **/
     public function purchased()
     {
-        return Image::with('user')->get()
-            ->diff($this->unpurchased())
-            ->filter(function($image) {
-                $image['purchased'] = true;
-                return $image;
-            });
+        // ->diff($this->unpurchased())
+        return Image::with('user')->get()->whereIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
+            $purchase['purchased'] = true;
+            return $purchase;
+        }));
     }
 
     public function unpurchased()
     {
-        return Image::with('user')->get()
-            ->diff(auth()->user()->purchases)
-            ->filter(function($image) {
-                $image['purchased'] = false;
-                return $image;
-            });
+        return Image::with('user')->get()->whereNotIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
+            $purchase['purchased'] = false;
+            return $purchase;
+        }));
     }
 }

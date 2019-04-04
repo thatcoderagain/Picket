@@ -13,17 +13,10 @@
 /**
  * TESTING ROUTE
  */
-Route::get('/sql', 'ImagesController@unpurchased'
-//     function() {
-//     // $purchased = auth()->user()->purchases
-//     //     ->map(function($purchase) {
-//     //         return $purchase->image_id;
-//     //     });
-//     // return
-//     // App\Image::all()->whereNotIn('id', $purchased);
-
-//     return auth()->user()->unpurchased;
-// }
+Route::get('/sql', 'ImagesController@fetchAll'
+    // function () {
+    //
+    // }
 );
 
 
