@@ -4,8 +4,10 @@
         <div class="row">
             <div class="col-3" v-for="category in categories">
                 <div class="card-deck">
-                    <div class="card border-primary mb-3">
-                        <img class="card-img-top" v-bind:src="src" alt="Card image cap">
+                    <div class="card border-primary overflow-hidden mb-3">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img class="card-img-top embed-responsive-item" v-bind:src="StorageCategoryImage(category)" alt="Card image cap">
+                        </div>
                         <div class="card-body">
                             <h4 class="card-title text-center mb-1">{{ category }}</h4>
                         </div>
