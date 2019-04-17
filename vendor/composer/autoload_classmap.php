@@ -30,6 +30,7 @@ return array(
     'App\\Keyword' => $baseDir . '/app/Keyword.php',
     'App\\Payment' => $baseDir . '/app/Payment.php',
     'App\\Photographer' => $baseDir . '/app/Photographer.php',
+    'App\\Post' => $baseDir . '/app/Post.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

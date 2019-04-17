@@ -18,9 +18,13 @@ Route::get('/sql', 'ImagesController@fetchAll'
     //
     // }
 );
-
-
-
+Route::get('/compress/{image}', function (Request $request, $image) {
+        $originalImage = Intervention::make(storage_path('app/public/categories/'.$image));
+        $originalImage->resize(400, 300);
+        $originalImage->save(storage_path('app/public/compressed/').$image);
+        return redirect()->back();
+    }
+);
 
 
 

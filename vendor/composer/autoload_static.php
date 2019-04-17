@@ -408,6 +408,7 @@ class ComposerStaticInitfd3bd907ba37148ca691cb317d6a01b9
         'App\\Keyword' => __DIR__ . '/../..' . '/app/Keyword.php',
         'App\\Payment' => __DIR__ . '/../..' . '/app/Payment.php',
         'App\\Photographer' => __DIR__ . '/../..' . '/app/Photographer.php',
+        'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

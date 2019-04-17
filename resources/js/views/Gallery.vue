@@ -23,7 +23,7 @@
             </div>
             <div v-if="images.length == 0" class="mt-3 row">
                 <div class="alert alert-secondary border border-white col-sm-12 col-md-8 offset-md-2">
-                    <h3 class="text-muted font-weight-bold">No Images found.</h3>
+                    <h3 class="text-muted font-weight-bold">No Image found.</h3>
                 </div>
             </div>
         </div>

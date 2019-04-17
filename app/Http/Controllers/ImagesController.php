@@ -32,7 +32,7 @@ class ImagesController extends Controller
             'Illustrations/Clip-Art',
             'Industrial',
             'Interiors',
-            'miscellaneous',
+            'Miscellaneous',
             'Music',
             'Nature',
             'Objects',
@@ -156,7 +156,6 @@ class ImagesController extends Controller
     /** Purchaeses **/
     public function purchased()
     {
-        // ->diff($this->unpurchased())
         return Image::with('user')->get()->whereIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
             $purchase['purchased'] = true;
             return $purchase;

@@ -5,9 +5,11 @@
             <div class="col-3" v-for="category in categories">
                 <div class="card-deck">
                     <div class="card border-primary overflow-hidden mb-3">
+                        <a :href="category|hypen">
                         <div class="embed-responsive embed-responsive-16by9">
                             <img class="card-img-top embed-responsive-item" v-bind:src="StorageCategoryImage(category)" alt="Card image cap">
                         </div>
+                        </a>
                         <div class="card-body">
                             <h4 class="card-title text-center mb-1">{{ category }}</h4>
                         </div>
@@ -47,6 +49,11 @@
                 .catch((error) => {
                     console.log(error)
                 });
+            }
+        },
+        filters: {
+            hypen(string) {
+                return '/compress/'+string.split('/').join('-').split(' ').join('-')+'.jpg';
             }
         }
     }
