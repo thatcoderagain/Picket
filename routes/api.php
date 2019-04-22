@@ -37,6 +37,13 @@ Route::post('/image/fetch-purchased', 'ImagesController@purchased');
 Route::post('/image/fetch-unpurchased', 'ImagesController@unpurchased');
 Route::post('/image/fetch/{id}', 'ImagesController@fetch');
 
+// Search
+Route::post('/search/images', function(Request $request) {
+    $query = $request->input('query');
+    $result = \App\Image::with('user')->with('keywords')->where('category', 'like', $query)->get();
+    dd($result);
+    return json_encode(['result' => '']);
+});
 
 
 
