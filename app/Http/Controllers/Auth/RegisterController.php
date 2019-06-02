@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Photographer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -100,6 +101,10 @@ class RegisterController extends Controller
         else {
             $user = $this->create($request->all());
             event(new Registered($user));
+            $user = User::where('username', $request->input('username'))->first();
+            $photographer = Photographer::create([
+                'user_id' => $user->id
+            ]);
             return response()->json([
                 'user'=>$user,
                 'success' => true

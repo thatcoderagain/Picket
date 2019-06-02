@@ -10,13 +10,13 @@
 
                         <div class="card-body">
 
-                            <transition-group enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in">
+                            <transition-group enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="in-out">
 
                                 <div key="alert" class="col-8 offset-2 alert alert-success" v-if="updated">
                                     <span class="text-muted font-weight-bold">Profile Update Successfully.</span>
                                 </div>
 
-                                <div key="form">
+                                <div key="form" class="position-relative">
                                     <div class="form-group" v-show="avatar != null">
                                         <div class="col-6 offset-4">
                                             <img :src="avatar" class="img-fluid img-thumbnail square-240" alt="Responsive image">

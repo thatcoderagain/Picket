@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5">
+    <div class="container mt-5" :style="'background-image:url('+bgImageSrc+');'">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -67,6 +67,7 @@
         props: [],
         data() {
             return {
+                bgImageSrc: 'auth-page-backgroud.jpg',
                 email: '',
                 password: '',
                 keep: '',
