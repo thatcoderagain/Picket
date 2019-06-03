@@ -31,7 +31,7 @@ class UsersController extends Controller
             'mobile' => 'nullable|digits:10',
             'specialization' => 'nullable|string',
             'location' => 'nullable|string',
-            'charges' => 'nullable|number',
+            'charges' => 'nullable|numeric',
             'bio' => 'nullable|string',
             // 'image' => 'nullable|file',
         ];

@@ -9,7 +9,7 @@
                 </button>
             </li>
             <!-- Authentication Links -->
-            <template v-if="guest">
+            <template v-if="!(auth.user)">
                 <router-link tag="li" to="/login" class="nav-item">
                     <a class="nav-link">Login</a>
                 </router-link>
@@ -45,7 +45,7 @@
     export default {
         computed: {
             ...mapState([
-                'guest', 'auth', 'showCartModal'
+                'auth', 'showCartModal'
             ]),
             ...mapGetters([
                 'cartCount'
@@ -56,7 +56,7 @@
                 'logout', 'cartModal'
             ]),
             attemptLogout() {
-                let url = '/api/logout';
+                let url = '/api/auth/logout';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;
@@ -64,6 +64,7 @@
                     if (json.success == true) {
                         this.user = json.user;
                         this.logout();
+                        delete window.axios.defaults.headers.common["Authorization"];
                         this.$router.push('/login');
                     } else {
                         this.errors = json.error;

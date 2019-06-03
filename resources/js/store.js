@@ -13,7 +13,6 @@ export const store = new Vuex.Store({
     plugins: [vuexLocalStorage.plugin],
 
     state: {
-        guest: true,
         auth: {user: null},
         cart: [],
         discount: 5,
@@ -36,8 +35,13 @@ export const store = new Vuex.Store({
     },
 
     mutations: {
-        login: (state, payload) => { state.guest = false; state.auth.user = payload.user },
-        logout: (state) => { state.guest = true; state.auth.user = null },
+        login: (state, payload) => {
+            state.auth.token_type = payload.token_type,
+            state.auth.access_token = payload.access_token,
+            state.auth.expires_in = payload.expires_in,
+            state.auth.user = payload.user
+        },
+        logout: (state) => { state.auth = {user: null } },
         addToCart: (state, payload) => {
             let exists = state.cart.find((image) => {
                 return image.id === payload.image.id;

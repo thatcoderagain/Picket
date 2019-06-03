@@ -18,6 +18,12 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+let AUTH = JSON.parse(localStorage.picket).auth;
+if (AUTH.user != null) {
+    window.axios.defaults.headers.common['Authorization'] = AUTH.token_type + ' ' + AUTH.access_token;
+}
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -32,3 +38,4 @@ window.EventBus = new Vue();
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+

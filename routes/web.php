@@ -13,11 +13,12 @@
 /**
  * TESTING ROUTE
  */
-Route::get('/sql', 'ImagesController@fetchAll'
-    // function () {
-    //
-    // }
+Route::get('/test', //'ImagesController@fetchAll'
+    function () {
+
+    }
 );
+
 Route::get('/compress/{image}', function (Request $request, $image) {
         $originalImage = Intervention::make(storage_path('app/public/categories/'.$image));
         $originalImage->resize(400, 300);
@@ -25,6 +26,11 @@ Route::get('/compress/{image}', function (Request $request, $image) {
         return redirect()->back();
     }
 );
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
 
 
 

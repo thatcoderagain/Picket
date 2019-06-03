@@ -13,6 +13,7 @@
         "intervention/image": "^2.4",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "nesbot/carbon": "^2.19",
         "paypal/rest-api-sdk-php": "^1.14",
         "tymon/jwt-auth": "2.0.x-dev"
     },

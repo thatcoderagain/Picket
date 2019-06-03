@@ -73,7 +73,6 @@
                 keep: '',
 
                 errors: null,
-                user: null
             }
         },
         methods: {
@@ -81,7 +80,7 @@
                 'login'
             ]),
             attemptLogin() {
-                let url = '/api/login';
+                let url = '/api/auth/login';
                 axios.post(url, {
                     'email': this.email,
                     'password': this.password
@@ -90,8 +89,13 @@
                     let json = response.data;
                     console.log(json);
                     if (json.success == true) {
-                        this.user = json.user;
-                        this.login({user: this.user});
+                        this.login({
+                            user: json.user,
+                            token_type: json.token_type,
+                            access_token: json.access_token,
+                            expires_in: json.expires_in,
+                        });
+                        window.axios.defaults.headers.common['Authorization'] = json.token_type + ' ' + json.access_token;
                         this.$router.push('/');
                     } else {
                         this.errors = json.error;

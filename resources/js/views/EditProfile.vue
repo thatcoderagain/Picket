@@ -248,6 +248,8 @@
 </template>
 
 <script>
+    import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+
     export default {
         props: [],
         data() {
@@ -277,6 +279,11 @@
         },
         created(){
             this.fetchUserInfo();
+        },
+        computed: {
+            ...mapState([
+                'auth'
+            ]),
         },
         methods: {
             onFileSelected(event) {

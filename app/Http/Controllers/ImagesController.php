@@ -102,7 +102,7 @@ class ImagesController extends Controller
                     $watermarkImage->save($watermarkPath.$slug.'.'.$extension);
 
                     $image = Image::create([
-                        'user_id' => Auth::user()->id,
+                        'user_id' => auth()->user()->id,
                         'category' => $category,
                         'caption' => $caption,
                         'mime_type' => $mime_type,

@@ -28,7 +28,7 @@ function localStore() {
 function guest() {
     if (!localStore()) return true;
 
-    if (JSON.parse(localStorage.picket).guest)
+    if (JSON.parse(localStorage.picket).auth.user == null)
         return true;
     else
         return false;
@@ -103,6 +103,7 @@ let routes = [
             this.cartModal({showCartModal: false});
         }
     },
+
     // TODO
 
     {
