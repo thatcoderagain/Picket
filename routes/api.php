@@ -24,8 +24,7 @@ Route::group([
 });
 
 
-// Auth
-// Auth::routes();
+// # Auth
 // Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 // Route::post('/login', 'Auth\LoginController@login')->name('login');
 // Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -35,7 +34,7 @@ Route::group([
 // Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 // Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 // Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-// Route::post('/register', 'Auth\RegisterController@register')->name('register');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
 
 // User

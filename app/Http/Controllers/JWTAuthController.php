@@ -16,7 +16,7 @@ class JWTAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('jwt', ['except' => ['login', 'logout']]);
+        $this->middleware('jwt.auth', ['except' => ['login', 'logout']]);
     }
 
     /**
@@ -53,8 +53,9 @@ class JWTAuthController extends Controller
     public function logout()
     {
         try {
+            $user = auth()->userOrFail();
             auth()->logout();
-        } catch (Exception $e) { }
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) { }
         return response()->json(['success' => true], 200);
     }
 
@@ -80,7 +81,7 @@ class JWTAuthController extends Controller
         return response()->json([
             'token_type' => 'Bearer',
             'access_token' => $token.'',
-            'expires_in' => Carbon::now()->addDays(7)->timestamp,
+            'expires_in' => Carbon::now()->addDays(1)->timestamp,
             'user' => auth()->user(),
             'success' => true
         ], 200);
