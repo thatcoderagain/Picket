@@ -20,6 +20,7 @@ Route::group([
     Route::post('refresh', 'JWTAuthController@refresh');
     Route::post('payload', 'JWTAuthController@payload');
     Route::post('me', 'JWTAuthController@me');
+    Route::post('register', 'RegisterController@register');
 
 });
 
@@ -34,7 +35,7 @@ Route::group([
 // Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 // Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 // Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register')->name('register');
+// Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
 
 // User

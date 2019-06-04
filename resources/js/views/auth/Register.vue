@@ -117,7 +117,7 @@
         },
         methods: {
             attemptRegister() {
-                let url = '/api/register';
+                let url = '/api/auth/register';
                 axios.post(url, {
                     'name': this.name,
                     'username': this.username,

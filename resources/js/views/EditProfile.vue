@@ -173,7 +173,15 @@
                                         <label for="charges" class="col-md-4 col-form-label text-md-right">Charges</label>
 
                                         <div class="col-md-6">
-                                            <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="charges" @keydown="errors = null" autocomplete="off">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-rupee-sign"></i></span>
+                                                </div>
+                                                <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="charges" @keydown="errors = null" autocomplete="off">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">Per Day</span>
+                                                </div>
+                                            </div>
 
                                             <template v-if="errors != null && errors.hasOwnProperty('charges')">
                                                 <span class="text-danger" role="alert">

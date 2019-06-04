@@ -17,6 +17,7 @@ return array(
     'App\\Http\\Controllers\\ImagesController' => $baseDir . '/app/Http/Controllers/ImagesController.php',
     'App\\Http\\Controllers\\JWTAuthController' => $baseDir . '/app/Http/Controllers/JWTAuthController.php',
     'App\\Http\\Controllers\\PaymentsController' => $baseDir . '/app/Http/Controllers/PaymentsController.php',
+    'App\\Http\\Controllers\\RegisterController' => $baseDir . '/app/Http/Controllers/RegisterController.php',
     'App\\Http\\Controllers\\UsersController' => $baseDir . '/app/Http/Controllers/UsersController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

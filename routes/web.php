@@ -18,7 +18,10 @@ Route::get('/test', //'ImagesController@fetchAll'
 
     }
 );
+Route::get('/test2', 'UsersController@fetch'
+);
 
+Route::get('me', 'JWTAuthController@me');
 Route::get('/compress/{image}', function (Request $request, $image) {
         $originalImage = Intervention::make(storage_path('app/public/categories/'.$image));
         $originalImage->resize(400, 300);

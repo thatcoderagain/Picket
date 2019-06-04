@@ -427,6 +427,7 @@ class ComposerStaticInitfd3bd907ba37148ca691cb317d6a01b9
         'App\\Http\\Controllers\\ImagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImagesController.php',
         'App\\Http\\Controllers\\JWTAuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/JWTAuthController.php',
         'App\\Http\\Controllers\\PaymentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentsController.php',
+        'App\\Http\\Controllers\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegisterController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

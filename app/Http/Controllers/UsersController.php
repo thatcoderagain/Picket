@@ -12,8 +12,7 @@ class UsersController extends Controller
 {
     public function fetch(Request $request)
     {
-        return auth()
-            ->user()
+        return User::where('id', auth()->user()->id)
             ->with('photographer')
             ->first();
     }
@@ -45,20 +44,20 @@ class UsersController extends Controller
             ]);
         }
         else {
-            if (strlen($request->input('password')))
-            {
-                if (!Hash::check($request->old_password, auth()->user()->password))
+            if (strlen($request->input('password'))) {
+                if (!Hash::check($request->old_password, auth()->user()->password)) {
                     return response()->json([
                         'errors' => ['old_password' => ['Old password does not match.']],
                         'success' => false
                     ]);
+                }
 
-                auth() -> user() -> update([
+                User::where('id', auth()->user()->id) -> update([
                     'password' => Hash::make($request->password),
                 ]);
             }
 
-            auth() -> user() -> update([
+            User::where('id', auth()->user()->id) -> update([
                 'name' => $request->input('name'),
             ]);
             auth() -> user() -> photographer() -> update([
