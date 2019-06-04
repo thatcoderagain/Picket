@@ -25,6 +25,19 @@ if (AUTH.user != null) {
     window.axios.defaults.headers.common['Authorization'] = AUTH.token_type + ' ' + AUTH.access_token;
 }
 
+axios.interceptors.response.use(
+    function(response) {
+        return response;
+    },
+    function(error) {
+        console.error(error.response.status);
+        if (error.response.status == 401) {
+        }
+        throw new Error('Invalid token detected');
+    }
+);
+
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';

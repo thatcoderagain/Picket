@@ -20,9 +20,9 @@ use Redirect;
 use Session;
 use URL;
 
-use App\Image;
-use App\User;
-use App\Purchase;
+use App\Models\Image;
+use App\Models\User;
+use App\Models\Purchase;
 
 class PaymentsController extends Controller
 {

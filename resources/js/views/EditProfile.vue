@@ -115,7 +115,8 @@
 
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label text-md-right">Sex</label>
-                                        <div class="col-">
+
+                                        <div class="col-6">
                                             <div class="form-check">
                                                 <input class="" type="radio" name="maleRadio" value="male" v-model="sex" checked>
                                                 <label class="form-check-label" for="maleRadio">
@@ -134,6 +135,14 @@
                                                     Other
                                                 </label>
                                             </div>
+
+                                            <template v-if="errors != null && errors.hasOwnProperty('sex')">
+                                                <span class="text-danger" role="alert">
+                                                    <strong>
+                                                        {{ errors.sex[0] }}
+                                                    </strong>
+                                                </span>
+                                            </template>
                                         </div>
                                     </div>
 

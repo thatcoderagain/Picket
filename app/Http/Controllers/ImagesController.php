@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Image;
-use App\Keyword;
+use App\Models\Image;
+use App\Models\Keyword;
 use Illuminate\Http\Request;
 
 use Intervention;
