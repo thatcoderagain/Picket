@@ -12,12 +12,18 @@ export const mixin = Vue.mixin({
         StorageImageThumbnails: function(string) {
             return '/storage/images/thumbnails/'+string;
         },
+        StorageImageProfiles: function(string) {
+            return '/storage/images/profiles/'+string;
+        },
         StorageCategoryImage: function(string) {
             return '/storage/categories/'+string.replace(' ','-').replace('/','-')+'.jpg';
         },
         imagePrice(image) {
             let resolutions = image.resolution.split(' x ');
             return resolutions[0]*resolutions[1]/102400;
+        },
+        hideNull: function (string) {
+            return string != null ? string : '';
         }
     },
     filters: {

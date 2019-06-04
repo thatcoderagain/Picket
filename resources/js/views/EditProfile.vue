@@ -22,6 +22,11 @@
                                             <img :src="avatar" class="img-fluid img-thumbnail square-240" alt="Responsive image">
                                         </div>
                                     </div>
+                                    <div class="form-group" v-show="avatar == null">
+                                        <div class="col-6 offset-4">
+                                            <img :src="StorageImageProfiles(image)" class="img-fluid img-thumbnail square-240" alt="Responsive image">
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <label for="name" class="col-md-4 col-form-label text-md-right">Profile Image</label>
@@ -275,6 +280,7 @@
 
                 errors: null,
                 avatar: null,
+                image: null,
                 imageFile: null,
                 password: '',
                 showPassword: false,
@@ -306,11 +312,13 @@
             onFileSelected(event) {
                 if(event != null)
                     this.imageFile = event.target.files[0];
-                let reader = new FileReader();
-                reader.readAsDataURL(this.imageFile);
-                reader.onload = (event) => {
-                    console.log(event);
-                    this.avatar = event.target.result;
+                if (this.imageFile != null) {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(this.imageFile);
+                    reader.onload = (event) => {
+                        console.log(event);
+                        this.avatar = event.target.result;
+                    }
                 }
             },
             fetchUserInfo() {
@@ -323,13 +331,13 @@
                     this.name = json.name;
                     this.email = json.email;
                     this.sex = json.photographer.sex;
-                    this.dob = json.photographer.dob;
-                    this.mobile = json.photographer.mobile;
-                    this.specialization = json.photographer.specialization;
-                    this.location = json.photographer.location;
-                    this.charges = json.photographer.charges;
-                    this.bio = json.photographer.bio;
-                    this.imageFile = json.photographer.image;
+                    this.dob = this.hideNull(json.photographer.dob);
+                    this.mobile = this.hideNull(json.photographer.mobile);
+                    this.specialization = this.hideNull(json.photographer.specialization);
+                    this.location = this.hideNull(json.photographer.location);
+                    this.charges = this.hideNull(json.photographer.charges);
+                    this.bio = this.hideNull(json.photographer.bio);
+                    this.image = json.photographer.image;
                     this.onFileSelected();
                 })
                 .catch((error) => {

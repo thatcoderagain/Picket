@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
 use Hash;
+use Validator;
+use Intervention;
 use App\Models\User;
 
 
@@ -24,7 +25,6 @@ class UsersController extends Controller
             'password' => 'string|min:6',
             'old_password' => 'string|min:6',
             // 'email' => 'required|string|email|max:255|unique:users',
-
             'sex' => 'nullable|string|in:male,female,other',
             'dob' => 'nullable|date_format:Y-m-d|before:today|after:1900-01-01',
             'mobile' => 'nullable|digits:10',
@@ -60,7 +60,8 @@ class UsersController extends Controller
             User::where('id', auth()->user()->id) -> update([
                 'name' => $request->input('name'),
             ]);
-            auth() -> user() -> photographer() -> update([
+
+            auth()->user() -> photographer() -> update([
                 'sex' => $request->input('sex'),
                 'dob' => $request->input('dob'),
                 'mobile' => $request->input('mobile'),
@@ -68,14 +69,38 @@ class UsersController extends Controller
                 'location' => $request->input('location'),
                 'charges' => $request->input('charges'),
                 'bio' => $request->input('bio'),
-                'image' => $request->file('image'),
             ]);
 
-            return response()->json([
-                'user' => auth()
-                            ->user()
+            if ($request->hasFile('image'))
+            {
+                if ($request->file('image')->isValid())
+                {
+                    $originalImage = $request->file('image');
+                    $extension = $originalImage->getClientOriginalExtension();
+
+                    if (($slug = auth()->user() -> photographer() -> first() -> image) == null)
+                    {
+                        do {
+                            $slug = str_random(24).'.'.$extension;
+                        }while(\App\Models\Photographer::where('image', $slug)->first() != null);
+                    }
+                    // $originalImage->storeAs('public/images/profiles/', $slug);
+                    $resizedImage = Intervention::make($originalImage);
+                    $resizedImage->resize(320, 320);
+                    $resizedImage->save(storage_path('/app/public/images/profiles/').$slug);
+
+                    auth()->user() -> photographer() -> update([
+                        'image' => $slug
+                    ]);
+                }
+            }
+
+            $user = User::where('id', auth()->user()->id)
                             ->with('photographer')
-                            ->first(),
+                            ->first();
+
+            return response()->json([
+                'user' => $user,
                 'success' => true
             ]);
         }
