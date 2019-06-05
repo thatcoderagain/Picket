@@ -11,12 +11,12 @@
                                 </center>
                             </div>
                             <div class="media animated slideInUp">
-                                <img :src="StorageImageThumbnails(image.slug)" class="m-3 rounded-circle" alt="" width="50" height="50">
+                                <img :src="StorageImageProfiles(image.photographer.image)" class="m-3 rounded-circle" alt="" width="50" height="50">
                                 <div class="media-body">
                                     <router-link tag="button" :to="'/photographer/' + image.user.username" class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</router-link>
                                     <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>
                                     <big>
-                                        <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary animated swing fast infinite">#{{ keyword.keyword }}</span>&nbsp;
+                                        <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary animated swing slow">#{{ keyword.keyword }}</span>&nbsp;
                                     </big>
                                 </div>
                             </div>
@@ -58,7 +58,13 @@
         data() {
             return {
                 id: this.$route.params.id,
-                image: {},
+                image: {
+                    category: '',
+                    mime_type: '',
+                    resolution: '',
+                    size: '',
+                    user:{username:null},
+                    photographer:{image:null}},
             }
         },
         created() {
@@ -71,8 +77,7 @@
         },
         methods: {
             ...mapActions([
-                'addToCart',
-                'removeFromCart'
+                'addToCart', 'removeFromCart'
             ]),
             fetchImageInfo(){
                 let url = '/api/image/fetch/'+this.id;
@@ -83,7 +88,7 @@
                     this.image = json;
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 });
             },
             addImageToCart() {

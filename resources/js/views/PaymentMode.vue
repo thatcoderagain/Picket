@@ -20,8 +20,9 @@
                     <h4 class="mb-3">PayPal <span class="text-primary"><i class="fab fa-cc-paypal"></i></span></h4>
                     <div class="mb-3">
                         <h6 class="text-muted">Proceed the payemt with <span class="text-primary font-weight-bold">PayPal <i class="fab fa-paypal"></i></span></h6>
-                        <form class="form-inline" method="POST" id="payment-form"  action="/make-payment">
+                        <form class="form-inline" method="POST" id="payment-form"  :action="'/make-payment?token='+access_token">
                             <input type="hidden" name="_token" v-model="csrf_token">
+                            <input type="hidden" name="jwt_access_token" v-model="access_token">
                             <input type="hidden" name="items" v-model="images">
                             <input type="hidden" name="help" v-model="discount">
                             <h6 class="text-danger w-100 font-weight-bold" v-if="images.length==0">Cart is empty !!</h6>
@@ -81,19 +82,21 @@
         data() {
             return {
                 csrf_token: window.axios.defaults.headers.common['X-CSRF-TOKEN'],
+                access_token: '',
                 images: [],
             }
         },
         mounted() {
+            this.access_token = this.auth.access_token;
             this.images = this.items(this.cart);
         },
         computed: {
             ...mapState([
-                'cart', 'discount', 'showCartModal'
-                ]),
+                'cart', 'discount', 'showCartModal', 'auth'
+            ]),
             ...mapGetters([
                 'bagTotal', 'grandTotal'
-                ]),
+            ]),
         },
         methods: {
             items(array) {

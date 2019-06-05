@@ -18,6 +18,13 @@ class UsersController extends Controller
             ->first();
     }
 
+    function fetchPhotographer(Request $request, $username)
+    {
+        return User::where('username', $username)
+            ->with('photographer')
+            ->first();
+    }
+
     public function update(Request $request)
     {
         $rules = [
@@ -84,7 +91,6 @@ class UsersController extends Controller
                             $slug = str_random(24).'.'.$extension;
                         }while(\App\Models\Photographer::where('image', $slug)->first() != null);
                     }
-                    // $originalImage->storeAs('public/images/profiles/', $slug);
                     $resizedImage = Intervention::make($originalImage);
                     $resizedImage->resize(320, 320);
                     $resizedImage->save(storage_path('/app/public/images/profiles/').$slug);
@@ -104,6 +110,5 @@ class UsersController extends Controller
                 'success' => true
             ]);
         }
-
     }
 }

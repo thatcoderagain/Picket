@@ -2,51 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Models\Image;
 use App\Models\Keyword;
+use App\Models\Photographer;
 use Illuminate\Http\Request;
 
-use Intervention;
+use Auth;
 use File;
+use Intervention;
 
 class ImagesController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('jwt')->only(['store', 'download']);
+    }
+
     public function categories()
     {
-        return [
-            'Abstract',
-            'Animal/Wildlife',
-            'Background/Textures',
-            'Beauty/Fashion',
-            'Building/Landmarks',
-            'Business/Finance',
-            'Cartoon',
-            'Celebrities',
-            'Editorial',
-            'Education',
-            'Festival',
-            'Food/Drink',
-            'Healthcare/Medical',
-            'Holidays',
-            'Illustrations/Clip-Art',
-            'Industrial',
-            'Interiors',
-            'Miscellaneous',
-            'Music',
-            'Nature',
-            'Objects',
-            'Parks/Outdoor',
-            'People',
-            'Religion',
-            'Science',
-            'Signs/Symbols',
-            'Sports/Recreation',
-            'Technology',
-            'The Arts',
-            'Transportation',
-            'Vectors',
-            'Vintage',
+        return [ 'Abstract', 'Animal/Wildlife', 'Background/Textures', 'Beauty/Fashion', 'Building/Landmarks', 'Business/Finance', 'Cartoon', 'Celebrities', 'Editorial', 'Education', 'Festival', 'Food/Drink', 'Healthcare/Medical', 'Holidays', 'Illustrations/Clip-Art', 'Industrial', 'Interiors', 'Miscellaneous', 'Music', 'Nature', 'Objects', 'Parks/Outdoor', 'People', 'Religion', 'Science', 'Signs/Symbols', 'Sports/Recreation', 'Technology', 'The Arts', 'Transportation', 'Vectors', 'Vintage',
         ];
     }
 
@@ -141,6 +115,23 @@ class ImagesController extends Controller
         }
     }
 
+    /** Purchaeses **/
+    public function purchased()
+    {
+        return Image::with('user')->get()->whereIn('id', $this->purchasedImagesIDs())->map(function($purchase) {
+            $purchase['purchased'] = true;
+            return $purchase;
+        });
+    }
+
+    public function unpurchased()
+    {
+        return Image::with('user')->get()->whereNotIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
+            $purchase['purchased'] = false;
+            return $purchase;
+        }));
+    }
+
     public function fetchAll()
     {
         return $this->purchased()->merge($this->unpurchased())->sortByDesc(function ($image) {
@@ -150,23 +141,18 @@ class ImagesController extends Controller
 
     public function fetch(Request $request, Image $id)
     {
-        return Image::with('user')->with('keywords')->where('id', $id->id)->first();
+        return Image::with('user')->with('keywords')->where('id', $id->id)->get()->map(function ($image){
+            $image['photographer'] = Photographer::where('user_id', $image->user->id)->first();
+            return $image;
+        })->first();
     }
 
-    /** Purchaeses **/
-    public function purchased()
+    public function download(Request $request, Image $id)
     {
-        return Image::with('user')->get()->whereIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
-            $purchase['purchased'] = true;
-            return $purchase;
-        }));
-    }
-
-    public function unpurchased()
-    {
-        return Image::with('user')->get()->whereNotIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
-            $purchase['purchased'] = false;
-            return $purchase;
-        }));
+        $imagename = Image::where('id', $id->id)->first()->slug;
+        $abspath = 'app/public/images/files/'.$imagename;
+        $source = storage_path($abspath);
+        $headers = ['Content-Type: application/octet-stream', 'Content-Disposition: attachment'];
+        return response()->download($source, basename($source), $headers);
     }
 }

@@ -4,6 +4,7 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    window.downloadjs = require("downloadjs");
     require('bootstrap');
 } catch (e) {}
 
@@ -43,12 +44,12 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import moment from 'moment';
 import VueRouter from 'vue-router';
-import BootstrapVue from 'bootstrap-vue'
+// import BootstrapVue from 'bootstrap-vue'
 
 window.Vue = Vue;
 window.EventBus = new Vue();
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
-Vue.use(BootstrapVue);
+// Vue.use(BootstrapVue);
 

@@ -13,7 +13,7 @@ export const mixin = Vue.mixin({
             return '/storage/images/thumbnails/'+string;
         },
         StorageImageProfiles: function(string) {
-            return '/storage/images/profiles/'+string;
+            return string != null ? '/storage/images/profiles/'+string : '/storage/web-images/camera-sketch.jpg';
         },
         StorageCategoryImage: function(string) {
             return '/storage/categories/'+string.replace(' ','-').replace('/','-')+'.jpg';
@@ -24,6 +24,9 @@ export const mixin = Vue.mixin({
         },
         hideNull: function (string) {
             return string != null ? string : '';
+        },
+        hideNullWithUnavailable:function (string) {
+            return string != null ? string : 'Unavailable';
         }
     },
     filters: {

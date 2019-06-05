@@ -15,7 +15,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-3">
-                    <img class="border border-white rounded square-240 animated slideInLeft" src="https://as.ftcdn.net/r/v1/pics/ea2e0032c156b2d3b52fa9a05fe30dedcb0c47e3/landing/images_photos.jpg">
+                    <img class="border border-white rounded square-240 animated slideInLeft" :src="StorageImageProfiles(image)">
                 </div>
 
                 <div class="col-md-5 w-100">
@@ -28,7 +28,10 @@
                 </div>
 
                 <div class="col-md-4">
-                    <h4 class="text-success text-capitalize text-right animated slideInRight">{{ specialization }}</h4>
+                    <h4 class="text-success text-capitalize text-right animated slideInRight">
+                        <span class="small text-muted">Specialization </span><br>{{ specialization }}
+                    </h4>
+                    <hr class="w-100">
                     <p class="text-white text-right animated slideInRight">{{ bio }}</p>
                     <p class="text-white text-right animated slideInRight"></p>
                 </div>
@@ -67,55 +70,19 @@
 
                     this.name = json.name;
                     this.email = json.email;
-                    this.sex = json.photographer.sex;
-                    this.dob = json.photographer.dob;
-                    this.mobile = json.photographer.mobile;
-                    this.specialization = json.photographer.specialization;
-                    this.location = json.photographer.location;
-                    this.charges = json.photographer.charges;
-                    this.bio = json.photographer.bio;
+                    this.sex = this.hideNullWithUnavailable(json.photographer.sex);
+                    this.dob = this.hideNullWithUnavailable(json.photographer.dob);
+                    this.mobile = this.hideNullWithUnavailable(json.photographer.mobile);
+                    this.specialization = this.hideNullWithUnavailable(json.photographer.specialization);
+                    this.location = this.hideNullWithUnavailable(json.photographer.location);
+                    this.charges = this.hideNullWithUnavailable(json.photographer.charges);
+                    this.bio = this.hideNull(json.photographer.bio);
                     this.image = json.photographer.image;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
             },
-            updateUserInfo() {
-                let url = '/api/user/update';
-                let formData = new FormData();
-                formData.append('name', this.name);
-                formData.append('email', this.email);
-                formData.append('sex', this.sex);
-                formData.append('dob', this.dob);
-                formData.append('mobile', this.mobile);
-                formData.append('specialization', this.specialization);
-                formData.append('location', this.location);
-                formData.append('charges', this.charges);
-                formData.append('bio', this.bio);
-                formData.append('image', this.imageFile);
-
-                if(this.password.length > 0) {
-                    formData.append('password', this.password);
-                    formData.append('old_password', this.old_password);
-                }
-
-                axios.post(url, formData)
-                .then((response) => {
-                    let json = response.data;
-                    console.log(json);
-
-                    if (json.hasOwnProperty('success') && json.success) {
-                        this.updated = true;
-                        setTimeout(() => {this.updated = false}, 3000);
-                    }
-                    else {
-                        this.errors = json.errors;
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            }
         }
     }
 </script>

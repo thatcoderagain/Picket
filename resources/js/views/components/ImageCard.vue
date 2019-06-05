@@ -25,7 +25,7 @@
                                 <button type="button" class="btn btn-danger btn-sm text-white" @click="removeImageFromCart()" v-if="inCart()">Remove From Cart</button>
                             </template>
                             <template v-else>
-                                <button type="button" class="btn btn-primary btn-sm text-white" @click="">Download</button>
+                                <button type="button" class="btn btn-primary btn-sm text-white" @click="downloadImage()">Download</button>
                             </template>
                         </div>
                     </div>
@@ -68,6 +68,32 @@
             },
             removeImageFromCart() {
                 this.removeFromCart({image: this.image});
+            },
+            downloadImage() {
+                EventBus.$emit('requested', {
+                    requested: true
+                });
+                let id = this.image.id;
+                axios({
+                    method: 'post',
+                    url: 'api/image/download/'+id,
+                    responseType: 'arraybuffer', // important
+                })
+                .then((response) => {
+                    EventBus.$emit('requested', {
+                        requested: false
+                    });
+                    var blob = new Blob([response.data],{type:'application/octet-stream'});
+                    downloadjs(blob, this.image.slug, 'application/octet-stream');
+                    // console.log(blob);
+                    console.log('File ready to download');
+                })
+                .catch(function (error) {
+                    EventBus.$emit('requested', {
+                        requested: false
+                    });
+                    console.log(error);
+                });
             },
             inCart() {
                 let exists = this.cart.find((image) => {

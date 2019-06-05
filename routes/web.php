@@ -18,24 +18,8 @@ Route::get('/test', //'ImagesController@fetchAll'
 
     }
 );
-Route::get('/test2', 'UsersController@fetch'
-);
-
+Route::get('/test/{id}', 'ImagesController@download');
 Route::get('me', 'JWTAuthController@me');
-Route::get('/compress/{image}', function (Request $request, $image) {
-        $originalImage = Intervention::make(storage_path('app/public/categories/'.$image));
-        $originalImage->resize(400, 300);
-        $originalImage->save(storage_path('app/public/compressed/').$image);
-        return redirect()->back();
-    }
-);
-
-Route::get('/clear-cache', function() {
-    Artisan::call('cache:clear');
-    return "Cache is cleared";
-});
-
-
 
 
 
@@ -50,11 +34,27 @@ Route::get('/clear-cache', function() {
 
 
 /**
+ * COMPRESS IMAGE
+ */
+Route::get('/compress/{image}', function (Request $request, $image) {
+        $originalImage = Intervention::make(storage_path('app/public/categories/'.$image));
+        $originalImage->resize(400, 300);
+        $originalImage->save(storage_path('app/public/compressed/').$image);
+        return redirect()->back();
+    }
+);
+/**
+ * CLEAR CACHE
+ */
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
+/**
  * Payment Gateway ROUTES
  */
 Route::post('/make-payment', 'PaymentsController@payWithpaypal');
 Route::get('/payment-status', 'PaymentsController@getPaymentStatus');
-
 /**
  * VUE APP ROUTE
  */
