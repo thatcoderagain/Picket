@@ -16,6 +16,22 @@ class ImagesController extends Controller
     function __construct()
     {
         $this->middleware('jwt')->only(['store', 'download']);
+        $filesPath = storage_path('/app/public/images/files/');
+        if (!file_exists($filesPath)) {
+            mkdir($filesPath, 666, true);
+        }
+        $profilesPath = storage_path('/app/public/images/profiles/');
+        if (!file_exists($profilesPath)) {
+            mkdir($profilesPath, 666, true);
+        }
+        $thumbnailsPath = storage_path('/app/public/images/thumbnails/');
+        if (!file_exists($thumbnailsPath)) {
+            mkdir($thumbnailsPath, 666, true);
+        }
+        $watermarkPath = storage_path('/app/public/images/watermarks/');
+        if (!file_exists($watermarkPath)) {
+            mkdir($watermarkPath, 666, true);
+        }
     }
 
     public function categories()
