@@ -21,9 +21,11 @@ if (token) {
 
 window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-let AUTH = JSON.parse(localStorage.picket).auth;
-if (AUTH.user != null) {
-    window.axios.defaults.headers.common['Authorization'] = AUTH.token_type + ' ' + AUTH.access_token;
+if (localStorage.picket != null) {
+    let AUTH = JSON.parse(localStorage.picket).auth;
+    if (AUTH.user != null) {
+        window.axios.defaults.headers.common['Authorization'] = AUTH.token_type + ' ' + AUTH.access_token;
+    }
 }
 
 axios.interceptors.response.use(
