@@ -149,7 +149,13 @@ class ImagesController extends Controller
 
     public function download(Request $request, Image $id)
     {
-        $imagename = Image::where('id', $id->id)->first()->slug;
+        // $purchases = $this->purchased();
+        // return $purchases->;
+        // // if ($image  $purchases)
+        //     return "yes";
+        // return "no";
+        $image = Image::where('id', $id->id)->first();
+        $imagename = $image->slug;
         $abspath = 'app/public/images/files/'.$imagename;
         $source = storage_path($abspath);
         $headers = ['Content-Type: application/octet-stream', 'Content-Disposition: attachment'];
