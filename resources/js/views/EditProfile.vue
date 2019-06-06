@@ -10,16 +10,21 @@
 
                         <div class="card-body">
 
-                            <transition-group enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in">
+                            <transition-group enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="in-out">
 
                                 <div key="alert" class="col-8 offset-2 alert alert-success" v-if="updated">
                                     <span class="text-muted font-weight-bold">Profile Update Successfully.</span>
                                 </div>
 
-                                <div key="form">
+                                <div key="form" class="position-relative">
                                     <div class="form-group" v-show="avatar != null">
                                         <div class="col-6 offset-4">
                                             <img :src="avatar" class="img-fluid img-thumbnail square-240" alt="Responsive image">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" v-show="avatar == null">
+                                        <div class="col-6 offset-4">
+                                            <img :src="StorageImageProfiles(image)" class="img-fluid img-thumbnail square-240" alt="Responsive image">
                                         </div>
                                     </div>
 
@@ -85,7 +90,7 @@
                                         <label for="location" class="col-md-4 col-form-label text-md-right">Location</label>
 
                                         <div class="col-md-6">
-                                            <input type="location" class="form-control" :class="[ errors != null && errors.hasOwnProperty('location') ? 'is-invalid' : '']" name="location" v-model="location" @keydown="errors = null">
+                                            <input type="location" class="form-control" :class="[ errors != null && errors.hasOwnProperty('location') ? 'is-invalid' : '']" name="location" v-model="location" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('location')">
                                                 <span class="text-danger" role="alert">
@@ -101,7 +106,7 @@
                                         <label for="specialization" class="col-md-4 col-form-label text-md-right">Specialization</label>
 
                                         <div class="col-md-6">
-                                            <input type="specialization" class="form-control" :class="[ errors != null && errors.hasOwnProperty('specialization') ? 'is-invalid' : '']" name="specialization" v-model="specialization" @keydown="errors = null">
+                                            <input type="specialization" class="form-control" :class="[ errors != null && errors.hasOwnProperty('specialization') ? 'is-invalid' : '']" name="specialization" v-model="specialization" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('specialization')">
                                                 <span class="text-danger" role="alert">
@@ -115,7 +120,8 @@
 
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label text-md-right">Sex</label>
-                                        <div class="col-">
+
+                                        <div class="col-6">
                                             <div class="form-check">
                                                 <input class="" type="radio" name="maleRadio" value="male" v-model="sex" checked>
                                                 <label class="form-check-label" for="maleRadio">
@@ -134,6 +140,14 @@
                                                     Other
                                                 </label>
                                             </div>
+
+                                            <template v-if="errors != null && errors.hasOwnProperty('sex')">
+                                                <span class="text-danger" role="alert">
+                                                    <strong>
+                                                        {{ errors.sex[0] }}
+                                                    </strong>
+                                                </span>
+                                            </template>
                                         </div>
                                     </div>
 
@@ -141,7 +155,7 @@
                                         <label for="mobile" class="col-md-4 col-form-label text-md-right">Mobile</label>
 
                                         <div class="col-md-6">
-                                            <input type="mobile" class="form-control" :class="[ errors != null && errors.hasOwnProperty('mobile') ? 'is-invalid' : '']" name="mobile" v-model="mobile" @keydown="errors = null">
+                                            <input type="mobile" class="form-control" :class="[ errors != null && errors.hasOwnProperty('mobile') ? 'is-invalid' : '']" name="mobile" v-model="mobile" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('mobile')">
                                                 <span class="text-danger" role="alert">
@@ -157,7 +171,7 @@
                                         <label for="dob" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
 
                                         <div class="col-md-6">
-                                            <input type="date" min="5" class="form-control" :class="[ errors != null && errors.hasOwnProperty('dob') ? 'is-invalid' : '']" name="dob" v-model="dob" @keydown="errors = null">
+                                            <input type="date" min="5" class="form-control" :class="[ errors != null && errors.hasOwnProperty('dob') ? 'is-invalid' : '']" name="dob" v-model="dob" @keydown="errors = null" autocomplete="off">
 
                                             <template v-if="errors != null && errors.hasOwnProperty('dob')">
                                                 <span class="text-danger" role="alert">
@@ -173,7 +187,15 @@
                                         <label for="charges" class="col-md-4 col-form-label text-md-right">Charges</label>
 
                                         <div class="col-md-6">
-                                            <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="charges" @keydown="errors = null">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-rupee-sign"></i></span>
+                                                </div>
+                                                <input type="charges" class="form-control" :class="[ errors != null && errors.hasOwnProperty('charges') ? 'is-invalid' : '']" name="charges" v-model="charges" @keydown="errors = null" autocomplete="off">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">Per Day</span>
+                                                </div>
+                                            </div>
 
                                             <template v-if="errors != null && errors.hasOwnProperty('charges')">
                                                 <span class="text-danger" role="alert">
@@ -190,7 +212,7 @@
 
                                         <div class="col-md-6">
                                             <div class="input-group">
-                                                <input id="password" :type="[ showPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('password') ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null">
+                                                <input id="password" :type="[ showPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('password') ? 'is-invalid' : '']" name="password" v-model="password" @keydown="errors = null" autocomplete="off">
                                                 <div class="input-group-append" @click="showPassword=!showPassword">
                                                     <button class="btn" type="button" v-show="showPassword"> <i class="fas fa-eye"></i> </button>
                                                     <button class="btn" type="button" v-show="!showPassword"> <i class="fas fa-eye-slash"></i> </button>
@@ -212,7 +234,7 @@
 
                                         <div class="col-md-6">
                                             <div class="input-group">
-                                                <input id="password" :type="[ showOldPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('old_password') ? 'is-invalid' : '']" name="old_password" v-model="old_password" @keydown="errors = null">
+                                                <input id="password" :type="[ showOldPassword ? 'text' : 'password']" class="form-control" :class="[ errors != null && errors.hasOwnProperty('old_password') ? 'is-invalid' : '']" name="old_password" v-model="old_password" @keydown="errors = null" autocomplete="off">
                                                 <div class="input-group-append" @click="showOldPassword=!showOldPassword">
                                                     <button class="btn" type="button" v-show="showOldPassword"> <i class="fas fa-eye"></i> </button>
                                                     <button class="btn" type="button" v-show="!showOldPassword"> <i class="fas fa-eye-slash"></i> </button>
@@ -232,7 +254,7 @@
                                     <div class="form-group row mb-0">
                                         <div class="col-md-6 offset-md-4">
                                             <button type="submit" class="btn btn-primary" @click="updateUserInfo()">
-                                                Save Changes
+                                                <i class="fas fa-save"></i>&nbsp;&nbsp;&nbsp;Save Changes
                                             </button>
                                         </div>
                                     </div>
@@ -248,14 +270,17 @@
 </template>
 
 <script>
+    import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+
     export default {
         props: [],
         data() {
             return {
-                bgImageSrc: '/storage/images/upload-page-background.jpeg',
+                bgImageSrc: this.StorageWebImages('edit-profile-page-background.jpeg'),
 
                 errors: null,
                 avatar: null,
+                image: null,
                 imageFile: null,
                 password: '',
                 showPassword: false,
@@ -278,15 +303,22 @@
         created(){
             this.fetchUserInfo();
         },
+        computed: {
+            ...mapState([
+                'auth'
+            ]),
+        },
         methods: {
             onFileSelected(event) {
                 if(event != null)
                     this.imageFile = event.target.files[0];
-                let reader = new FileReader();
-                reader.readAsDataURL(this.imageFile);
-                reader.onload = (event) => {
-                    console.log(event);
-                    this.avatar = event.target.result;
+                if (this.imageFile != null) {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(this.imageFile);
+                    reader.onload = (event) => {
+                        console.log(event);
+                        this.avatar = event.target.result;
+                    }
                 }
             },
             fetchUserInfo() {
@@ -299,13 +331,13 @@
                     this.name = json.name;
                     this.email = json.email;
                     this.sex = json.photographer.sex;
-                    this.dob = json.photographer.dob;
-                    this.mobile = json.photographer.mobile;
-                    this.specialization = json.photographer.specialization;
-                    this.location = json.photographer.location;
-                    this.charges = json.photographer.charges;
-                    this.bio = json.photographer.bio;
-                    this.imageFile = json.photographer.image;
+                    this.dob = this.hideNull(json.photographer.dob);
+                    this.mobile = this.hideNull(json.photographer.mobile);
+                    this.specialization = this.hideNull(json.photographer.specialization);
+                    this.location = this.hideNull(json.photographer.location);
+                    this.charges = this.hideNull(json.photographer.charges);
+                    this.bio = this.hideNull(json.photographer.bio);
+                    this.image = json.photographer.image;
                     this.onFileSelected();
                 })
                 .catch((error) => {

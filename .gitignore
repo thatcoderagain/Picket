@@ -3,6 +3,7 @@
 /public/js/app.js
 /public/hot
 /storage/*.key
+/storage/logs/*.log
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

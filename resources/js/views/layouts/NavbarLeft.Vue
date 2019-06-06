@@ -5,10 +5,6 @@
             <a class="nav-link">Home</a>
         </router-link>
 
-        <router-link tag="li" to="/about" class="nav-item">
-            <a class="nav-link">About</a>
-        </router-link>
-
         <router-link tag="li" to="/plans" class="nav-item">
             <a class="nav-link">Plans</a>
         </router-link>
@@ -17,11 +13,25 @@
             <a class="nav-link">Gallery</a>
         </router-link>
 
-        <!-- @auth -->
+        <template v-if="!guest">
             <router-link tag="li" to="/upload" class="nav-item">
                 <a class="nav-link">Upload</a>
             </router-link>
-        <!-- @endauth -->
+        </template>
 
     </ul>
 </template>
+
+<script>
+    import { mapState, mapActions } from 'vuex';
+
+    export default {
+        computed: {
+            ...mapState([
+                'guest', 'auth'
+            ])
+        },
+    }
+
+
+</script>

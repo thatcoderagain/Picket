@@ -13,39 +13,48 @@
 /**
  * TESTING ROUTE
  */
-Route::get('/sql', function() {
-    return auth()->user()->with('photographer')->first();
-    return \App\User::with('photographer')->where('id', auth()->user()->id)->get();
+Route::get('/test', //'ImagesController@fetchAll'
+    function () {
+
+    }
+);
+Route::get('/test/{id}', 'ImagesController@download');
+Route::get('me', 'JWTAuthController@me');
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * COMPRESS IMAGE
+ */
+Route::get('/compress/{image}', function (Request $request, $image) {
+        $originalImage = Intervention::make(storage_path('app/public/categories/'.$image));
+        $originalImage->resize(400, 300);
+        $originalImage->save(storage_path('app/public/compressed/').$image);
+        return redirect()->back();
+    }
+);
+/**
+ * CLEAR CACHE
+ */
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
 });
-
-Route::get('/payment', function () {
-    return redirect()->to('/#/payment');
-});
-
-Route::post('/make-payment', 'PaymentsController@payWithpaypal')->name('make-payment');
-
-Route::get('/status', 'PaymentsController@getPaymentStatus');
-
-Route::get('/payment-status', function() {
-    return view('payment-status');
-})->name('status');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Payment Gateway ROUTES
+ */
+Route::post('/make-payment', 'PaymentsController@payWithpaypal');
+Route::get('/payment-status', 'PaymentsController@getPaymentStatus');
 /**
  * VUE APP ROUTE
  */

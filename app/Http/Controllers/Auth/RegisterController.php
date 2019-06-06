@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
+use App\Models\Photographer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -62,7 +63,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return App\Models\User
      */
     protected function create(array $data)
     {
@@ -85,10 +86,10 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'username' => 'required|string|max:255|unique:users',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -100,6 +101,10 @@ class RegisterController extends Controller
         else {
             $user = $this->create($request->all());
             event(new Registered($user));
+            $user = User::where('username', $request->input('username'))->first();
+            $photographer = Photographer::create([
+                'user_id' => $user->id
+            ]);
             return response()->json([
                 'user'=>$user,
                 'success' => true

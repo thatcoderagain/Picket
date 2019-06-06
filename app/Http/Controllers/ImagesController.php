@@ -2,76 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\Image;
-use App\Keyword;
+use App\Models\Image;
+use App\Models\Keyword;
+use App\Models\Photographer;
 use Illuminate\Http\Request;
+
+use Auth;
+use File;
+use Intervention;
 
 class ImagesController extends Controller
 {
-    public function getImages()
+    function __construct()
     {
-        return Image::orderBy('id', 'DESC')->get();
+        $this->middleware('jwt')->only(['store', 'download']);
     }
 
-    public function getCategories()
+    public function categories()
     {
-        return [
-            'Abstract',
-            'Animal/Wildlife',
-            'Background/Textures',
-            'Beautify/Fashion',
-            'Building/Landmarks',
-            'Business/Finance',
-            'Cartoon',
-            'Celebrities',
-            'Editorial',
-            'Education',
-            'Festival',
-            'Food and Drink',
-            'Healthcare/Medical',
-            'Holidays',
-            'Illustrations/Clip-Art',
-            'Industrial',
-            'Interiors',
-            'Miscellaneous',
-            'Music',
-            'Nature',
-            'Objects',
-            'Parks/Outdoor',
-            'People',
-            'Relegion',
-            'Science',
-            'Signs/Symnols',
-            'Sports/Recreation',
-            'Technology',
-            'The Arts',
-            'Transportation',
-            'Vectors',
-            'Vintage',
+        return [ 'Abstract', 'Animal/Wildlife', 'Background/Textures', 'Beauty/Fashion', 'Building/Landmarks', 'Business/Finance', 'Cartoon', 'Celebrities', 'Editorial', 'Education', 'Festival', 'Food/Drink', 'Healthcare/Medical', 'Holidays', 'Illustrations/Clip-Art', 'Industrial', 'Interiors', 'Miscellaneous', 'Music', 'Nature', 'Objects', 'Parks/Outdoor', 'People', 'Religion', 'Science', 'Signs/Symbols', 'Sports/Recreation', 'Technology', 'The Arts', 'Transportation', 'Vectors', 'Vintage',
         ];
     }
 
-    public function getImageInfo(Request $request, Image $id)
-    {
-        return Image::with('user')->with('keywords')->where('id', $id->id)->first();
-    }
-
-    public function uploadImage(Request $request)
+    public function store(Request $request)
     {
         if ($request->hasFile('imageFile'))
         {
             if ($request->file('imageFile')->isValid())
             {
-                // $fileName = $request->file('imageFile')->getClientOriginalName();
-                $extension = $request->file('imageFile')->getClientOriginalExtension();
-                $mime_type = $request->file('imageFile')->getMimeType();
-                $size = $request->file('imageFile')->getSize();
-                $imageData = getimagesize($request->file('imageFile'));
+                $originalImage = $request->file('imageFile');
+                $extension = $originalImage->getClientOriginalExtension();
+                $mime_type = $originalImage->getMimeType();
+                $size = $originalImage->getSize();
+                $checksum = md5_file($originalImage);
+                $imageData = getimagesize($originalImage);
                 $resolution = $imageData[0].' x '.$imageData[1];
-                $category = $request->input('category');
                 $caption = $request->input('caption');
-                $checksum = md5_file($request->file('imageFile'));
+                $category = $request->input('category');
                 $keywords = $request->input('keywords');
 
                 do {
@@ -81,10 +48,35 @@ class ImagesController extends Controller
                 if (Image::where('checksum', $checksum)->first() == null)
                 {
                     # Store File
-                    $uploaded = $request->file('imageFile')->storeAs('public/image-files', $slug.'.'.$extension);
+                    $originalImage->storeAs('public/images/files/', $slug.'.'.$extension);
+
+                    $height = 100;
+                    $width = 100;
+                    $thumbnailPath = storage_path('/app/public/images/thumbnails/');
+                    $thumbnailImage = Intervention::make($originalImage);
+                    $thumbnailImage->resize($width, $height);
+                    $thumbnailImage->save($thumbnailPath.$slug.'.'.$extension);
+
+                    $height = $imageData[0];
+                    $width = $imageData[1];
+                    $ratio = ($width + $height) / ( ($width * $height) / 576);
+                    $new_width = $height * $ratio;
+                    $new_height = $width * $ratio;
+                    $new_width/=($new_height/576);
+                    $new_height/=($new_height/576);
+                    $watermarkPath = storage_path('/app/public/images/watermarks/');
+                    $watermarkImage = Intervention::make($originalImage);
+                    $watermarkImage->resize($new_width, $new_height);
+                    $WATERMARK = Intervention::make(storage_path('/app/public/web-images/watermark.png'));
+
+                    for ($i = -100; $i < $new_width; $i+=200)
+                        for ($j = -100; $j < $new_height; $j+=200)
+                            $watermarkImage->insert($WATERMARK, 'top-left', $i, $j);
+
+                    $watermarkImage->save($watermarkPath.$slug.'.'.$extension);
 
                     $image = Image::create([
-                        'user_id' => Auth::user()->id,
+                        'user_id' => auth()->user()->id,
                         'category' => $category,
                         'caption' => $caption,
                         'mime_type' => $mime_type,
@@ -100,11 +92,67 @@ class ImagesController extends Controller
                         ]);
                         $image->keywords()->attach($thekeyword->id);
                     }
-
                     return response()->json(['image' => $image->id], 200);
                 }
                 return response()->json(['error' => 'Duplication Image'], $status = 200);
             }
         }
+    }
+
+    public function purchasedImagesIDs()
+    {
+        if (auth()->user())
+        {
+            return auth()->user()->purchases
+                ->filter(function($purchase) {
+                    return $purchase->payment_id;
+                })
+                ->map(function($purchase) {
+                        return $purchase->image_id;
+                });
+        } else {
+            return [];
+        }
+    }
+
+    /** Purchaeses **/
+    public function purchased()
+    {
+        return Image::with('user')->get()->whereIn('id', $this->purchasedImagesIDs())->map(function($purchase) {
+            $purchase['purchased'] = true;
+            return $purchase;
+        });
+    }
+
+    public function unpurchased()
+    {
+        return Image::with('user')->get()->whereNotIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
+            $purchase['purchased'] = false;
+            return $purchase;
+        }));
+    }
+
+    public function fetchAll()
+    {
+        return $this->purchased()->merge($this->unpurchased())->sortByDesc(function ($image) {
+            return $image->id;
+        })->values()->all();
+    }
+
+    public function fetch(Request $request, Image $id)
+    {
+        return Image::with('user')->with('keywords')->where('id', $id->id)->get()->map(function ($image){
+            $image['photographer'] = Photographer::where('user_id', $image->user->id)->first();
+            return $image;
+        })->first();
+    }
+
+    public function download(Request $request, Image $id)
+    {
+        $imagename = Image::where('id', $id->id)->first()->slug;
+        $abspath = 'app/public/images/files/'.$imagename;
+        $source = storage_path($abspath);
+        $headers = ['Content-Type: application/octet-stream', 'Content-Disposition: attachment'];
+        return response()->download($source, basename($source), $headers);
     }
 }

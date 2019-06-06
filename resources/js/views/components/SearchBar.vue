@@ -47,7 +47,7 @@
         <div class="container">
             <div class="d-flex justify-content-center">
                 <div class="searchbar">
-                    <input class="search_input" type="text" placeholder="Search...">
+                    <input class="search_input" type="text" v-model="query" v-on:keyup.enter="searchImage()" placeholder="Search...">
                     <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
                 </div>
             </div>
@@ -57,6 +57,25 @@
 
 <script>
     export default {
-
+        data() {
+            return {
+                query: '',
+            }
+        },
+        methods: {
+            searchImage() {
+                let url = '/api/search/images';
+                axios.post(url, {
+                    query: this.query
+                })
+                .then((response) => {
+                    let json = response.data;
+                    console.log(json);
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+            }
+        }
     }
 </script>

@@ -7,8 +7,8 @@
                     <h1 class="page-header">Image Upload</h1>
                     <p class="lead">Select an image to upload, having minimum size of 2 MegaBytes.</p>
 
-                    <div class="form-group" v-show="avatar != null">
-                        <img :src="avatar" class="img-fluid img-thumbnail square-420" alt="Responsive image">
+                    <div class="form-group center" v-show="avatar != null">
+                        <img :src="avatar" class="img-fluid img-thumbnail rect-768-576" alt="Responsive image">
                     </div>
 
                     <div class="form-group">
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" :disabled="categoryError || keywordError || sizeError || imageFile == null" v-show="uploadPercentage==0"><i class="fas fa-upload"></i> Upload Image</button>
+                        <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" :disabled="categoryError || keywordError || sizeError || imageFile == null" show="uploadPercentage==0"><i class="fas fa-upload"></i> Upload Image</button>
                     </div>
 
                     <div role="alert">
@@ -73,7 +73,7 @@
     export default {
         data() {
             return {
-                bgImageSrc: '/storage/images/upload-page-background.jpeg',
+                bgImageSrc: this.StorageWebImages('upload-page-background.jpeg'),
                 categories: [],
                 avatar: null,
                 imageFile: null,
@@ -93,8 +93,8 @@
             this.fetchCategoies();
         },
         methods: {
-            fetchCategoies(){
-                let url = 'api/fetchCategories';
+            fetchCategoies() {
+                let url = 'api/image/categories/fetch';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;
@@ -110,7 +110,6 @@
                 let reader = new FileReader();
                 reader.readAsDataURL(this.imageFile);
                 reader.onload = event => {
-                    console.log(event);
                     this.avatar = event.target.result;
                 }
                 // UNCOMMNET TO PUT SIZE CONDITION BACK
@@ -152,11 +151,10 @@
                 formData.append('caption', this.caption);
                 formData.append('keywords', this.keywords);
 
-                let url = 'api/upload';
+                let url = 'api/image/store';
                 axios.post(url, formData, {
                     onUploadProgress: event => {
                         this.uploadPercentage = parseInt(Math.round((event.loaded*100)/event.total));
-                        console.log(this.uploadPercentage);
                     }
                 })
                 .then((response) => {
@@ -164,26 +162,25 @@
                     console.log(json);
                     if (json.hasOwnProperty('image')) {
                         /* REDIRECT AFTER SUCCESSFUL UPLOAD */
-                        window.location = '/#/image/'+json.image;
+                        this.$router.push('/image/'+json.image);
                     } else {
                         this.duplicateError = true;
-                        uploadPercentage = 0;
+                        this.uploadPercentage = 0;
                     }
                 })
                 .catch((error) => {
                     console.log(error);
-                    return 0;
                 });
             }
         },
         filters: {
             keyworder(string) {
                 let keywords = string.split(' ').filter((s) => {
-                    return s != '' && s.length > 2
+                    return s != '' && s.length > 2;
                 });
                 if (keywords.length > 0)
                     return keywords.map((s) => {
-                        return '#'+s
+                        return '#'+s;
                     }).join(' ');
                 else
                     return null;
