@@ -25,6 +25,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <router-link tag="a" to="/transactions" class="dropdown-item">Transactions</router-link>
                         <router-link tag="a" to="/edit-profile" class="dropdown-item">Edit Profile</router-link>
                         <Logout></Logout>
                     </div>

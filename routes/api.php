@@ -67,9 +67,4 @@ Route::group([
 );
 
 // Search
-Route::post('/search/images', function(Request $request) {
-    $query = $request->input('query');
-    $result = \App\Image::with('user')->with('keywords')->where('category', 'like', $query)->get();
-    dd($result);
-    return json_encode(['result' => '']);
-});
+Route::get('/search/{query}', 'SearchController@search');

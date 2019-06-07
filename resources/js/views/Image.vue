@@ -1,5 +1,6 @@
 <template>
-    <div class="container-fluid bg-light-grey pt-5 pb-5">
+    <div class="container-fluid">
+        <div class="card p-3 m-3">
         <div class="row">
             <div class="col-sm col-md-10 offset-md-1 shadow bg-white rounded">
                 <div class="row">
@@ -47,6 +48,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </template>

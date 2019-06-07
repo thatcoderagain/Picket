@@ -131,6 +131,11 @@ class ImagesController extends Controller
         }
     }
 
+    public function uploaded()
+    {
+        return Image::with('photographer')->get();
+    }
+
     /** Purchaeses **/
     public function purchased()
     {
@@ -165,14 +170,14 @@ class ImagesController extends Controller
 
     public function download(Request $request, Image $id)
     {
-        // $purchases = $this->purchased();
-        // return $purchases->;
-        // // if ($image  $purchases)
-        //     return "yes";
-        // return "no";
         $image = Image::where('id', $id->id)->first();
-        $imagename = $image->slug;
-        $abspath = 'app/public/images/files/'.$imagename;
+        $purchases = $this->purchased();
+
+        $purchasesArray = json_decode($purchases, true);
+        if (!isset($purchasesArray[$image->id]))
+            return response()->json(['error' => 'Image is not purchased'], 404);
+
+        $abspath = 'app/public/images/files/'.$image->slug;
         $source = storage_path($abspath);
         $headers = ['Content-Type: application/octet-stream', 'Content-Disposition: attachment'];
         return response()->download($source, basename($source), $headers);
