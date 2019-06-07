@@ -145,7 +145,7 @@ class PaymentsController extends Controller
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             if (Config::get('app.debug')) {
                 /** Uncomment nextline for error debugging payment gateway **/
-                # return $ex->getCode().$ex->getData();
+                // return $ex->getCode().$ex->getData();
                 Session::put('error', 'Transaction failed');
                 return Redirect::to('/');
             return response()->redirect($to = '/');

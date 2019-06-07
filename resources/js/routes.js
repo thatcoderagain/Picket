@@ -20,6 +20,7 @@ import PaymentMode from './views/PaymentMode';
 import Subscribe from './views/Subscribe';
 import Subscription from './views/Subscription';
 import Transactions from './views/Transactions';
+import Receipt from './views/Receipt';
 
 function localStore() {
     return localStorage.picket ? true : false;
@@ -125,6 +126,11 @@ let routes = [
         name: 'transactions',
         path: '/transactions',
         component: Transactions
+    },
+    {
+        name: 'receipt',
+        path: '/receipt/:id',
+        component: Receipt
     },
 ];
 
