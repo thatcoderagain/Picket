@@ -5,15 +5,15 @@
             <a class="nav-link">Home</a>
         </router-link>
 
-        <router-link tag="li" to="/plans" class="nav-item">
+        <!-- <router-link tag="li" to="/plans" class="nav-item">
             <a class="nav-link">Plans</a>
+        </router-link> -->
+
+        <router-link tag="li" to="/images" class="nav-item">
+            <a class="nav-link">Images</a>
         </router-link>
 
-        <router-link tag="li" to="/gallery" class="nav-item">
-            <a class="nav-link">Gallery</a>
-        </router-link>
-
-        <template v-if="!guest">
+        <template v-if="auth.user">
             <router-link tag="li" to="/upload" class="nav-item">
                 <a class="nav-link">Upload</a>
             </router-link>
@@ -28,7 +28,7 @@
     export default {
         computed: {
             ...mapState([
-                'guest', 'auth'
+                'auth'
             ])
         },
     }

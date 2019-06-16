@@ -10,11 +10,11 @@
 <template>
     <div id="sliderControls" class="carousel slide" data-ride="carousel">
         <div id="slider" class="carousel-inner">
-            <div class="carousel-item" :class="[key == 0 ? 'active' : '']" v-for="(image, key) in images">
-                <img class="d-block w-100" v-bind:src="image" alt="First slide">
+            <div class="carousel-item shadow" :class="[key == 0 ? 'active' : '']" v-for="(image, key) in images">
+                <img id="sliderImage" class="d-block w-100 blur" v-bind:src="image" alt="First slide">
                 <div class="carousel-caption d-sm-none d-md-block">
-                  <h2>Lorem ipsum dolor sit amet.</h2>
-                  <p><big>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum saepe consequuntur dolores earum a, dolorum aliquid nemo reprehenderit sint velit.</big></p>
+                  <h1>Picket <i class="far fa-images"></i></h1>
+                  <h2>{{ sliderText[key] }}</h2>
                 </div>
             </div>
         </div>
@@ -31,7 +31,9 @@
 
 <script>
     export default {
-        props: ['images'],
+        props: [
+            'images', 'sliderText'
+        ],
         data() {
             return {
 

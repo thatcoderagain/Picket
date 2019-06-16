@@ -3,24 +3,22 @@ import VueRouter from 'vue-router';
 /* Components */
 import Login from './views/auth/Login';
 import Register from './views/auth/Register';
+import Logout from './views/auth/Logout';
 import EditProfile from './views/EditProfile';
 import Upload from './views/Upload';
-
-
-// TODO
-
 import Image from './views/Image';
 import Photographer from './views/Photographer';
 import Home from './views/Home';
 import Plans from './views/Plans';
+import Images from './views/Images';
 import Gallery from './views/Gallery';
+import Purchases from './views/Purchases';
 import PaymentMode from './views/PaymentMode';
-
+import Transactions from './views/Transactions';
+import Receipt from './views/Receipt';
 
 import Subscribe from './views/Subscribe';
 import Subscription from './views/Subscription';
-import Transactions from './views/Transactions';
-import Receipt from './views/Receipt';
 
 function localStore() {
     return localStorage.picket ? true : false;
@@ -29,10 +27,23 @@ function localStore() {
 function guest() {
     if (!localStore()) return true;
 
-    if (JSON.parse(localStorage.picket).auth.user == null)
+    if (JSON.parse(localStorage.picket).auth.user == null) {
         return true;
-    else
-        return false;
+    }
+    else {
+        let url='/api/auth/validator';
+        axios.post(url)
+        .then((response) => {
+            let json = response.data;
+            console.log(json.valid);
+            if (json.valid)
+                return false;
+        })
+        .catch((error) => {
+            console.error(error);
+            return true;
+        });
+    }
 }
 
 function auth() {
@@ -40,6 +51,16 @@ function auth() {
 }
 
 let routes = [
+    {
+        name: 'home',
+        path: '/',
+        component: Home
+    },
+    {
+        name: 'plans',
+        path: '/plans',
+        component: Plans
+    },
     {
         name: 'login',
         path: '/login',
@@ -54,6 +75,14 @@ let routes = [
         component: Register,
         beforeEnter: (to, from, next) => {
             guest() ? next() : next(false);
+        }
+    },
+    {
+        name: 'logout',
+        path: '/logout',
+        component: Logout,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
         }
     },
     {
@@ -78,19 +107,40 @@ let routes = [
         component: Image
     },
     {
+        name: 'images',
+        path: '/images',
+        component: Images
+    },
+    {
+        name: 'search',
+        path: '/search/:query',
+        component: Images
+    },
+    {
+        name: 'category',
+        path: '/category/:category',
+        component: Images
+    },
+    {
+        name: 'gallery',
+        path: '/gallery',
+        component: Gallery,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+        }
+    },
+    {
+        name: 'purchases',
+        path: '/purchases',
+        component: Purchases,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+        }
+    },
+    {
         name: 'Photographer',
         path: '/photographer/:username',
         component: Photographer
-    },
-    {
-        name: 'home',
-        path: '/',
-        component: Home
-    },
-    {
-        name: 'plans',
-        path: '/plans',
-        component: Plans
     },
     {
         name: 'PaymentMode',
@@ -104,14 +154,25 @@ let routes = [
             this.cartModal({showCartModal: false});
         }
     },
+    {
+        name: 'transactions',
+        path: '/transactions',
+        component: Transactions,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+        }
+    },
+    {
+        name: 'transaction',
+        path: '/transaction/:id',
+        component: Receipt,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+        }
+    },
 
     // TODO
 
-    {
-        name: 'gallery',
-        path: '/gallery',
-        component: Gallery
-    },
     {
         name: 'subscribe',
         path: '/subscribe',
@@ -121,16 +182,6 @@ let routes = [
         name: 'subscription',
         path: '/subscription',
         component: Subscription
-    },
-    {
-        name: 'transactions',
-        path: '/transactions',
-        component: Transactions
-    },
-    {
-        name: 'receipt',
-        path: '/receipt/:id',
-        component: Receipt
     },
 ];
 
@@ -142,8 +193,12 @@ export const router = new VueRouter({
 });
 
 // GLOBAL MIDDLEWARE
-router.onError((e) => console.error(e.message));
+router.onError((e) => console.error(e.message + " -- FROM ROUTES.JS FILE"));
 
 router.beforeEach((to, from, next) => {
+    console.log("Moving from ")
+    console.log(from);
+    console.log("Moving to ");
+    console.log(to);
     next();
 });

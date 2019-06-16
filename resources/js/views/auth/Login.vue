@@ -31,7 +31,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" v-model="keep">
@@ -41,15 +41,14 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="button" class="btn btn-primary" :class="[errors != null ? 'disabled' : '']" v-on:click="attemptLogin()">
                                     Login
                                 </button>
-                                <router-link to="/password-reset" class="btn btn-link">Forgot Your Password?</router-link>
-                                </a>
+                                <!-- <router-link to="/password-reset" class="btn btn-link">Forgot Your Password?</router-link> -->
                             </div>
                         </div>
 

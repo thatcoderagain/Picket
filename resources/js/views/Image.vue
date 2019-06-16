@@ -17,7 +17,7 @@
                                     <router-link tag="button" :to="'/photographer/' + image.user.username" class="btn btn-link btn-lg pl-0 mt-3">@{{ image.user != null ? image.user.username : 'anonymous' }}</router-link>
                                     <h5 class="mt-0 text-capitalize">&nbsp;{{ image.caption }}</h5>
                                     <big>
-                                        <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary animated swing slow">#{{ keyword.keyword }}</span>&nbsp;
+                                        <span v-for="keyword in image.keywords" class="m-1 p-1 text-lowercase badge badge-secondary animated swing slow infin">#{{ keyword.keyword }}</span>&nbsp;
                                     </big>
                                 </div>
                             </div>
@@ -30,19 +30,27 @@
                                 <div class="card-body">
                                     <div class="m-1">
                                         <h4 class="mt-0 text-left font-weight-bold">Category: <span class="font-italic small">{{ image.category }}</span></h4>
-                                        <h4 class="mt-0 text-left font-weight-bold">Type: <span class="font-italic small">{{ image.mime_type }}</span></h4>
                                         <h4 class="mt-0 text-left font-weight-bold">Resolution: <span class="font-italic small">{{ image.resolution }}</span></h4>
+                                        <h4 class="mt-0 text-left font-weight-bold">Downloads: <span class="font-italic small">{{ image.downloads }}</span></h4>
+                                        <h4 class="mt-0 text-left font-weight-bold">Type: <span class="font-italic small">{{ image.mime_type }}</span></h4>
                                         <h4 class="mt-0 text-left font-weight-bold">Size: <span class="font-italic small">{{ image.size | fsize }}</span></h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-3 overflow-hidden animated fadeInUpBig">
-                            <transition enter-active-class="animated flipInY faster" leave-active-class="animated flipOutY faster" mode="out-in">
-                                <button :key="'add'" type="button" class="btn btn-success text-white w-100 p-2" @click="addImageToCart()" v-if="!inCart()">
-                                    <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Add to Cart</button>
-                                <button :key="'remove'" type="button" class="btn btn-danger text-white w-100 p-2" @click="removeImageFromCart()" v-if="inCart()">
-                                    <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Remove From Cart</button>
-                            </transition>
+
+                            <template v-if="!image.purchased && !image.own">
+                                <transition enter-active-class="animated flipInY faster" leave-active-class="animated flipOutY faster" mode="out-in">
+                                    <button :key="'add'" type="button" class="btn btn-success btn-sm text-white w-100 p-2" @click="addImageToCart()" v-if="!inCart()">Add to Cart</button>
+                                    <button :key="'remove'" type="button" class="btn btn-danger btn-sm text-white w-100 p-2" @click="removeImageFromCart()" v-if="inCart()">Remove From Cart</button>
+                                </transition>
+                            </template>
+                            <template v-else-if="image.own">
+                                <button type="button" class="btn btn-primary btn-sm text-white w-100 p-2" @click="downloadImage()">Download <i class="fas fa-star"></i></button>
+                            </template>
+                            <template v-else>
+                                <button type="button" class="btn btn-primary btn-sm text-white w-100 p-2" @click="downloadImage()">Download <i class="fas fa-download"></i></button>
+                            </template>
                             </div>
                         </div>
                     </div>
@@ -65,12 +73,15 @@
                     mime_type: '',
                     resolution: '',
                     size: '',
+                    downloads: '',
+                    purchased: false,
+                    own: false,
                     user:{username:null},
                     photographer:{image:null}},
             }
         },
         created() {
-            this.fetchImageInfo();
+            this.fetchImages();
         },
         computed: {
             ...mapState([
@@ -81,8 +92,8 @@
             ...mapActions([
                 'addToCart', 'removeFromCart'
             ]),
-            fetchImageInfo(){
-                let url = '/api/image/fetch/'+this.id;
+            fetchImages(){
+                let url = '/api/image/image/'+this.id;
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;
@@ -91,6 +102,33 @@
                 })
                 .catch((error) => {
                     console.error(error);
+                });
+            },
+
+            downloadImage() {
+                EventBus.$emit('requested', {
+                    requested: true
+                });
+                let id = this.image.id;
+                axios({
+                    method: 'post',
+                    url: 'api/image/download/'+id,
+                    responseType: 'arraybuffer', // important
+                })
+                .then((response) => {
+                    EventBus.$emit('requested', {
+                        requested: false
+                    });
+                    var blob = new Blob([response.data],{type:'application/octet-stream'});
+                    downloadjs(blob, this.image.slug, 'application/octet-stream');
+                    // console.log(blob);
+                    console.log('File ready to download');
+                })
+                .catch(function (error) {
+                    EventBus.$emit('requested', {
+                        requested: false
+                    });
+                    console.log(error);
                 });
             },
             addImageToCart() {

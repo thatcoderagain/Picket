@@ -1,15 +1,19 @@
 <template>
-    <a class="dropdown-item" href="/logout"
+    <!-- <a class="dropdown-item" href="/logout"
        @click.prevent="attemptLogout()">
         Logout
-    </a>
+    </a> -->
+    <div>logging out</div>
 </template>
 
 <script>
     import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
     export default {
-       methods: {
+        created() {
+            this.attemptLogout();
+        },
+        methods: {
             ...mapActions([
                 'logout'
             ]),

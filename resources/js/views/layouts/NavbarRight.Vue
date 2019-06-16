@@ -1,10 +1,14 @@
+<style>
+    .nav-item >  * {
+        font-size: 24px;
+    }
+</style>
 <template>
     <span>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <button class="btn text-white" data-toggle="modal" data-target="#CartModal" @click="cartModal({showCartModal: true})">
-                    <i class="fas fa-shopping-cart">
-                    </i>&nbsp;&nbsp;Cart&nbsp;&nbsp;
+                    <i class="fas fa-shopping-cart"></i>&nbsp;Cart&nbsp;
                     <span class="badge badge-light">{{ cartCount }}</span>
                 </button>
             </li>
@@ -25,9 +29,11 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <router-link tag="a" to="/gallery" class="dropdown-item">Gallery</router-link>
+                        <router-link tag="a" to="/purchases" class="dropdown-item">Purchases</router-link>
                         <router-link tag="a" to="/transactions" class="dropdown-item">Transactions</router-link>
                         <router-link tag="a" to="/edit-profile" class="dropdown-item">Edit Profile</router-link>
-                        <Logout></Logout>
+                        <router-link tag="a" to="/logout" class="dropdown-item">Logout</router-link>
                     </div>
                 </li>
             </template>
@@ -37,12 +43,8 @@
 
 <script>
     import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
-    import Logout from './../auth/Logout';
 
     export default {
-        components: {
-            Logout: Logout,
-        },
         computed: {
             ...mapState([
                 'auth', 'showCartModal'

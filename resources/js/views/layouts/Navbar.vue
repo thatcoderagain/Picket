@@ -1,3 +1,14 @@
+<style>
+    .navbar {
+        height: 70px;
+    }
+    .navbar-brand {
+        font-size: 24px;
+    }
+    .nav-link {
+        font-size: 22px;
+    }
+</style>
 <template>
     <div>
         <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">

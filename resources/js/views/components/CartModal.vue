@@ -71,9 +71,9 @@
                             <div class="p-2">
                                 <div class="row">
                                     <div class="col float-right p-2 pb-0 text-muted ">
-                                        <h4 class="float-left w-5 m-0 ml-3 mt-1">
+                                        <h5 class="float-left w-5 m-0 ml-3 mt-1">
                                             <span class="text-center font-weight-bold m-0">Grand Total: </span>{{ grandTotal | inr }}
-                                        </h4>
+                                        </h5>
                                         <div class="float-right w-50 m-0">
                                             <button class="btn btn-block btn-dark m-0" @click="payment()" :disabled="cart.length == 0">Proceed</button>
                                         </div>

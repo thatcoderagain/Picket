@@ -28,6 +28,7 @@ class UsersController extends Controller
     public function update(Request $request)
     {
         $rules = [
+            // 'username' => 'required|string|max:255|unique:users,id',
             'name' => 'required|string|max:255',
             'password' => 'string|min:6',
             'old_password' => 'string|min:6',
@@ -65,6 +66,7 @@ class UsersController extends Controller
             }
 
             User::where('id', auth()->user()->id) -> update([
+                'username' => $request->input('username'),
                 'name' => $request->input('name'),
             ]);
 

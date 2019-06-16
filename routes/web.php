@@ -9,30 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 */
 
-
-/**
- * TESTING ROUTE
- */
-Route::get('/test', //'ImagesController@fetchAll'
-    function () {
-
-    }
-);
-Route::get('/test/{id}', 'ImagesController@download');
-Route::get('me', 'JWTAuthController@me');
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * COMPRESS IMAGE
  */

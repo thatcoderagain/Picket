@@ -3,14 +3,14 @@
         max-height: 600px;
     }
     #searchBar {
-        z-index:999;
+        z-index: 999;
     }
 </style>
 
 <template>
     <div>
         <SearchBar class="row col-12" id="searchBar"></SearchBar>
-        <Slider v-bind:images="sliderImages"></Slider>
+        <Slider :images="sliderImages" :sliderText="sliderText"></Slider>
         <div class="container-fluid mt-4 mb-4">
             <Categories></Categories>
             <hr>
@@ -21,9 +21,9 @@
 
 <script>
     import SearchBar from './components/SearchBar';
+    import Slider from './components/Slider';
     import Categories from './components/Categories';
     import Features from './components/Features';
-    import Slider from './components/Slider';
 
     export default {
         components: {
@@ -35,10 +35,15 @@
         data() {
             return {
                 sliderImages: [
-                    'https://images.pexels.com/photos/1252869/pexels-photo-1252869.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-                    'https://images.pexels.com/photos/1563355/pexels-photo-1563355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-                    'https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940/bmw-i8-1600x900_75778-mm-90.jpg',
+                    this.StorageWebImages('slider-1.jpg'),
+                    this.StorageWebImages('slider-2.jpg'),
+                    this.StorageWebImages('slider-3.jpg'),
                 ],
+                sliderText: [
+                    'Search millions of royalty free stock images, photos, videos, and music. Get inspired by 1000s of new, high-resolution stock images added daily.',
+                    'The best way to discover, purchase and edit royalty-free images on a mobile device. Browse over 200 million high-quality stock photos, illustrations, and vectors and many more.',
+                    'Over 27,76,64,184 royalty-free images with 14,30,947 new stock images added weekly.'
+                ]
             }
         }
     }

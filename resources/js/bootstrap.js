@@ -28,19 +28,6 @@ if (localStorage.picket != null) {
     }
 }
 
-axios.interceptors.response.use(
-    function(response) {
-        return response;
-    },
-    function(error) {
-        console.error(error.response.status);
-        if (error.response.status == 401) {
-        }
-        throw new Error('Invalid token detected');
-    }
-);
-
-
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
@@ -55,3 +42,17 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
+axios.interceptors.response.use(
+    function(response) {
+        return response;
+    },
+    function(error) {
+        console.error(error.response.status);
+        if (error.response.status == 401 || error.response.status == 500) {
+            delete window.axios.defaults.headers.common["Authorization"];
+            window.location = '/#/logout';
+        }
+        return error;
+        throw new Error("Request From Invalid Token");
+    }
+);

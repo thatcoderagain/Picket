@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const mixin = Vue.mixin({
     methods: {
         StorageWebImages: function(string) {
@@ -25,15 +27,15 @@ export const mixin = Vue.mixin({
         hideNull: function (string) {
             return string != null ? string : '';
         },
-        hideNullWithUnavailable:function (string) {
-            return string != null ? string : 'Unavailable';
+        printOrDefault:function (string, alt) {
+            return string != null ? string : alt;
         }
     },
     filters: {
-        moment: function (date) {
+        moment: (date) => {
             return moment(date).add(5, 'hours').add(30, 'minutes').format('LLL');
         },
-        inr(amount) {
+        inr: (amount) => {
             amount = String(amount);
             return (amount.indexOf('.') !== -1) ? '₹'+amount.substring(0, amount.indexOf('.')+3) : '₹'+amount;
         },

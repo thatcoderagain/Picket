@@ -1,7 +1,8 @@
 <template>
-    <div class="animated fadeIn">
-        <div class="fullscreen row pb-5" :style="'background-image:url('+bgImageSrc+');'">
-            <div class="card transparent col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 p-4 mt-5 mb-5">
+    <div class="animated slideUp">
+        <div class="fullscreen row h-100 blur" :style="'background-image:url('+bgImageSrc+');'"></div>
+        <div class="pt-5 pb-5">
+            <div class="card transparent col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 p-4">
                 <div class="container">
 
                     <h1 class="page-header">Image Upload</h1>
@@ -52,7 +53,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" :disabled="categoryError || keywordError || sizeError || imageFile == null" show="uploadPercentage==0"><i class="fas fa-upload"></i> Upload Image</button>
+                        <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" ref="uploadButton" :disabled="categoryError || keywordError || sizeError || imageFile == null" show="uploadPercentage==0"><i class="fas fa-upload"></i> Upload Image</button>
                     </div>
 
                     <div role="alert">
@@ -94,7 +95,7 @@
         },
         methods: {
             fetchCategoies() {
-                let url = 'api/image/categories/fetch';
+                let url = 'api/image/categories';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;
@@ -144,6 +145,8 @@
                     this.keywordError = true;
                     return null;
                 }
+
+                this.$refs.uploadButton.disabled = true;
 
                 const formData = new FormData();
                 formData.append('imageFile', this.imageFile);

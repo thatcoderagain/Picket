@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white">
-        <SearchBar class="row  col-12"></SearchBar>
+        <SearchBar class="row col-12"></SearchBar>
         <ImageViewer :images="images"></ImageViewer>
         <ImageModal></ImageModal>
     </div>
@@ -28,7 +28,7 @@
         methods: {
             fetchImages() {
                 EventBus.$emit('loading');
-                let url = 'api/image/uploaded';
+                let url = 'api/image/purchased';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;

@@ -42,7 +42,7 @@
                 this.modalSrc = data.image.slug;
                 document.getElementById('ImageModalButton').click();
             });
-            this.fetchImages();
+            this.fetchUploadedImages();
         },
         data() {
             return {
@@ -51,8 +51,8 @@
             }
         },
         methods: {
-            fetchImages() {
-                let url = 'api/image/fetch-all';
+            fetchUploadedImages() {
+                let url = 'api/image/images';
                 axios.post(url)
                 .then((response) => {
                     let json = response.data;

@@ -15,7 +15,7 @@
             </h1>
         </div>
 
-        <img class="card-img-top" :src="plan_image_src" alt="Plan Image">
+        <img class="card-img-top" :src="bgImageSrc" alt="Plan Image">
 
         <div class="container-fluid">
 
@@ -41,7 +41,7 @@
         },
         data() {
             return {
-                plan_image_src: 'http://wallpoper.com/images/00/36/92/04/outer-space_00369204.jpg',
+                bgImageSrc: this.StorageWebImages('plans-background.jpeg'),
 
                 plans: [
                     {

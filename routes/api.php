@@ -39,6 +39,7 @@ Route::group([
         Route::post('refresh', 'JWTAuthController@refresh');
         Route::post('payload', 'JWTAuthController@payload');
         Route::post('me', 'JWTAuthController@me');
+        Route::post('validator', 'JWTAuthController@validator');
         Route::post('register', 'RegisterController@register');
     }
 );
@@ -55,16 +56,27 @@ Route::group([
 Route::group([
         'prefix' => 'image'
     ], function () {
-        Route::post('categories/fetch', 'ImagesController@categories');
         Route::post('store', 'ImagesController@store');
-
-        Route::post('fetch-all', 'ImagesController@fetchAll');
-        Route::post('fetch-purchased', 'ImagesController@purchased');
-        Route::post('fetch-unpurchased', 'ImagesController@unpurchased');
-        Route::post('fetch/{id}', 'ImagesController@fetch');
+        Route::post('categories', 'ImagesController@categories');
         Route::post('download/{id}', 'ImagesController@download');
+
+        Route::post('images', 'ImagesController@fetchAll');
+        Route::post('image/{id}', 'ImagesController@fetch');
+        Route::post('uploaded', 'ImagesController@uploaded');
+        Route::post('purchased', 'ImagesController@purchased');
+        Route::post('unpurchased', 'ImagesController@unpurchased');
+        Route::post('photographer/{username}', 'ImagesController@photographerImages');
+    }
+);
+
+Route::group([
+        'prefix' => 'transaction'
+    ], function () {
+        Route::post('transactions', 'TransactionsController@transactions');
+        Route::post('transaction/{id}', 'TransactionsController@transaction');
     }
 );
 
 // Search
-Route::get('/search/{query}', 'SearchController@search');
+Route::get('/search/{query}', 'ImagesController@searchImages');
+Route::get('/search/category/{category}', 'ImagesController@categoryImages');

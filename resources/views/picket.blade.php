@@ -17,5 +17,6 @@
         <Navbar></Navbar>
         <CartModal ></CartModal>
         <router-view></router-view>
+        {{-- <Footbar></Footbar> --}}
     </div>
 @endsection

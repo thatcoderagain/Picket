@@ -9,7 +9,6 @@
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
         <!-- Title -->
         <title>@yield('title', config('app.name', 'Laravel'))</title>
@@ -25,7 +24,8 @@
         </div>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        @yield('script')
+        {{-- <script src="{!! asset('js/alert.js') !!}" defer></script> --}}
+        <script src="{!! asset('js/app.js') !!}" defer></script>
+        {{-- @yield('script') --}}
     </body>
 </html>

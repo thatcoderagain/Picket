@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Image;
 use App\Models\Keyword;
+use App\Models\Purchase;
 use App\Models\Photographer;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,8 @@ class ImagesController extends Controller
 {
     function __construct()
     {
-        $this->middleware('jwt')->only(['store', 'download']);
+        $this->middleware('jwt')->only(['store', 'download', 'uploaded']);
+
         $filesPath = storage_path('/app/public/images/files/');
         if (!file_exists($filesPath)) {
             mkdir($filesPath, 666, true);
@@ -32,12 +35,190 @@ class ImagesController extends Controller
         if (!file_exists($watermarkPath)) {
             mkdir($watermarkPath, 666, true);
         }
+        $compressedkPath = storage_path('/app/public/compressed/');
+        if (!file_exists($compressedkPath)) {
+            mkdir($compressedkPath, 666, true);
+        }
     }
+
+    public function uploadedImagesId()
+    {
+        if (auth()->user())
+        {
+            return auth()->user()->images->map(function($image) {
+                return $image->id;
+            })->toArray();
+        } else {
+            return [];
+        }
+    }
+
+    public function purchasedImagesId()
+    {
+        if (auth()->user())
+        {
+            return auth()->user()->purchases
+                ->filter(function($purchase) {
+                    return $purchase->payment_id;
+                })
+                ->map(function($purchase) {
+                    return $purchase->image_id;
+                })->toArray();
+        } else {
+            return [];
+        }
+    }
+
+    public function uploaded()
+    {
+        return Image::with('user')
+            ->whereIn('id', $this->uploadedImagesId())
+            ->get()
+            ->map(function($image) {
+                $image['purchased'] = false;
+                $image['own'] = true;
+                return $image;
+            });
+    }
+
+    public function purchased()
+    {
+        return Image::with('user')
+            ->whereNotIn('id', $this->uploadedImagesId())
+            ->whereIn('id', $this->purchasedImagesId())
+            ->get()
+            ->map(function($image) {
+                $image['purchased'] = true;
+                $image['own'] = false;
+                return $image;
+            });
+    }
+
+    public function unpurchased()
+    {
+        return Image::with('user')->get()
+            ->whereNotIn('id', $this->uploadedImagesId())
+            ->whereNotIn('id', $this->purchasedImagesId())
+            ->map((function($image) {
+                    $image['purchased'] = false;
+                    $image['own'] = false;
+                    return $image;
+                })
+            );
+    }
+
+    public function fetch(Request $request, $id)
+    {
+        return Image::with('user')->with('keywords')->where('id', $id)->get()->map(function ($image) {
+            $image['own'] = in_array($image->id, $this->uploadedImagesId()) ? true : false;
+            $image['purchased'] = in_array($image->id, $this->purchasedImagesId()) ? true : false;
+            $image['photographer'] = Photographer::where('user_id', $image->user->id)->first();
+            return $image;
+        })->first();
+    }
+
+    public function fetchAll()
+    {
+        return Image::with('user')->orderBy('id', 'desc')
+            // ->skip(2)->take(2)
+            ->get()
+            ->map(function ($image) {
+                $image['own'] = in_array($image->id, $this->uploadedImagesId()) ? true : false;
+                $image['purchased'] = in_array($image->id, $this->purchasedImagesId()) ? true : false;
+                return $image;
+            });
+    }
+
+    function photographerImages(Request $request, $username)
+    {
+        $user = User::where('username', $username)->select(['id'])->firstOrFail();
+        return Image::with('user')->where('user_id', $user->id)->orderBy('id', 'desc')
+            // ->skip(2)->take(2)
+            ->get()
+            ->map(function ($image) {
+                $image['own'] = in_array($image->id, $this->uploadedImagesId()) ? true : false;
+                $image['purchased'] = in_array($image->id, $this->purchasedImagesId()) ? true : false;
+                return $image;
+            })
+        ;
+    }
+
+    public function searchImages($query)
+    {
+        $words = array_filter(explode(" ", $query), function ($word) {
+            return (strlen($word) > 2);
+        });
+
+        $captionResult = Image::with('user');
+        foreach ($words as $word) {
+            $captionResult = $captionResult->orWhere('caption', 'like', '%'.$word.'%');
+        }
+
+        $captionResult = $captionResult->get();
+
+        $categoriesResult = Image::with('user');
+        foreach ($words as $word) {
+            $categoriesResult = $categoriesResult->orWhere('category', 'like', '%'.$word.'%');
+        }
+
+        $categoriesResult = $categoriesResult->get();
+
+        $queryKeywords = Keyword::with('images');
+        foreach ($words as $word) {
+                $queryKeywords = $queryKeywords->where('keyword','like','%'.$query.'%');
+        }
+        $queryKeywords = $queryKeywords->distinct()
+            ->get()
+            ->map(function ($keyword) {
+                foreach($keyword->images as $image)
+                    return $image->id;
+            })->toArray();
+
+        $keywordResult = Image::with('user')->whereIn('id', $queryKeywords)->get();
+        $images = $keywordResult->merge($categoriesResult)->merge($captionResult);
+
+        $images = $images
+            ->map(function ($image) {
+                $image['own'] = in_array($image->id, $this->uploadedImagesId()) ? true : false;
+                $image['purchased'] = in_array($image->id, $this->purchasedImagesId()) ? true : false;
+                return $image;
+            });
+        return $images;
+    }
+
+    public function categoryImages($category)
+    {
+        return Image::with('user')->where('category', implode('/', explode('-', $category)))
+            ->get()
+            ->map(function ($image) {
+                $image['own'] = in_array($image->id, $this->uploadedImagesId()) ? true : false;
+                $image['purchased'] = in_array($image->id, $this->purchasedImagesId()) ? true : false;
+                return $image;
+            });
+    }
+
 
     public function categories()
     {
         return [ 'Abstract', 'Animal/Wildlife', 'Background/Textures', 'Beauty/Fashion', 'Building/Landmarks', 'Business/Finance', 'Cartoon', 'Celebrities', 'Editorial', 'Education', 'Festival', 'Food/Drink', 'Healthcare/Medical', 'Holidays', 'Illustrations/Clip-Art', 'Industrial', 'Interiors', 'Miscellaneous', 'Music', 'Nature', 'Objects', 'Parks/Outdoor', 'People', 'Religion', 'Science', 'Signs/Symbols', 'Sports/Recreation', 'Technology', 'The Arts', 'Transportation', 'Vectors', 'Vintage',
         ];
+    }
+
+    public function download(Request $request, $id)
+    {
+        $owned = Image::where('id', $id)->where('user_id', auth()->user()->id)->get()->count() > 0 ? true : false;
+        $purchased = Purchase::where('user_id', auth()->user()->id)->where('image_id', $id)->get()->count() > 0 ? true : false;
+        if (!$purchased && !$owned)
+            return response()->json(['error' => 'Image is not purchased'], 404);
+
+        $image = Image::where('id', $id)->first();
+        Image::where('id', $id)->update([
+            'downloads' => $image->downloads + 1
+        ]);
+        $abspath = 'app/public/images/files/'.$image->slug;
+        $source = storage_path($abspath);
+        $headers = ['Content-Type: application/octet-stream', 'Content-Disposition: attachment'];
+        return response()->download($source, basename($source), $headers);
     }
 
     public function store(Request $request)
@@ -113,73 +294,5 @@ class ImagesController extends Controller
                 return response()->json(['error' => 'Duplication Image'], $status = 200);
             }
         }
-    }
-
-    public function purchasedImagesIDs()
-    {
-        if (auth()->user())
-        {
-            return auth()->user()->purchases
-                ->filter(function($purchase) {
-                    return $purchase->payment_id;
-                })
-                ->map(function($purchase) {
-                        return $purchase->image_id;
-                });
-        } else {
-            return [];
-        }
-    }
-
-    public function uploaded()
-    {
-        return Image::with('photographer')->get();
-    }
-
-    /** Purchaeses **/
-    public function purchased()
-    {
-        return Image::with('user')->get()->whereIn('id', $this->purchasedImagesIDs())->map(function($purchase) {
-            $purchase['purchased'] = true;
-            return $purchase;
-        });
-    }
-
-    public function unpurchased()
-    {
-        return Image::with('user')->get()->whereNotIn('id', $this->purchasedImagesIDs())->map((function($purchase) {
-            $purchase['purchased'] = false;
-            return $purchase;
-        }));
-    }
-
-    public function fetchAll()
-    {
-        return $this->purchased()->merge($this->unpurchased())->sortByDesc(function ($image) {
-            return $image->id;
-        })->values()->all();
-    }
-
-    public function fetch(Request $request, Image $id)
-    {
-        return Image::with('user')->with('keywords')->where('id', $id->id)->get()->map(function ($image){
-            $image['photographer'] = Photographer::where('user_id', $image->user->id)->first();
-            return $image;
-        })->first();
-    }
-
-    public function download(Request $request, Image $id)
-    {
-        $image = Image::where('id', $id->id)->first();
-        $purchases = $this->purchased();
-
-        $purchasesArray = json_decode($purchases, true);
-        if (!isset($purchasesArray[$image->id]))
-            return response()->json(['error' => 'Image is not purchased'], 404);
-
-        $abspath = 'app/public/images/files/'.$image->slug;
-        $source = storage_path($abspath);
-        $headers = ['Content-Type: application/octet-stream', 'Content-Disposition: attachment'];
-        return response()->download($source, basename($source), $headers);
     }
 }
