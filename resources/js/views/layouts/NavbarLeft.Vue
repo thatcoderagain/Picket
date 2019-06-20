@@ -19,6 +19,12 @@
             </router-link>
         </template>
 
+        <template v-if="auth.user">
+            <router-link tag="li" to="/resizer" class="nav-item">
+                <a class="nav-link">Resize Image</a>
+            </router-link>
+        </template>
+
     </ul>
 </template>
 

@@ -14,6 +14,9 @@ export const mixin = Vue.mixin({
         StorageImageThumbnails: function(string) {
             return '/storage/images/thumbnails/'+string;
         },
+        StorageNoImageAvailable: function(string) {
+            return string != null ? '/storage/images/profiles/'+string : '/storage/web-images/No_Image_Available.jpg';
+        },
         StorageImageProfiles: function(string) {
             return string != null ? '/storage/images/profiles/'+string : '/storage/web-images/camera-sketch.jpg';
         },
@@ -29,6 +32,9 @@ export const mixin = Vue.mixin({
         },
         printOrDefault:function (string, alt) {
             return string != null ? string : alt;
+        },
+        randomString: function (length) {
+            return Math.random().toString(36).substring(2, length) + Math.random().toString(36).substring(2, 15)
         }
     },
     filters: {

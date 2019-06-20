@@ -16,9 +16,12 @@ import Purchases from './views/Purchases';
 import PaymentMode from './views/PaymentMode';
 import Transactions from './views/Transactions';
 import Receipt from './views/Receipt';
+import Resizer from './views/resizer';
+import PageNotFound from './views/layouts/404';
 
-import Subscribe from './views/Subscribe';
-import Subscription from './views/Subscription';
+// FUTURE SCOPE
+// import Subscribe from './views/Subscribe';
+// import Subscription from './views/Subscription';
 
 function localStore() {
     return localStorage.picket ? true : false;
@@ -170,18 +173,31 @@ let routes = [
             auth() ? next() : next(false);
         }
     },
-
-    // TODO
-
     {
-        name: 'subscribe',
-        path: '/subscribe',
-        component: Subscribe
+        name: 'resizer',
+        path: '/resizer',
+        component: Resizer,
+        beforeEnter: (to, from, next) => {
+            auth() ? next() : next(false);
+        }
     },
+
+
+    // FUTURE SCOPE
+    // {
+    //     name: 'subscribe',
+    //     path: '/subscribe',
+    //     component: Subscribe
+    // },
+    // {
+    //     name: 'subscription',
+    //     path: '/subscription',
+    //     component: Subscription
+    // },
     {
-        name: 'subscription',
-        path: '/subscription',
-        component: Subscription
+        name: '404',
+        path: '*',
+        component: PageNotFound
     },
 ];
 

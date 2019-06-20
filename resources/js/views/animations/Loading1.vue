@@ -61,7 +61,7 @@
 
 .loader-title {
     position: absolute;
-    top: calc(50% + 118px);
+    top: calc(30%);
     color: #DDD;
     font-size: 20px;
     font-weight: 600;

@@ -2,7 +2,7 @@
     <div class="animated slideUp">
         <div class="fullscreen row h-100 blur" :style="'background-image:url('+bgImageSrc+');'"></div>
         <div class="pt-5 pb-5">
-            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-5">
 
                 <div class="card transparent animated zoomIn">
 
@@ -321,7 +321,7 @@
         computed: {
             ...mapState([
                 'auth'
-                ]),
+            ]),
         },
         methods: {
             onFileSelected(event) {

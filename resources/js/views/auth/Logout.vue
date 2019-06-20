@@ -1,8 +1,4 @@
 <template>
-    <!-- <a class="dropdown-item" href="/logout"
-       @click.prevent="attemptLogout()">
-        Logout
-    </a> -->
     <div>logging out</div>
 </template>
 

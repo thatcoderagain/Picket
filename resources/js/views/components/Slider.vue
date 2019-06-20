@@ -12,7 +12,7 @@
         <div id="slider" class="carousel-inner">
             <div class="carousel-item shadow" :class="[key == 0 ? 'active' : '']" v-for="(image, key) in images">
                 <img id="sliderImage" class="d-block w-100 blur" v-bind:src="image" alt="First slide">
-                <div class="carousel-caption d-sm-none d-md-block">
+                <div class="carousel-caption d-xs-none d-sm-none d-md-block">
                   <h1>Picket <i class="far fa-images"></i></h1>
                   <h2>{{ sliderText[key] }}</h2>
                 </div>

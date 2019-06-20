@@ -1,5 +1,5 @@
 <template>
-    <div class="card-deck">
+    <div class="card-deck shadow">
         <div class="card border-secondary overflow-hidden m-1 p-0" @mouseover="footer=true" @mouseleave="footer=false">
             <div class="embed-responsive embed-responsive-16by9" if="loaded">
                 <div class="embed-responsive-item card-img-top d-flex justify-content-center pt-5" :class="[ loaded ? 'visible' : '']">
@@ -7,7 +7,7 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-                <img class="embed-responsive-item card-img-top" style="background-style: contain;" :src="StorageImageWatermarks(image.slug)" alt="Card Image" @click="openModal(image)" onload="loaded=true" :class="[ loaded ? 'visible' : '']">
+                <img class="embed-responsive-item card-img-top shadow" style="background-style: contain; border: 2px solid white;" :src="StorageImageWatermarks(image.slug)" alt="Card Image" @click="openModal(image)" onload="loaded=true" :class="[ loaded ? 'visible' : '']">
             </div>
             <div class="card-footer animated faster position-absolute fixed-bottom mb-0 p-0" :class="[footer ? 'slideInUp' : 'slideOutDown']">
 
@@ -25,10 +25,24 @@
                                 <button type="button" class="btn btn-danger btn-sm text-white" @click="removeImageFromCart()" v-if="inCart()">Remove From Cart</button>
                             </template>
                             <template v-else-if="image.own">
-                                <button type="button" class="btn btn-primary btn-sm text-white" @click="downloadImage()">Download <i class="fas fa-star"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm text-white" @click="downloadImage()" :disabled="downloading">
+                                    <template v-if="downloading">
+                                        Downloading <b-spinner small type="grow"></b-spinner>
+                                    </template>
+                                    <template v-else>
+                                        Download <i class="fas fa-star"></i>
+                                    </template>
+                                </button>
                             </template>
                             <template v-else>
-                                <button type="button" class="btn btn-primary btn-sm text-white" @click="downloadImage()">Download <i class="fas fa-download"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm text-white" @click="downloadImage()" :disabled="downloading">
+                                    <template v-if="downloading">
+                                        Downloading <b-spinner small type="grow"></b-spinner>
+                                    </template>
+                                    <template v-else>
+                                        Download <i class="fas fa-download"></i>
+                                    </template>
+                                </button>
                             </template>
                         </div>
                     </div>
@@ -49,6 +63,7 @@
             return {
                 loaded: true,
                 footer: false,
+                downloading: false,
             }
         },
         computed: {
@@ -76,6 +91,7 @@
                 EventBus.$emit('requested', {
                     requested: true
                 });
+                this.downloading = true;
                 let id = this.image.id;
                 axios({
                     method: 'post',
@@ -83,18 +99,20 @@
                     responseType: 'arraybuffer', // important
                 })
                 .then((response) => {
-                    EventBus.$emit('requested', {
-                        requested: false
-                    });
                     var blob = new Blob([response.data],{type:'application/octet-stream'});
                     downloadjs(blob, this.image.slug, 'application/octet-stream');
                     console.log('File ready to download');
-                })
-                .catch(function (error) {
+                    this.downloading = false;
                     EventBus.$emit('requested', {
                         requested: false
                     });
+                })
+                .catch(function (error) {
                     console.log(error);
+                    this.downloading = false;
+                    EventBus.$emit('requested', {
+                        requested: false
+                    });
                 });
             },
             inCart() {

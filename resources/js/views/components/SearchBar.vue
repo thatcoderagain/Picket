@@ -63,7 +63,7 @@
 </style>
 
 <template>
-    <div class="container mt-4 position-absolute mb-5">
+    <div class="position-absolute">
         <div class="container">
             <div class="d-flex justify-content-center">
                 <div class="searchbar shadow">

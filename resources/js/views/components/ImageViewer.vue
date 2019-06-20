@@ -1,10 +1,10 @@
 <template>
-    <div class="container-fluid border border-white">
-        <div :style="'margin-top: ' + margin + 'px; height: 100vh;'">
+    <div class="container-fluid">
+        <div :style="'margin-top: ' + margin + 'px;'">
             <LoadingImages v-if="!loaded"></LoadingImages>
-            <div v-else-if="images.length == 0" class="mt-3 row">
-                <div class="card border border-white col-sm-12 col-md-8 offset-md-2 mt-5">
-                    <h3 class="text-center text-muted font-weight-bold"><i class="far fa-images"></i> No Image found </h3>
+            <div v-else-if="images.length == 0" class="row">
+                <div class="card border border-white col-sm-12 col-md-8 offset-md-2 mt-5 mb-5">
+                    <h3 class="text-center text-muted font-weight-bold p-5"><i class="far fa-images"></i> No Image found </h3>
                 </div>
             </div>
             <div v-else class="row">
@@ -14,19 +14,21 @@
                     </div>
                 </div>
                 <div class="col-12 mt-5 mb-5">
-                    <h3 class="text-muted text-center w-100 mt-3">
-                        <button type="button" class="btn btn-lg btn-primary ml-5 mr-5" @click="back()" :disabled="!showBackButton"><i class="fas fa-backward"></i> Back</button>
+                    <h3 class="text-muted text-center w-100">
+                        <button type="button" class="btn btn-lg btn-secondary ml-5 mr-5" @click="back()" :disabled="!showBackButton"><i class="fas fa-backward"></i> Back</button>
                         Page: {{ page }} / {{ totalPages }}
-                        <button type="button" class="btn btn-lg btn-primary ml-5 mr-5" @click="next()" :disabled="!showNextButton">Next <i class="fas fa-forward"></i></button>
+                        <button type="button" class="btn btn-lg btn-secondary ml-5 mr-5" @click="next()" :disabled="!showNextButton">Next <i class="fas fa-forward"></i></button>
                     </h3>
                 </div>
         </div>
         </div>
     </div>
+
+</div>
 </template>
 
 <script>
-    import LoadingImages from './../animations/Loading1';
+    import LoadingImages from './../animations/LoadingImages';
     import ImageCard from './ImageCard';
 
     export default {

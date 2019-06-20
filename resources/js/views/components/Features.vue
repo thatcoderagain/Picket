@@ -1,6 +1,6 @@
 <template>
-    <div class="container-fluid bg-light p-5">
-        <div class="container">
+    <div class="container-fluid bg-light">
+        <div class="container card transparent p-5">
             <h2 class="text-muted text-center">Give your photos the right kind of exposure.</h2>
             <p class="text-dark text-center">We know your photos are the lifeblood of your photography business, and when displaying them online, you need the right tools to protect them. Picket helps protect your work with the most advanced privacy controls in the industry.</p>
             <div class="col-8 offset-2">

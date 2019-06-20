@@ -62,10 +62,12 @@ Route::group([
 
         Route::post('images', 'ImagesController@fetchAll');
         Route::post('image/{id}', 'ImagesController@fetch');
+        Route::post('similar/{id}', 'ImagesController@similar');
         Route::post('uploaded', 'ImagesController@uploaded');
         Route::post('purchased', 'ImagesController@purchased');
         Route::post('unpurchased', 'ImagesController@unpurchased');
         Route::post('photographer/{username}', 'ImagesController@photographerImages');
+        Route::post('resize', 'ImagesController@resize');
     }
 );
 

@@ -1,15 +1,11 @@
-<style>
-    .nav-item >  * {
-        font-size: 24px;
-    }
-</style>
 <template>
     <span>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <button class="btn text-white" data-toggle="modal" data-target="#CartModal" @click="cartModal({showCartModal: true})">
-                    <i class="fas fa-shopping-cart"></i>&nbsp;Cart&nbsp;
-                    <span class="badge badge-light">{{ cartCount }}</span>
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge badge-default">{{ cartCount }}</span>
+                    Cart&nbsp;
                 </button>
             </li>
             <!-- Authentication Links -->

@@ -1,70 +1,75 @@
 <template>
-    <div class="animated slideUp">
+    <div class="container-fluid">
         <div class="fullscreen row h-100 blur" :style="'background-image:url('+bgImageSrc+');'"></div>
         <div class="pt-5 pb-5">
-            <div class="card transparent col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 p-4">
-                <div class="container">
+            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-5">
 
-                    <h1 class="page-header">Image Upload</h1>
-                    <p class="lead">Select an image to upload, having minimum size of 2 MegaBytes.</p>
+                <div class="card transparent animated zoomIn">
 
-                    <div class="form-group center" v-show="avatar != null">
-                        <img :src="avatar" class="img-fluid img-thumbnail rect-768-576" alt="Responsive image">
-                    </div>
+                    <h4 class="card-header text-center font-weight-bold">Image Upload</h4>
+                    <p class="lead text-center text-muted mt-2">Select an image to upload, having minimum size of 2 MegaBytes.</p>
 
-                    <div class="form-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept="image/*" v-show="true" @change="onFileSelected">
-                            <label class="custom-file-label" for="customFile">Choose image</label>
+                    <div class="card-body mb-5">
+
+                        <div class="form-group center" v-show="avatar != null">
+                            <img :src="avatar" class="img-fluid img-thumbnail rect-768" alt="Responsive image">
                         </div>
-                        <p class="alert alert-danger mt-2" v-show="sizeError">
-                            Image size is too small and can't be uploaded.
-                        </p>
-                        <p class="alert alert-danger mt-2" v-show="duplicateError">
-                            Duplicate image found, you can't upload this upload.
-                        </p>
-                    </div>
 
-                    <div class="form-group">
-                        <select name="category" class="custom-select" v-model="category" @change="categoryError=false">
-                            <option value="">Choose Category</option>
-                            <option v-for="category in categories" v-text="category"></option>
-                        </select>
-                        <span class="alert text-danger" role="alert" v-show="categoryError">
-                            <strong>You must choose a category for this image.</strong>
-                        </span>
-                    </div>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" accept="image/*" v-show="true" @change="onFileSelected">
+                                <label class="custom-file-label" for="customFile">Choose image</label>
+                            </div>
+                            <p class="alert alert-danger mt-2" v-show="sizeError">
+                                Image size is too small and can't be uploaded.
+                            </p>
+                            <p class="alert alert-danger mt-2" v-show="duplicateError">
+                                Duplicate image found, you can't upload this upload.
+                            </p>
+                        </div>
 
-                    <div class="form-group">
-                        <textarea text="textarea" class="form-control" placeholder="Write caption" v-model="caption" @keypress="captionError=false"></textarea>
-                        <span class="alert text-danger" role="alert" v-show="captionError">
-                            <strong>You must write a caption for this image between 5 to 30 words.</strong>
-                        </span>
-                    </div>
+                        <div class="form-group">
+                            <select name="category" class="custom-select" v-model="category" @change="categoryError=false">
+                                <option value="">Choose Category</option>
+                                <option v-for="category in categories" v-text="category"></option>
+                            </select>
+                            <span class="alert text-danger" role="alert" v-show="categoryError">
+                                <strong>You must choose a category for this image.</strong>
+                            </span>
+                        </div>
 
-                    <div class="form-group">
-                        <textarea text="textarea" class="form-control" placeholder="Keywords" v-model="keyword" @keypress="keywordError=false"></textarea>
-                        <span class="alert text-danger" role="alert" v-show="keywordError">
-                            <strong>You must specify some keywords for this image.</strong>
-                        </span>
-                        <br>
-                        <textarea text="textarea" class="form-control" placeholder="Your Keywords" readonly>{{ keyword | keyworder }}</textarea>
-                        <small class="form-text text-muted">Enter the Keywords. Maximun 30 keywords per images are allowed</small>
-                    </div>
+                        <div class="form-group">
+                            <textarea text="textarea" class="form-control" placeholder="Write caption" v-model="caption" @keypress="captionError=false"></textarea>
+                            <span class="alert text-danger" role="alert" v-show="captionError">
+                                <strong>You must write a caption for this image between 5 to 30 words.</strong>
+                            </span>
+                        </div>
 
-                    <div class="form-group">
-                        <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" ref="uploadButton" :disabled="categoryError || keywordError || sizeError || imageFile == null" show="uploadPercentage==0"><i class="fas fa-upload"></i> Upload Image</button>
-                    </div>
+                        <div class="form-group">
+                            <textarea text="textarea" class="form-control" placeholder="Keywords" v-model="keyword" @keypress="keywordError=false"></textarea>
+                            <span class="alert text-danger" role="alert" v-show="keywordError">
+                                <strong>You must specify some keywords for this image.</strong>
+                            </span>
+                            <br>
+                            <textarea text="textarea" class="form-control" placeholder="Your Keywords" readonly>{{ keyword | keyworder }}</textarea>
+                            <small class="form-text text-muted">Enter the Keywords. Maximun 30 keywords per images are allowed</small>
+                        </div>
 
-                    <div role="alert">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="{width: uploadPercentage+'%'}" :class="[uploadPercentage == 100 ? ' bg-success' : 'progress-bar-animated', duplicateError ? 'bg-danger' : '']">
-                                <small class="text-white">{{ uploadPercentage }}%</small>
+                        <div class="form-group">
+                            <button type="click" class="btn btn-block btn-outline-primary p-1" @click="uploadImage()" ref="uploadButton" :disabled="categoryError || keywordError || sizeError || imageFile == null" show="uploadPercentage==0"><i class="fas fa-upload"></i> Upload Image</button>
+                        </div>
+
+                        <div role="alert">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="{width: uploadPercentage+'%'}" :class="[uploadPercentage == 100 ? ' bg-success' : 'progress-bar-animated', duplicateError ? 'bg-danger' : '']">
+                                    <small class="text-white">{{ uploadPercentage }}%</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -1,8 +1,11 @@
 <template>
-    <div class="bg-white">
-        <SearchBar class="row  col-12"></SearchBar>
-        <ImageViewer :images="images"></ImageViewer>
-        <ImageModal></ImageModal>
+    <div class="container-fluid">
+        <div class="fullscreen row h-100 blur" :style="'background-image:url('+bgImageSrc+');'"></div>
+        <SearchBar class="row col-12 pt-5 pb-5 mt-5"></SearchBar>
+        <div class="pt-5 pb-5">
+            <ImageViewer :images="images" :margin="200"></ImageViewer>
+            <ImageModal></ImageModal>
+        </div>
     </div>
 </template>
 
@@ -22,6 +25,7 @@
         },
         data() {
             return {
+                bgImageSrc: this.StorageWebImages('images-page-backgroud.jpeg'),
                 images: [],
             }
         },

@@ -8,17 +8,6 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 */
-
-/**
- * COMPRESS IMAGE
- */
-Route::get('/compress/{image}', function (Request $request, $image) {
-        $originalImage = Intervention::make(storage_path('app/public/categories/'.$image));
-        $originalImage->resize(400, 300);
-        $originalImage->save(storage_path('app/public/compressed/').$image);
-        return redirect()->back();
-    }
-);
 /**
  * CLEAR CACHE
  */

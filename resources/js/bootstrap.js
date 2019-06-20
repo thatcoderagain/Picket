@@ -49,8 +49,8 @@ axios.interceptors.response.use(
     function(error) {
         console.error(error.response.status);
         if (error.response.status == 401 || error.response.status == 500) {
-            delete window.axios.defaults.headers.common["Authorization"];
-            window.location = '/#/logout';
+            // delete window.axios.defaults.headers.common["Authorization"];
+            // window.location = '/#/logout';
         }
         return error;
         throw new Error("Request From Invalid Token");

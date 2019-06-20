@@ -78,6 +78,13 @@ h1, h2, h3, h4, h5, h6, p, span {
     min-width: 420px;
 }
 
+.square-720 {
+    max-height: 720px;
+    min-height: 720px;
+    max-width: 720px;
+    min-width: 720px;
+}
+
 .rect-768-576 {
     max-height: 576px;
     min-height: 576px;

@@ -17,7 +17,7 @@ class ImagesController extends Controller
 {
     function __construct()
     {
-        $this->middleware('jwt')->only(['store', 'download', 'uploaded']);
+        $this->middleware('jwt')->only(['store', 'download', 'uploaded', 'resize']);
 
         $filesPath = storage_path('/app/public/images/files/');
         if (!file_exists($filesPath)) {
@@ -35,9 +35,13 @@ class ImagesController extends Controller
         if (!file_exists($watermarkPath)) {
             mkdir($watermarkPath, 666, true);
         }
-        $compressedkPath = storage_path('/app/public/compressed/');
-        if (!file_exists($compressedkPath)) {
-            mkdir($compressedkPath, 666, true);
+        $compressedPath = storage_path('/app/public/compressed/');
+        if (!file_exists($compressedPath)) {
+            mkdir($compressedPath, 666, true);
+        }
+        $tempPath = storage_path('/app/public/temp/images/');
+        if (!file_exists($tempPath)) {
+            mkdir($tempPath, 666, true);
         }
     }
 
@@ -115,6 +119,37 @@ class ImagesController extends Controller
             $image['photographer'] = Photographer::where('user_id', $image->user->id)->first();
             return $image;
         })->first();
+    }
+
+    public function similar(Request $request, $id)
+    {
+        $keywordIds = Image::with('user')->with('keywords')->where('id', $id)
+            ->get()
+            ->map(function($image) {
+                return $image->keywords;
+            })
+            ->first()
+            ->map(function($keyword) {
+                return $keyword->id;
+            });
+        $imageIds = Keyword::with('images')->whereIn('id', $keywordIds)
+            ->distinct()
+            ->get()
+            ->map(function ($keyword) {
+                foreach($keyword->images as $image)
+                    return $image->id;
+            })->toArray();
+
+        $images = Image::with('user')->whereIn('id', $imageIds)->get();
+
+        $images = $images
+            ->map(function ($image) {
+                $image['own'] = in_array($image->id, $this->uploadedImagesId()) ? true : false;
+                $image['purchased'] = in_array($image->id, $this->purchasedImagesId()) ? true : false;
+            $image['photographer'] = Photographer::where('user_id', $image->user->id)->first();
+                return $image;
+            });
+        return $images;
     }
 
     public function fetchAll()
@@ -294,5 +329,44 @@ class ImagesController extends Controller
                 return response()->json(['error' => 'Duplication Image'], $status = 200);
             }
         }
+    }
+
+    public function resize(Request $request)
+    {
+        if ($request->hasFile('imageFile'))
+        {
+            if ($request->file('imageFile')->isValid())
+            {
+                $originalImage = $request->file('imageFile');
+                $extension = $originalImage->getClientOriginalExtension();
+                $mime_type = $originalImage->getMimeType();
+                $size = $originalImage->getSize();
+                $imageData = getimagesize($originalImage);
+                $resolution = $imageData[0].' x '.$imageData[1];
+
+                $slug = time().str_random(24);
+
+                # Store File
+                $originalImage->storeAs('public/temp/images/', $slug.'.'.$extension);
+
+                $new_width = $request->input('width');
+                $new_height = $request->input('height');
+
+                $resizePath = storage_path('/app/public/temp/images/');
+                $newImage = Intervention::make($originalImage);
+                $newImage->resize($new_width, $new_height);
+                $newImage->save($resizePath.$slug.'-resized.'.$extension);
+
+                $abspath = 'app/public/temp/images/'.$slug.'-resized.'.$extension;
+                return $this->pushDownload($abspath);
+            }
+        }
+    }
+
+    public function pushDownload($abspath)
+    {
+        $source = storage_path($abspath);
+        $headers = ['Content-Type: application/octet-stream', 'Content-Disposition: attachment'];
+        return response()->download($source, basename($source), $headers);
     }
 }

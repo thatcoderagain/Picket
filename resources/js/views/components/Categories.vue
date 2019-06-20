@@ -1,23 +1,21 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid card transparent pt-3">
         <h2 class="text-muted text-center pb-3 pt-0">Pick a Categories</h2>
         <div class="row">
             <div class="col-3" v-for="category in categories">
-                <div class="card-deck">
+                <div class="card-deck animated">
                     <div class="card border-primary overflow-hidden mb-3">
-                        <router-link tag="li" :to="category|hypen" class="nav-item">
-                        <!-- <a :href="category|hypen"> -->
+                        <router-link tag="li" :to="category | hypen" class="nav-item">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <img class="card-img-top embed-responsive-item" v-bind:src="StorageCategoryImage(category)" alt="Card image cap">
+                                <img class="card-img-top embed-responsive-item" :src="StorageCategoryImage(category)" alt="Card image cap">
                             </div>
-                        <!-- </a> -->
                         </router-link>
                         <div class="card-body d-sm-none d-md-block mb-1">
                             <h4 class="card-title text-center">{{ category }}</h4>
                         </div>
-                        <div class="card-footer d-sm-none d-md-block">
+                        <!-- <div class="card-footer d-sm-none d-md-block">
                             <small class="text-muted"># of images are available</small>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
